@@ -26,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${darkerGrotesque.variable} ${sora.variable} antialiased`}
+        suppressHydrationWarning
       >
         {children}
       </body>
