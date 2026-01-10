@@ -21,7 +21,7 @@ function Profile() {
           Hallo, I&apos;m Rico Eriansyah 👋
         </h1>
 
-        <article className="mt-6 border-2 border-black dark:border-white bg-white dark:bg-black shadow-[4px_4px_0_0,8px_8px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-red-300 focus:outline-0 transition-all cursor-pointer">
+        <article className="mt-6 border-2 border-black dark:border-white shadow-[4px_4px_0_0,8px_8px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-red-300 focus:outline-0 transition-all cursor-pointer">
           <div className="bg-yellow-300 dark:bg-yellow-700 p-3">
             <div className="flex items-center justify-between">
               <strong className="text-base md:text-lg font-bold uppercase text-black dark:text-white">
@@ -54,7 +54,7 @@ function Profile() {
 function Projects() {
   return (
     <>
-      <h1 className="text-3xl md:text-5xl font-bold text-center text-black dark:text-white mt-8">
+      <h1 className="text-3xl md:text-5xl font-bold text-center text-black dark:text-white pt-8">
         My Projects 🖥️
       </h1>
       <div className="flex flex-col lg:flex-row p-6 md:p-16 items-center lg:items-start gap-8 lg:gap-16">
@@ -69,7 +69,7 @@ function Projects() {
         </div>
 
         <div className="flex flex-col justify-center w-full">
-          <article className="border-2 border-black dark:border-white bg-white dark:bg-black shadow-[4px_4px_0_0,8px_8px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-red-300 focus:outline-0 transition-all cursor-pointer">
+          <article className="border-2 border-black dark:border-white shadow-[4px_4px_0_0,8px_8px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-red-300 focus:outline-0 transition-all cursor-pointer">
             <div className="bg-yellow-300 dark:bg-yellow-700 p-3">
               <div className="flex items-center justify-between">
                 <strong className="text-base md:text-lg font-bold uppercase text-black dark:text-white">
@@ -108,7 +108,7 @@ function Certificates() {
 
   return (
     <>
-      <h1 className="text-3xl md:text-5xl font-bold text-center text-black dark:text-white mt-8">
+      <h1 className="text-3xl md:text-5xl font-bold text-center text-black dark:text-white pt-8">
         My Certificates 🎖️
       </h1>
       <div className="flex flex-col lg:flex-row p-6 md:p-16 items-center lg:items-start gap-8 lg:gap-16">
@@ -123,7 +123,7 @@ function Certificates() {
         </div>
 
         <div className="flex flex-col justify-center w-full">
-          <article className="border-2 border-black dark:border-white bg-white dark:bg-black shadow-[4px_4px_0_0,8px_8px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-red-300 focus:outline-0 transition-all cursor-pointer" onClick={handleCertificateClick}>
+          <article className="border-2 border-black dark:border-white shadow-[4px_4px_0_0,8px_8px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-red-300 focus:outline-0 transition-all cursor-pointer" onClick={handleCertificateClick}>
             <div className="bg-yellow-300 dark:bg-yellow-700 p-3">
               <div className="flex items-center justify-between">
                 <strong className="text-base md:text-lg font-bold uppercase text-black dark:text-white">
@@ -154,7 +154,7 @@ function Certificates() {
 function ContactAndSocialMedia() {
   return (
     <>
-      <h1 className="text-3xl md:text-5xl font-bold text-center text-black dark:text-white mt-8">
+      <h1 className="text-3xl md:text-5xl font-bold text-center text-black dark:text-white pt-8">
         My Contact & Social Media 📱
       </h1>
     </>
@@ -165,13 +165,13 @@ export default function Home() {
   const [Tab, setTab] = useState("Profile");
   return (
     <>
-      <nav className="p-4 md:p-8 bg-white dark:bg-black">
+      <nav className="p-4 md:p-8">
         <ul className="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-0">
           
           <span className="flex flex-col md:flex-row gap-4 lg:space-x-8 text-center w-full lg:w-auto">
             <li>
               <a
-                className="block border-2 border-black dark:border-white bg-white dark:bg-black px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0 transition-all cursor-pointer"
+                className="block border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0 transition-all cursor-pointer"
                 onClick={setTab.bind(null, "Profile")}
               >
                 Profile
@@ -179,7 +179,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                className="block border-2 border-black dark:border-white bg-white dark:bg-black px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0 transition-all cursor-pointer"
+                className="block border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0 transition-all cursor-pointer"
                 onClick={setTab.bind(null, "Projects")}
               >
                 Projects
@@ -187,7 +187,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                className="block border-2 border-black dark:border-white bg-white dark:bg-black px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0 transition-all cursor-pointer"
+                className="block border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0 transition-all cursor-pointer"
                 onClick={setTab.bind(null, "Certificates")}
               >
                 Certificates
@@ -195,7 +195,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                className="block border-2 border-black dark:border-white bg-white dark:bg-black px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0 transition-all cursor-pointer"
+                className="block border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0 transition-all cursor-pointer"
                 onClick={setTab.bind(null, "ContactAndSocialMedia")}
               >
                 Contact & Social Media
@@ -214,7 +214,7 @@ export default function Home() {
         </ul>
       </nav>
 
-      <main className="">
+      <main className="h-full">
         {Tab === "Profile" && <Profile />}
         {Tab === "Projects" && <Projects />}
         {Tab === "Certificates" && <Certificates />}
