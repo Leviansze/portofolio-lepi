@@ -10,8 +10,8 @@ function Profile() {
         <Image
           src="/PhotoProfile.png"
           alt="My Profile Picture"
-          width={400}
-          height={400}
+          width={1500}
+          height={1500}
           className="mask-clip-border w-64 md:w-[400px] lg:w-[400px] object-cover"
         />
       </div>
@@ -62,8 +62,8 @@ function Projects() {
           <Image
             src="/project-one.png"
             alt="My Profile Picture"
-            width={2000}
-            height={2000}
+            width={1500}
+            height={1500}
             className="mask-clip-border w-72 md:w-[600px] lg:w-[600px] object-cover py-auto"
           />
         </div>
