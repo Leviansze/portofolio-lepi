@@ -1,22 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { Button } from "../ui/button";
+import { ProjectProps } from "@/type/ProjectType";
 
-interface ProjectProps {
-    title: string;
-    techStack: string;
-    description: string;
-    liveDemoLink: string;
-    sourceCodeLink: string;
-    imageSrc: string;
-    imageWidth: number;
-    imageHeight: number;
-    nextProjectId: string | number;
-}
-
-export const ProjectLists = ({ title, techStack, description, liveDemoLink, sourceCodeLink, imageSrc, imageWidth, imageHeight, nextProjectId }: ProjectProps) => {
+export const ProjectLists = ({ title, techStack, description, liveDemoLink, sourceCodeLink, imageSrc, imageWidth, imageHeight }: ProjectProps) => {
     return (
-        <div className="flex flex-col lg:flex-row p-6 md:p-16 items-center lg:items-start gap-8 lg:gap-16">
+        <div className="flex flex-col lg:flex-row p-6 md:p-16 items-center lg:items-start gap-8 lg:gap-16 border-2 border-black dark:border-white shadow-[4px_4px_0_0] my-8">
             <div className="relative shrink-0">
               <Image
                 src={imageSrc}
@@ -48,6 +38,21 @@ export const ProjectLists = ({ title, techStack, description, liveDemoLink, sour
                   <p className="mt-4 text-base md:text-lg text-pretty text-black dark:text-white">
                     Tech Stack : {techStack}
                   </p>
+
+                  <div className="flex justify-end">
+                    <Button
+                      className="mt-4 bg-blue-500 dark:bg-blue-700 border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0 transition-all cursor-pointer"
+                      asChild
+                    >
+                      <a href={liveDemoLink} target="_blank" rel="noopener noreferrer">Live Demo</a>
+                    </Button>
+                    <Button
+                      className="mt-4 ml-4 bg-green-500 dark:bg-green-700 border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0 transition-all cursor-pointer"
+                      asChild
+                    >
+                      <a href={sourceCodeLink} target="_blank" rel="noopener noreferrer">Source Code</a>
+                    </Button>
+                  </div>
                 </div>
               </article>
             </div>

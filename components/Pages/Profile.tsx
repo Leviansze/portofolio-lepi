@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function Profile() {
   return (
-    <div className="flex flex-col lg:flex-row p-6 md:p-16 items-center lg:items-start gap-8 lg:gap-16">
+    <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16 border-2 border-black dark:border-white p-4 lg:p-6 shadow-[4px_4px_0_0]">
       <div className="relative shrink-0">
         <Image
           src="/PhotoProfile.png"
@@ -21,7 +21,7 @@ export function Profile() {
         </h1>
 
         <article className="mt-6 border-2 border-black dark:border-white shadow-[4px_4px_0_0,8px_8px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-red-300 focus:outline-0 transition-all cursor-pointer">
-          <div className="bg-yellow-300 dark:bg-yellow-700 p-3">
+          <div className="bg-blue-500 dark:bg-blue-700 p-3">
             <div className="flex items-center justify-between">
               <strong className="text-base md:text-lg font-bold uppercase text-black dark:text-white">
                 Developer & Educator 😉
