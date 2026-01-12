@@ -1,20 +1,26 @@
 "use client";
 import { CertificateLists } from "@/components/Organisms/CertificateLists";
 import { Certificates as CertificateDatas } from "@/data/CertificateDatas";
+import { FaAward } from "react-icons/fa";
 
 export function Certificates() {
-  
   return (
-    <>
-
-      <h1 className="bg-green-500 dark:bg-green-700 text-3xl md:text-5xl font-bold text-center text-black dark:text-white border-2 border-black dark:border-white shadow-[4px_4px_0_0] p-4 lg:p-6">
-        My Certificates 🎖️
-      </h1>
+    <div className="w-full mx-auto px-4 py-16">
+      <div className="flex justify-center mb-16">
+        <div className="relative inline-block">
+          <div className="absolute top-2 left-2 w-full h-full bg-black -z-10"></div>
+          <h1 className="flex items-center gap-3 bg-green-400 text-3xl md:text-5xl font-black uppercase text-black border-4 border-black px-8 py-6 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+            <FaAward className="text-4xl" />
+            Certifications 🏅
+          </h1>
+        </div>
+      </div>
       
-      {CertificateDatas.map((certificate, index) => (
-        <CertificateLists key={index} {...certificate} />
-      ))}
-
-    </>
+      <div className="space-y-12">
+        {CertificateDatas.map((certificate, index) => (
+          <CertificateLists key={index} {...certificate} />
+        ))}
+      </div>
+    </div>
   );
 }
