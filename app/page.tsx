@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { Profile } from "@/components/Pages/Profile";
 import { Projects } from "@/components/Pages/Projects";
 import { Certificates } from "@/components/Pages/Certificates";
@@ -16,7 +16,7 @@ const scaryMessages = [
   "RUN_WHILE_YOU_CAN", "SEGMENTATION_FAULT", "I_SEE_YOU"
 ];
 
-export default function Home() {
+function MainContent() {
   const searchParams = useSearchParams();
   const currentTab = searchParams.get("tab") || "Profile";
   const [showWarning, setShowWarning] = useState(false);
@@ -327,5 +327,13 @@ export default function Home() {
         {currentTab === "ContactAndSocialMedia" && <ContactAndSocialMedia />}
       </main>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white dark:bg-zinc-950"></div>}>
+      <MainContent />
+    </Suspense>
   );
 }
