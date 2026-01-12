@@ -33,22 +33,22 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Rico Eriansyah | Teacher, Full Stack Developer Enthusiast & DevOps Enthusiast",
+    default: "Rico Eriansyah | I Teacher, I Like Full Stack & DevOps Fanatic",
     template: "%s | Rico Eriansyah",
   },
   description:
-    "Portofolio resmi Rico Eriansyah. Guru Rekayasa Perangkat Lunak (RPL), Full Stack Developer, dan DevOps Enthusiast yang berfokus pada React, Laravel, dan Cloud Infrastructure.",
+    "This official portfolio Rico Eriansyah. I Teacher Software Engineering (RPL), Full Stack Dev, and DevOps Lover who focus at React, Laravel, and Cloud Thing.",
   keywords: [
     "Rico Eriansyah",
-    "Portofolio Rico Eriansyah",
-    "Software Engineer",
-    "Full Stack Developer",
-    "Guru RPL",
+    "Portfolio belongs to Rico",
+    "Software Mechanic",
+    "Full Stack Maker",
+    "Teacher Software",
     "SMK Purnawarman",
-    "Web Developer Purwakarta",
-    "Next.js Developer",
-    "Laravel Developer",
-    "DevOps Engineer",
+    "Web Maker Purwakarta",
+    "Next.js User",
+    "Laravel User",
+    "DevOps Man",
   ],
   authors: [{ name: "Rico Eriansyah", url: baseUrl }],
   creator: "Rico Eriansyah",
@@ -59,8 +59,8 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "Rico Eriansyah - Full Stack Developer & Teacher",
-    description: "Portofolio profesional Rico Eriansyah. Spesialisasi dalam Web Development modern dan infrastruktur server.",
+    title: "Rico Eriansyah - The Full Stack & Teacher Man",
+    description: "Portfolio professional Rico Eriansyah. Special inside Modern Web Make and Server structure.",
     url: baseUrl,
     siteName: "Rico Eriansyah Portfolio",
     locale: "id_ID",
@@ -76,8 +76,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rico Eriansyah | Full Stack Developer",
-    description: "Portofolio dan showcase project Rico Eriansyah.",
+    title: "Rico Eriansyah | The Full Stack Dev",
+    description: "Portfolio and show project of Rico Eriansyah.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -103,7 +103,7 @@ export default function RootLayout({
     "@type": "Person",
     name: "Rico Eriansyah",
     url: baseUrl,
-    jobTitle: "Software Engineering Teacher & Full Stack Developer",
+    jobTitle: "Teacher of Software & Full Stack Maker",
     worksFor: {
       "@type": "Organization",
       name: "SMK Purnawarman",
