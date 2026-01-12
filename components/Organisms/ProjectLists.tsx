@@ -3,6 +3,11 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { ProjectProps } from "@/type/ProjectType";
+import { FaGithub, FaExternalLinkAlt, FaCode, FaTerminal } from "react-icons/fa";
+
+interface ExtendedProjectProps extends ProjectProps {
+    index?: number;
+}
 
 export const ProjectLists = ({ 
   title, 
@@ -12,68 +17,96 @@ export const ProjectLists = ({
   sourceCodeLink, 
   imageSrc, 
   imageWidth, 
-  imageHeight 
-}: ProjectProps) => {
+  imageHeight,
+  index = 0
+}: ExtendedProjectProps) => {
+    const isEven = index % 2 === 0;
+
     return (
-        <div className="group flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12 w-full">
-            <div className="w-full lg:w-1/2 shrink-0">
-                <div className="h-full border-4 border-black dark:border-white bg-white dark:bg-zinc-900 shadow-[8px_8px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff] flex flex-col">
-                    <div className="flex items-center gap-2 border-b-4 border-black dark:border-white bg-purple-500 p-3">
-                        <div className="h-4 w-4 rounded-full border-2 border-black bg-red-500"></div>
-                        <div className="h-4 w-4 rounded-full border-2 border-black bg-yellow-400"></div>
-                        <div className="h-4 w-4 rounded-full border-2 border-black bg-green-500"></div>
-                        <div className="ml-2 h-4 flex-1 rounded-sm border-2 border-black bg-white opacity-50"></div>
+        <div className={`group flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-stretch gap-8 lg:gap-12 w-full mx-auto`}>
+            
+            {/* LEFT: TERMINAL WINDOW */}
+            <div className="w-full lg:w-1/2 shrink-0 perspective-1000">
+                <div className="h-full border-4 border-black dark:border-white bg-zinc-800 shadow-[12px_12px_0_0_#000] dark:shadow-[12px_12px_0_0_#fff] flex flex-col transition-transform duration-300 hover:scale-[1.01]">
+                    
+                    {/* Window Bar */}
+                    <div className="flex items-center gap-2 border-b-4 border-black dark:border-white bg-zinc-200 dark:bg-zinc-800 p-3">
+                        <div className="flex gap-2">
+                            <div className="h-4 w-4 rounded-full border-2 border-black bg-red-500 hover:bg-red-400"></div>
+                            <div className="h-4 w-4 rounded-full border-2 border-black bg-yellow-400 hover:bg-yellow-300"></div>
+                            <div className="h-4 w-4 rounded-full border-2 border-black bg-green-500 hover:bg-green-400"></div>
+                        </div>
+                        <div className="ml-4 flex-1 rounded-sm border-2 border-black dark:border-gray-500 bg-white dark:bg-black px-2 py-0.5 text-xs font-mono font-bold text-gray-500 dark:text-gray-300 truncate">
+                            localhost/projects/{title.toLowerCase().replace(/\s/g, '-')}
+                        </div>
                     </div>
-                    <div className="relative flex-1 overflow-hidden p-4 bg-zinc-100 dark:bg-zinc-800">
-                        <Image
-                            src={imageSrc}
-                            alt={title}
-                            width={imageWidth}
-                            height={imageHeight}
-                            className="h-full w-full border-2 border-black dark:border-white object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
-                        />
+
+                    <div className="relative flex-1 overflow-hidden bg-zinc-900 group-hover:bg-zinc-800 transition-colors p-2">
+                        <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 pointer-events-none bg-[length:100%_2px,3px_100%] opacity-20"></div>
+                        
+                        <div className="relative w-full h-full border-2 border-black dark:border-white overflow-hidden">
+                            <Image
+                                src={imageSrc}
+                                alt={title}
+                                width={imageWidth}
+                                height={imageHeight}
+                                className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
         
+            {/* RIGHT: CONTENT */}
             <div className="w-full lg:w-1/2 flex flex-col">
-                <article className="relative h-full flex flex-col border-4 border-black dark:border-white bg-white dark:bg-zinc-900 p-6 shadow-[8px_8px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff]">
-                    <div className="absolute -right-3 -top-3 rotate-3 border-2 border-black bg-yellow-400 px-3 py-1 font-bold text-black shadow-[2px_2px_0_0_#000]">
-                        PROJECT
+                <article className="relative h-full flex flex-col border-4 border-black dark:border-white bg-white dark:bg-zinc-900 p-6 lg:p-8 shadow-[8px_8px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff]">
+                    
+                    <div className={`absolute -top-5 ${isEven ? '-right-4' : '-left-4'} rotate-2 border-2 border-black dark:border-white bg-blue-500 px-4 py-1 font-black text-white text-sm shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] uppercase`}>
+                        Quest_ID_0{index + 1}
                     </div>
 
-                    <h2 className="mb-4 text-3xl font-black uppercase leading-none text-black dark:text-white md:text-5xl">
+                    <div className="flex items-center gap-2 mb-2 text-gray-500 dark:text-gray-400 font-mono text-xs font-bold uppercase">
+                        <FaTerminal /> project_manifest.json
+                    </div>
+
+                    <h2 className="mb-4 text-3xl font-black uppercase leading-none text-black dark:text-white md:text-5xl tracking-tighter">
                         {title}
                     </h2>
 
-                    <div className="mb-6 flex-1 border-l-4 border-yellow-400 bg-zinc-50 dark:bg-zinc-800 p-4 font-mono text-base text-zinc-800 dark:text-zinc-200">
+                    <div className="mb-6 flex-1 bg-zinc-100 dark:bg-zinc-800 border-2 border-black dark:border-white p-4 font-mono text-sm md:text-base text-zinc-800 dark:text-zinc-300 shadow-[4px_4px_0_0_#ccc] dark:shadow-none relative">
+                        <span className="absolute -top-3 left-4 bg-white dark:bg-black px-2 text-xs font-bold border border-black dark:border-white text-red-500">BRIEFING</span>
                         <p>{description}</p>
                     </div>
 
-                    <div className="mb-6">
-                        <div className="mb-2 inline-block border-2 border-black bg-blue-300 px-2 py-0.5 text-xs font-bold uppercase text-black">
-                            Tech Stack
+                    <div className="mb-8">
+                        <div className="mb-3 flex items-center gap-2">
+                            <FaCode className="text-xl text-black dark:text-white" />
+                            <span className="text-sm font-black uppercase underline decoration-wavy decoration-yellow-400 text-black dark:text-white">Equipped Gear (Tech):</span>
                         </div>
-                        <p className="font-bold text-black dark:text-white text-lg">
-                            {techStack}
+                        <p className="font-bold text-black dark:text-white text-base md:text-lg leading-snug font-mono">
+                            {techStack.split(',').map((tech, i) => (
+                                <span key={i} className="inline-block mr-2 mb-2 bg-yellow-200 dark:bg-yellow-600 dark:text-white text-black border border-black dark:border-white px-2 py-1 text-xs shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]">
+                                    {tech.trim()}
+                                </span>
+                            ))}
                         </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-4 mt-auto">
+                    <div className="flex flex-col sm:flex-row gap-4 mt-auto">
                         <Button
                             asChild
-                            className="flex-1 rounded-none border-2 border-black bg-black px-6 py-6 text-lg font-bold text-white shadow-[4px_4px_0_0_#888] transition-all hover:-translate-y-1 hover:bg-blue-800 hover:shadow-[6px_6px_0_0_#888] active:translate-x-0 active:translate-y-0 active:shadow-none dark:bg-white dark:text-black dark:hover:shadow-[6px_6px_0_0_#fff] dark:hover:bg-sky-300 rounded-md"
+                            className="flex-1 rounded-md border-2 border-black dark:border-white bg-black dark:bg-zinc-100 px-6 py-6 text-lg font-bold text-white dark:text-black shadow-[4px_4px_0_0_#888] dark:shadow-[4px_4px_0_0_#fff] transition-all hover:-translate-y-1 hover:bg-zinc-800 dark:hover:bg-zinc-300 hover:shadow-[6px_6px_0_0_#888] dark:hover:shadow-[6px_6px_0_0_#fff]"
                         >
-                            <a href={liveDemoLink} target="_blank" rel="noopener noreferrer">
-                                Live Demo
+                            <a href={liveDemoLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                                <FaExternalLinkAlt /> WARP TO DEMO
                             </a>
                         </Button>
                         <Button
                             asChild
-                            className="flex-1 rounded-none border-2 border-black bg-white px-6 py-6 text-lg font-bold text-black shadow-[4px_4px_0_0_#000] transition-all hover:-translate-y-1 hover:bg-yellow-300 hover:shadow-[6px_6px_0_0_#000] active:translate-x-0 active:translate-y-0 active:shadow-none dark:shadow-[4px_4px_0_0_#fff] dark:hover:shadow-[6px_6px_0_0_#fff] rounded-md"
+                            className="flex-1 rounded-md border-2 border-black dark:border-white bg-white dark:bg-zinc-900 px-6 py-6 text-lg font-bold text-black dark:text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] transition-all hover:-translate-y-1 hover:bg-yellow-300 dark:hover:bg-yellow-600 hover:shadow-[6px_6px_0_0_#000] dark:hover:shadow-[6px_6px_0_0_#fff]"
                         >
-                            <a href={sourceCodeLink} target="_blank" rel="noopener noreferrer">
-                                Source Code
+                            <a href={sourceCodeLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                                <FaGithub /> LOOT CODE
                             </a>
                         </Button>
                     </div>

@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { 
   FaLinkedin, FaGithub, FaFacebook, FaInstagram, 
   FaGoogle, FaBriefcase, FaPaperPlane, FaHandshake, 
-  FaWhatsapp
+  FaWhatsapp, FaWifi
 } from "react-icons/fa";
 
 import { Button } from '@/components/ui/button'
@@ -23,31 +23,20 @@ import { Textarea } from '../ui/textarea';
 
 export function ContactAndSocialMedia() {
   const formSchema = z.object({
-    fullname: z.string().min(2, {
-      message: 'Fullname must be at least 6 characters.',
-    }),
-    email: z.string().email(),
-    message: z.string().min(10, {
-      message: 'Message must be at least 10 characters.',
-    }),
+    fullname: z.string().min(2, { message: 'Name too short. Are you a bot?' }),
+    email: z.string().email({ message: 'Invalid protocol format (Email).' }),
+    message: z.string().min(10, { message: 'Data packet too small (min 10 chars).' }),
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      fullname: "",
-      email: "",
-      message: "",
-    },
+    defaultValues: { fullname: "", email: "", message: "" },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const recipient = "ricoeriansyahm@gmail.com";
-    const subject = encodeURIComponent(`Contact Form: ${values.fullname}`);
-    const body = encodeURIComponent(
-        `Name: ${values.fullname}\nEmail: ${values.email}\n\nMessage:\n${values.message}`
-    );
-
+    const subject = encodeURIComponent(`[INCOMING TRANSMISSION]: ${values.fullname}`);
+    const body = encodeURIComponent(`SENDER_NAME: ${values.fullname}\nSENDER_EMAIL: ${values.email}\n\nPAYLOAD:\n${values.message}`);
     window.open(`mailto:${recipient}?subject=${subject}&body=${body}`, '_blank');
   }
 
@@ -63,28 +52,33 @@ export function ContactAndSocialMedia() {
   ];
 
   return (
-    <div className="w-full mx-auto py-16">
-      
-      <div className="text-center mb-12">
-        <h1 className="inline-block text-4xl md:text-6xl font-black uppercase text-black dark:text-white bg-pink-400 border-4 border-black px-6 py-4 shadow-[8px_8px_0_0_#000] rotate-1 hover:rotate-0 transition-all">
-          Le&apos;s go connecty-connect 🤙
+    <div className="relative w-full mx-auto py-16 font-mono overflow-hidden">
+
+      <div className="text-center mb-16 relative">
+        <div className="absolute w-full h-1 bg-black dark:bg-white top-1/2 -z-10"></div>
+        <h1 className="inline-flex items-center gap-3 text-3xl md:text-5xl font-black uppercase text-black bg-pink-400 border-4 border-black dark:border-white px-8 py-6 shadow-[8px_8px_0_0_#fff] dark:shadow-[8px_8px_0_0_#888] rotate-1 hover:rotate-0 transition-all hover:scale-105">
+          <FaWifi className="animate-ping text-2xl" /> ESTABLISH_UPLINK
         </h1>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 px-4 max-w-7xl mx-auto">
         
+        {/* LEFT: FORM */}
         <div className="w-full lg:w-1/2">
             <div className="bg-white dark:bg-zinc-900 border-4 border-black dark:border-white shadow-[12px_12px_0_0_#000] dark:shadow-[12px_12px_0_0_#fff] p-8 relative">
-                <div className="absolute top-0 left-0 w-full h-8 bg-black dark:bg-white flex items-center px-4 gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500 border border-white"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-400 border border-white"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500 border border-white"></div>
+                <div className="absolute top-0 left-0 w-full h-10 bg-black dark:bg-white flex items-center justify-between px-4 border-b-4 border-black dark:border-white">
+                   <div className="flex gap-2">
+                     <div className="w-3 h-3 rounded-full bg-red-500 border border-white"></div>
+                     <div className="w-3 h-3 rounded-full bg-yellow-400 border border-white"></div>
+                     <div className="w-3 h-3 rounded-full bg-green-500 border border-white"></div>
+                   </div>
+                   <span className="text-white dark:text-black font-bold text-xs uppercase">Message_Protocol.exe</span>
                 </div>
                 
-                <div className="mt-6 mb-8 text-center border-b-4 border-black dark:border-white pb-4">
-                    <h2 className="text-3xl font-black uppercase">Send Me Da Message, Plz</h2>
-                    <p className="font-mono text-sm mt-2 font-bold text-gray-600 dark:text-gray-400">
-                        Me usually answer quick-quick, like a day-ish, maybe!
+                <div className="mt-8 mb-8 text-center border-b-4 border-dashed border-black dark:border-white pb-6">
+                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-black dark:text-white">Transmission Form</h2>
+                    <p className="font-mono text-sm mt-2 font-bold text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-zinc-800 p-2 border-2 border-black dark:border-white inline-block">
+                       STATUS: LISTENING ON PORT 443
                     </p>
                 </div>
 
@@ -95,17 +89,17 @@ export function ContactAndSocialMedia() {
                             name="fullname"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-lg font-bold uppercase bg-yellow-300 dark:bg-yellow-600 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000]">
-                                        Yer Whole Name Thingy
+                                    <FormLabel className="text-sm font-black uppercase bg-yellow-300 dark:bg-yellow-600 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]">
+                                        SENDER_ID (NAME)
                                     </FormLabel>
                                     <FormControl>
                                         <Input 
-                                            placeholder="Put name here-o..." 
+                                            placeholder="Enter your identifier..." 
                                             {...field} 
-                                            className="h-12 border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-lg shadow-[4px_4px_0_0_#000] focus-visible:ring-0 focus-visible:bg-white focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all"
+                                            className="h-12 border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-black dark:text-white text-lg shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] focus-visible:ring-0 focus-visible:bg-white dark:focus-visible:bg-zinc-700 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all"
                                         />
                                     </FormControl>
-                                    <FormMessage className="font-bold text-red-500" />
+                                    <FormMessage className="font-bold text-red-500 bg-red-100 px-1 border border-red-500 inline-block text-xs" />
                                 </FormItem>
                             )}
                         />
@@ -114,17 +108,17 @@ export function ContactAndSocialMedia() {
                             name="email"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-lg font-bold uppercase bg-cyan-300 dark:bg-cyan-700 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000]">
-                                        Yer Email Placey-Thing
+                                    <FormLabel className="text-sm font-black uppercase bg-cyan-300 dark:bg-cyan-700 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]">
+                                        RETURN_ADDRESS (EMAIL)
                                     </FormLabel>
                                     <FormControl>
                                         <Input 
-                                            placeholder="name@example.com" 
+                                            placeholder="protocol@example.com" 
                                             {...field} 
-                                            className="h-12 border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-lg shadow-[4px_4px_0_0_#000] focus-visible:ring-0 focus-visible:bg-white focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all"
+                                            className="h-12 border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-black dark:text-white text-lg shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] focus-visible:ring-0 focus-visible:bg-white dark:focus-visible:bg-zinc-700 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all"
                                         />
                                     </FormControl>
-                                    <FormMessage className="font-bold text-red-500" />
+                                    <FormMessage className="font-bold text-red-500 bg-red-100 px-1 border border-red-500 inline-block text-xs" />
                                 </FormItem>
                             )}
                         />
@@ -133,45 +127,47 @@ export function ContactAndSocialMedia() {
                             name="message"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-lg font-bold uppercase bg-green-300 dark:bg-green-700 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000]">
-                                        Yer Messidge
+                                    <FormLabel className="text-sm font-black uppercase bg-green-300 dark:bg-green-700 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]">
+                                        DATA_PAYLOAD (MESSAGE)
                                     </FormLabel>
                                     <FormControl>
                                         <Textarea 
                                             rows={5} 
-                                            placeholder="Tell me 'bout projecty thingy..." 
+                                            placeholder="Encrypting message..." 
                                             {...field} 
-                                            className="border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-lg shadow-[4px_4px_0_0_#000] focus-visible:ring-0 focus-visible:bg-white focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all resize-none"
+                                            className="border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-black dark:text-white text-lg shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] focus-visible:ring-0 focus-visible:bg-white dark:focus-visible:bg-zinc-700 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all resize-none"
                                         />
                                     </FormControl>
-                                    <FormMessage className="font-bold text-red-500" />
+                                    <FormMessage className="font-bold text-red-500 bg-red-100 px-1 border border-red-500 inline-block text-xs" />
                                 </FormItem>
                             )}
                         />
                         <Button 
                             type="submit" 
-                            className="w-full h-14 bg-black text-white text-xl font-black uppercase tracking-widest border-2 border-black shadow-[6px_6px_0_0_#888] hover:bg-zinc-800 hover:shadow-[2px_2px_0_0_#888] hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-md cursor-pointer"
+                            className="w-full h-14 bg-black dark:bg-zinc-900 text-white dark:text-white text-xl font-black uppercase tracking-widest border-2 border-black dark:border-white shadow-[6px_6px_0_0_#888] dark:shadow-[6px_6px_0_0_#fff] hover:bg-green-600 dark:hover:bg-green-400 hover:shadow-[2px_2px_0_0_#000] dark:hover:shadow-[2px_2px_0_0_#fff] hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-md cursor-pointer flex items-center justify-center gap-2 group"
                         >
-                            <FaPaperPlane className="mr-3" /> Sendy Mess Mess
+                            <FaPaperPlane className="group-hover:animate-ping" /> EXECUTE_SEND()
                         </Button>
                     </form>
                 </Form>
             </div>
         </div>
 
+        {/* RIGHT: SOCIALS */}
         <div className="w-full lg:w-1/2 flex flex-col gap-8">
-            <div className="bg-purple-200 dark:bg-purple-900 border-4 border-black dark:border-white p-8 shadow-[12px_12px_0_0_#000] dark:shadow-[12px_12px_0_0_#fff] h-full flex flex-col justify-center">
-                <h2 className="text-3xl font-black text-black dark:text-black uppercase text-center mb-8 bg-white border-2 border-black p-2 shadow-[4px_4px_0_0_#000] transform -rotate-1">
-                    Me Findable on Webz 🌐
+            <div className="bg-purple-200 dark:bg-purple-900 border-4 border-black dark:border-white p-8 shadow-[12px_12px_0_0_#000] dark:shadow-[12px_12px_0_0_#fff] h-full flex flex-col">
+                
+                <h2 className="text-2xl md:text-3xl font-black text-black uppercase text-center mb-8 bg-white border-4 border-black p-4 shadow-[6px_6px_0_0_#000] transform rotate-1">
+                    🌐 GLOBAL_NODES
                 </h2>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
                     {socialLinks.map((social, index) => (
                         <Button
                             key={index}
                             asChild
                             className={`
-                                h-16 w-full justify-start px-6 text-lg font-bold uppercase border-2 border-black dark:border-white rounded-md shadow-[4px_4px_0_0_#000] 
+                                h-16 w-full justify-start px-6 text-sm font-bold uppercase border-2 border-black dark:border-white rounded-md shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff]
                                 ${social.color} hover:brightness-110 hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all
                             `}
                         >
@@ -185,9 +181,9 @@ export function ContactAndSocialMedia() {
                     ))}
                 </div>
 
-                <div className="mt-8 bg-black p-4 text-white text-center font-mono text-sm border-2 border-white shadow-[4px_4px_0_0_rgba(0,0,0,0.2)]">
-                   <p className="font-bold">PLACE: INDONESIA-LAND!</p>
-                   <p className="text-zinc-400">STATUS: ME OPEN FOR JOB NOW!</p>
+                <div className="mt-8 bg-black p-4 text-white text-center font-mono text-xs md:text-sm border-2 border-white shadow-[4px_4px_0_0_rgba(0,0,0,0.5)]">
+                   <p className="font-bold text-green-400">&gt; CURRENT_COORDS: INDONESIA_REGION</p>
+                   <p className="text-zinc-400 mt-1">&gt; STATUS: OPEN_FOR_WORK = TRUE</p>
                 </div>
             </div>
         </div>

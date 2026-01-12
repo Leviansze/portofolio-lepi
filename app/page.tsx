@@ -5,6 +5,7 @@ import { Profile } from "@/components/Pages/Profile";
 import { Projects } from "@/components/Pages/Projects";
 import { Certificates } from "@/components/Pages/Certificates";
 import { ContactAndSocialMedia } from "@/components/Pages/ContactAndSocialMedia";
+import { FaSkull, FaExclamationTriangle } from "react-icons/fa";
 
 const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min);
 const scaryMessages = [
@@ -124,7 +125,12 @@ export default function Home() {
   }, [chaosMode]);
 
   return (
-    <>
+    <div className="min-h-screen bg-white dark:bg-zinc-950 text-black dark:text-white font-mono transition-colors duration-300">
+      
+      <div className="fixed inset-0 z-0 opacity-5 pointer-events-none" 
+           style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
+      </div>
+
       {chaosMode && (
         <div className="fixed inset-0 z-[9999] bg-black cursor-none flex items-center justify-center overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-20 pointer-events-none mix-blend-overlay" />
@@ -132,20 +138,20 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(circle,transparent_20%,#ff0000_100%)] mix-blend-multiply opacity-80 pointer-events-none animate-pulse"></div>
 
           <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-             {Array.from({ length: 10 }).map((_, i) => (
-               <div 
-                 key={i}
-                 className="absolute text-red-600 font-mono font-bold text-4xl opacity-70 animate-ping"
-                 style={{
-                   top: `${randomInt(0, 100)}%`,
-                   left: `${randomInt(0, 100)}%`,
-                   animationDuration: `${randomInt(100, 2000)}ms`,
-                   transform: `scale(${randomInt(1, 4)})`
-                 }}
-               >
-                 {scaryMessages[randomInt(0, scaryMessages.length - 1)]}
-               </div>
-             ))}
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div 
+                  key={i}
+                  className="absolute text-red-600 font-mono font-bold text-4xl opacity-70 animate-ping"
+                  style={{
+                    top: `${randomInt(0, 100)}%`,
+                    left: `${randomInt(0, 100)}%`,
+                    animationDuration: `${randomInt(100, 2000)}ms`,
+                    transform: `scale(${randomInt(1, 4)})`
+                  }}
+                >
+                  {scaryMessages[randomInt(0, scaryMessages.length - 1)]}
+                </div>
+              ))}
           </div>
 
           <div className="relative z-50 flex flex-col items-center gap-8 text-center mix-blend-hard-light">
@@ -155,12 +161,12 @@ export default function Home() {
             
             <div className="bg-black border-4 border-red-600 p-6 shadow-[10px_10px_0_0_#ff0000] max-w-2xl animate-bounce">
               <p className="font-mono text-xl md:text-2xl text-red-500 font-bold mb-4">
-                 &gt; SYSTEM INTEGRITY COMPROMISED <br/>
-                 &gt; UNAUTHORIZED ACCESS DETECTED <br/>
-                 &gt; INITIATING PURGE SEQUENCE...
+                  &gt; SYSTEM INTEGRITY COMPROMISED <br/>
+                  &gt; UNAUTHORIZED ACCESS DETECTED <br/>
+                  &gt; INITIATING PURGE SEQUENCE...
               </p>
               <div className="w-full bg-red-900 h-4 border border-red-500 overflow-hidden relative">
-                 <div className="absolute top-0 left-0 h-full bg-red-500 w-[80%] animate-pulse"></div>
+                  <div className="absolute top-0 left-0 h-full bg-red-500 w-[80%] animate-pulse"></div>
               </div>
             </div>
 
@@ -217,19 +223,19 @@ export default function Home() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 animate-in fade-in zoom-in duration-300">
            <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,#000,#000_20px,#111_20px,#111_40px)] opacity-50 -z-10"></div>
            
-           <div className="bg-yellow-400 border-8 border-black p-8 md:p-12 max-w-xl w-full shadow-[20px_20px_0_0_#fff] relative transform -rotate-2">
+           <div className="bg-yellow-400 dark:bg-yellow-600 border-8 border-black dark:border-white p-8 md:p-12 max-w-xl w-full shadow-[20px_20px_0_0_#fff] dark:shadow-[20px_20px_0_0_#000] relative transform -rotate-2">
             
-            <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-black text-white px-6 py-2 font-mono font-bold border-2 border-white uppercase tracking-widest shadow-[4px_4px_0_0_#ff0000]">
-               Security Alert
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-black dark:bg-white text-white dark:text-black px-6 py-2 font-mono font-bold border-2 border-white dark:border-black uppercase tracking-widest shadow-[4px_4px_0_0_#ff0000]">
+               <FaExclamationTriangle className="inline-block mr-2 mb-1" /> Security Alert
             </div>
 
-            <h2 className="text-5xl md:text-7xl font-black uppercase mb-6 text-black text-center leading-[0.9] tracking-tighter">
-              DO NOT<br/><span className="text-red-600">PROCEED</span>
+            <h2 className="text-5xl md:text-7xl font-black uppercase mb-6 text-black dark:text-white text-center leading-[0.9] tracking-tighter">
+              DO NOT<br/><span className="text-red-600 dark:text-red-400">PROCEED</span>
             </h2>
             
-            <div className="bg-white border-4 border-black p-6 mb-8 font-mono font-bold text-lg text-black shadow-[8px_8px_0_0_#000]">
+            <div className="bg-white dark:bg-zinc-900 border-4 border-black dark:border-white p-6 mb-8 font-mono font-bold text-lg text-black dark:text-white shadow-[8px_8px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff]">
               <p className="mb-4">You are about to execute a dangerous function.</p>
-              <ul className="list-disc pl-5 space-y-1 text-red-600 uppercase">
+              <ul className="list-disc pl-5 space-y-1 text-red-600 dark:text-red-400 uppercase">
                 <li>System instability risk</li>
                 <li>Visual & Audio Hazard</li>
                 <li>No turning back</li>
@@ -242,13 +248,13 @@ export default function Home() {
                   setShowWarning(false);
                   setChaosMode(true);
                 }}
-                className="w-full bg-black border-4 border-black text-red-500 font-black text-2xl py-5 uppercase shadow-[8px_8px_0_0_#ff0000] hover:bg-red-600 hover:text-black hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all cursor-pointer"
+                className="w-full bg-black dark:bg-zinc-900 border-4 border-black dark:border-white text-red-500 font-black text-2xl py-5 uppercase shadow-[8px_8px_0_0_#ff0000] hover:bg-red-600 hover:text-black dark:hover:text-white hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all cursor-pointer flex items-center justify-center gap-2"
               >
-                ☠️ I ACCEPT THE RISK
+                <FaSkull /> I ACCEPT THE RISK
               </button>
               <button
                 onClick={() => setShowWarning(false)}
-                className="w-full bg-white border-4 border-black text-black font-black text-xl py-4 uppercase shadow-[8px_8px_0_0_#000] hover:bg-gray-200 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all cursor-pointer"
+                className="w-full bg-white dark:bg-zinc-200 border-4 border-black dark:border-white text-black font-black text-xl py-4 uppercase shadow-[8px_8px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff] hover:bg-gray-200 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all cursor-pointer"
               >
                 Cancel (Safe Mode)
               </button>
@@ -257,13 +263,13 @@ export default function Home() {
         </div>
       )}
 
-      <nav className="px-4 py-2 md:px-8 md:py-4">
-        <ul className="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-0 border-2 border-black dark:border-white p-4 lg:p-6 shadow-[4px_4px_0_0] rounded-md bg-white dark:bg-zinc-900">
+      <nav className="relative z-10 px-4 py-6 md:px-8 mx-auto">
+        <ul className="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-0 border-4 border-black dark:border-white p-4 lg:p-6 shadow-[6px_6px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff] bg-white dark:bg-zinc-900 transition-all">
           
-          <span className="flex flex-col md:flex-row gap-4 lg:space-x-8 text-center w-full lg:w-auto">
+          <span className="flex flex-col md:flex-row gap-4 lg:space-x-4 text-center w-full lg:w-auto">
             {[
-              { id: "Profile", label: "Profile", color: "bg-blue-500 dark:bg-blue-700", icon: "★" },
-              { id: "Projects", label: "Projects", color: "bg-yellow-300 dark:bg-yellow-700", icon: "✦" },
+              { id: "Profile", label: "Profile", color: "bg-blue-500 dark:bg-blue-800", icon: "★" },
+              { id: "Projects", label: "Projects", color: "bg-yellow-300 dark:bg-yellow-600", icon: "✦" },
               { id: "Certificates", label: "Certificates", color: "bg-green-500 dark:bg-green-700", icon: "☀" },
               { id: "ContactAndSocialMedia", label: "Contact", color: "bg-pink-400 dark:bg-pink-700", icon: "☎" },
             ].map((item) => (
@@ -271,12 +277,12 @@ export default function Home() {
                 <a 
                   className={`
                     ${item.color} 
-                    block border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white 
-                    shadow-[4px_4px_0_0] transition-all cursor-pointer rounded-md 
-                    flex items-center justify-center gap-2
+                    block border-2 border-black dark:border-white px-6 py-3 font-black text-black dark:text-white text-lg uppercase tracking-tight
+                    shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] transition-all cursor-pointer
+                    flex items-center justify-center rounded-md gap-2
                     ${Tab === item.id 
                       ? "translate-x-[2px] translate-y-[2px] shadow-none ring-2 ring-black dark:ring-white brightness-110" 
-                      : "hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0_0]"
+                      : "hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000] dark:hover:shadow-[6px_6px_0_0_#fff]"
                     }
                   `} 
                   onClick={() => setTab(item.id)}
@@ -299,12 +305,12 @@ export default function Home() {
             ))}
           </span>
 
-          <li className="w-full lg:w-auto text-center">
+          <li className="w-full lg:w-auto text-center mt-4 lg:mt-0">
             <button
-              className="w-full lg:w-auto inline-block border-2 border-black dark:border-white bg-red-600 px-6 py-3 font-black uppercase text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] hover:bg-red-700 hover:rotate-2 hover:scale-110 active:scale-95 transition-all cursor-pointer rounded-md animate-pulse tracking-widest"
+              className="w-full lg:w-auto inline-flex items-center justify-center gap-2 border-2 border-black dark:border-white bg-red-600 px-6 py-3 font-black uppercase text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] hover:bg-red-700 hover:rotate-2 hover:scale-105 active:scale-95 transition-all cursor-pointer animate-pulse tracking-widest rounded-md"
               onClick={() => setShowWarning(true)}
             >
-              💀 Don&apos;t Click
+              <FaSkull /> Don&apos;t Click Me
             </button>
           </li>
         </ul>
@@ -316,6 +322,6 @@ export default function Home() {
         {Tab === "Certificates" && <Certificates />}
         {Tab === "ContactAndSocialMedia" && <ContactAndSocialMedia />}
       </main>
-    </>
+    </div>
   );
 }
