@@ -153,7 +153,7 @@ export function ContactAndSocialMedia() {
 
         <div className="w-full lg:w-1/2 flex flex-col gap-8">
             <div className="bg-purple-200 dark:bg-purple-900 border-4 border-black dark:border-white p-8 shadow-[12px_12px_0_0_#000] dark:shadow-[12px_12px_0_0_#fff] h-full flex flex-col justify-center">
-                <h2 className="text-3xl font-black uppercase text-center mb-8 bg-white border-2 border-black p-2 shadow-[4px_4px_0_0_#000] transform -rotate-1">
+                <h2 className="text-3xl font-black text-black dark:text-black uppercase text-center mb-8 bg-white border-2 border-black p-2 shadow-[4px_4px_0_0_#000] transform -rotate-1">
                     Find Me Online 🌐
                 </h2>
                 
