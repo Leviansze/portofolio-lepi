@@ -6,6 +6,8 @@ import { Projects } from "@/components/Pages/Projects";
 import { Certificates } from "@/components/Pages/Certificates";
 import { ContactAndSocialMedia } from "@/components/Pages/ContactAndSocialMedia";
 import { FaSkull, FaExclamationTriangle } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min);
 const scaryMessages = [
@@ -15,7 +17,8 @@ const scaryMessages = [
 ];
 
 export default function Home() {
-  const [Tab, setTab] = useState("Profile");
+  const searchParams = useSearchParams();
+  const currentTab = searchParams.get("tab") || "Profile";
   const [showWarning, setShowWarning] = useState(false);
   const [chaosMode, setChaosMode] = useState(false);
   
@@ -274,20 +277,21 @@ export default function Home() {
               { id: "ContactAndSocialMedia", label: "Contact", color: "bg-pink-400 dark:bg-pink-700", icon: "☎" },
             ].map((item) => (
               <li key={item.id} className="w-full md:w-auto">
-                <a 
+                <Link
+                  href={item.id === "Profile" ? "/" : `/?tab=${item.id}`}
+                  scroll={false}
                   className={`
                     ${item.color} 
                     block border-2 border-black dark:border-white px-6 py-3 font-black text-black dark:text-white text-lg uppercase tracking-tight
                     shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] transition-all cursor-pointer
                     flex items-center justify-center rounded-md gap-2
-                    ${Tab === item.id 
+                    ${currentTab === item.id 
                       ? "translate-x-[2px] translate-y-[2px] shadow-none ring-2 ring-black dark:ring-white brightness-110" 
-                      : "hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000] dark:hover:shadow-[6px_6px_0_0_#fff]"
+                      : "hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000]"
                     }
                   `} 
-                  onClick={() => setTab(item.id)}
                 >
-                  {Tab === item.id && (
+                  {currentTab === item.id && (
                     <span className="text-xl animate-[spin_3s_linear_infinite] inline-block font-bold">
                       {item.icon}
                     </span>
@@ -295,12 +299,12 @@ export default function Home() {
                   
                   {item.label}
                   
-                  {Tab === item.id && (
+                  {currentTab === item.id && (
                     <span className="text-xl animate-[spin_3s_linear_infinite_reverse] inline-block font-bold">
                       {item.icon}
                     </span>
                   )}
-                </a>
+                </Link>
               </li>
             ))}
           </span>
@@ -317,10 +321,10 @@ export default function Home() {
       </nav>
 
       <main className="px-4 py-2 md:px-8 md:py-4">
-        {Tab === "Profile" && <Profile />}
-        {Tab === "Projects" && <Projects />}
-        {Tab === "Certificates" && <Certificates />}
-        {Tab === "ContactAndSocialMedia" && <ContactAndSocialMedia />}
+        {currentTab === "Profile" && <Profile />}
+        {currentTab === "Projects" && <Projects />}
+        {currentTab === "Certificates" && <Certificates />}
+        {currentTab === "ContactAndSocialMedia" && <ContactAndSocialMedia />}
       </main>
     </div>
   );
