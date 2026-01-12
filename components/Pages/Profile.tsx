@@ -14,7 +14,7 @@ export function Profile() {
   ];
 
   const serverSpecs = [
-    { label: "Brain", value: "Dual Xeon E5 (Silicon Muscle)", icon: <FaMicrochip /> },
+    { label: "Brain", value: "Dual Xeon E5 V4", icon: <FaMicrochip /> },
     { label: "Storage", value: "30x Screaming HDDs", icon: <FaHdd /> },
     { label: "Power", value: "Meter Spinnin' Like DJ", icon: <FaBolt /> },
   ];
