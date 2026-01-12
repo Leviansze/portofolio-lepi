@@ -41,17 +41,23 @@ export function ContactAndSocialMedia() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    const recipient = "ricoeriansyahm@gmail.com";
+    const subject = encodeURIComponent(`Contact Form: ${values.fullname}`);
+    const body = encodeURIComponent(
+        `Name: ${values.fullname}\nEmail: ${values.email}\n\nMessage:\n${values.message}`
+    );
+
+    window.open(`mailto:${recipient}?subject=${subject}&body=${body}`, '_blank');
   }
 
   const socialLinks = [
-    { name: "LinkedIn", url: "https://www.linkedin.com/in/rico-eriansyah/", icon: <FaLinkedin />, color: "bg-blue-600 text-white" },
-    { name: "GitHub", url: "https://github.com/RicoEriansyah", icon: <FaGithub />, color: "bg-zinc-900 text-white" },
-    { name: "Facebook", url: "https://facebook.com/ricoeriansyah", icon: <FaFacebook />, color: "bg-blue-500 text-white" },
-    { name: "Instagram", url: "https://instagram.com/ricoeriansyah", icon: <FaInstagram />, color: "bg-pink-600 text-white" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/rico-eriansyah-6729a8204/", icon: <FaLinkedin />, color: "bg-blue-600 text-white" },
+    { name: "GitHub", url: "https://github.com/ricoerian", icon: <FaGithub />, color: "bg-zinc-900 text-white" },
+    { name: "Facebook", url: "https://www.facebook.com/Rico.Eriansyahh", icon: <FaFacebook />, color: "bg-blue-500 text-white" },
+    { name: "Instagram", url: "https://www.instagram.com/pymrce", icon: <FaInstagram />, color: "bg-pink-600 text-white" },
     { name: "Email", url: "mailto:ricoeriansyahm@gmail.com", icon: <FaGoogle />, color: "bg-red-500 text-white" },
-    { name: "Fiverr", url: "https://fiverr.com/ricoeriansyah", icon: <FaHandshake />, color: "bg-green-500 text-white" },
-    { name: "FastWork", url: "https://fastwork.com/ricoeriansyah", icon: <FaBriefcase />, color: "bg-sky-500 text-white" },
+    { name: "Fiverr", url: "https://www.fiverr.com/ricoeri", icon: <FaHandshake />, color: "bg-green-500 text-white" },
+    { name: "FastWork", url: "https://fastwork.id/user/ricoeri", icon: <FaBriefcase />, color: "bg-sky-500 text-white" },
   ];
 
   return (
