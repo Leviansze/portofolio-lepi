@@ -5,6 +5,7 @@ import { CertificateProps } from "@/type/CertificateType";
 import { FaExternalLinkAlt, FaCertificate, FaBarcode, FaCheckCircle } from "react-icons/fa";
 
 export const CertificateLists = ({ 
+  id,
   title, 
   description, 
   imageSrc, 
@@ -16,9 +17,7 @@ export const CertificateLists = ({
     const handleCertificateClick = () => {
         window.open(certificateLink, '_blank');
     };
-
-    const fakeId = `CERT-${title.length}X-88`; 
-
+    
     return (
       <div 
         onClick={handleCertificateClick}
@@ -52,40 +51,40 @@ export const CertificateLists = ({
           </div>
 
           <div className="flex flex-col justify-between p-6 lg:p-8 w-full relative">
-             
-             <div className="absolute top-0 right-0 bg-red-500 w-16 h-16 flex items-center justify-center border-l-4 border-b-4 border-black dark:border-white">
-                <span className="text-white font-black text-xs -rotate-45">RANK S</span>
-             </div>
+              
+              <div className="absolute top-0 right-0 bg-red-500 w-16 h-16 flex items-center justify-center border-l-4 border-b-4 border-black dark:border-white">
+                 <span className="text-white font-black text-xs -rotate-45">RANK S</span>
+              </div>
 
-             <div>
-                <div className="flex justify-between items-start gap-4 mb-2 mt-4 lg:mt-0">
+              <div>
+                 <div className="flex justify-between items-start gap-4 mb-2 mt-4 lg:mt-0">
                     <div className="bg-purple-300 border-2 border-black dark:border-white px-3 py-1 text-xs font-black uppercase inline-block shadow-[3px_3px_0_0_#000] dark:shadow-[3px_3px_0_0_#fff] flex items-center gap-2 text-black">
-                         ITEM_CLASS: SCROLL
+                          ITEM_CLASS: SCROLL
                     </div>
-                </div>
+                 </div>
 
-                <h3 className="text-2xl lg:text-3xl font-black uppercase text-black dark:text-white leading-[0.9] mb-4 mt-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                 <h3 className="text-2xl lg:text-3xl font-black uppercase text-black dark:text-white leading-[0.9] mb-4 mt-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {title}
-                </h3>
+                 </h3>
 
-                <div className="bg-zinc-100 dark:bg-zinc-800 border-2 border-black dark:border-white p-3 relative font-mono text-sm text-zinc-700 dark:text-zinc-300">
-                    <span className="absolute -top-2 left-3 bg-white dark:bg-black px-1 text-[10px] font-bold border border-black dark:border-white text-gray-500">DESCRIPTION</span>
+                 <div className="bg-zinc-100 dark:bg-zinc-800 border-2 border-black dark:border-white p-3 relative font-mono text-sm text-zinc-700 dark:text-zinc-300">
+                    <span className="absolute -top-2 left-3 bg-white dark:bg-black px-1 text-[10px] font-bold border border-black dark:border-white text-gray-500">DESCRIPTION SCROLL</span>
                     <span className="text-green-600 font-bold mr-2">&gt;</span>
                     {description}
-                </div>
-             </div>
-
-             <div className="mt-8 flex items-center justify-between border-t-2 border-dashed border-black dark:border-white pt-4">
-                 <div className="flex items-center gap-1 opacity-50 text-black dark:text-white">
-                    <FaBarcode className="text-3xl" />
-                    <span className="text-[10px] font-mono">ID: {fakeId}</span>
                  </div>
+              </div>
 
-                 <div className="flex items-center gap-2 text-sm font-bold uppercase bg-black dark:bg-white text-white dark:text-black px-4 py-2 hover:bg-yellow-400 hover:text-black border-2 border-black dark:border-white transition-all shadow-[4px_4px_0_0_#888] dark:shadow-[4px_4px_0_0_#fff] active:translate-y-1 active:shadow-none">
-                    <FaExternalLinkAlt />
-                    INSPECT ITEM
-                 </div>
-             </div>
+              <div className="mt-8 flex items-center justify-between border-t-2 border-dashed border-black dark:border-white pt-4">
+                  <div className="flex items-center gap-1 opacity-50 text-black dark:text-white">
+                     <FaBarcode className="text-3xl" />
+                     <span className="text-[10px] font-mono uppercase truncate max-w-[150px]">ID: {id}</span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-sm font-bold uppercase bg-black dark:bg-white text-white dark:text-black px-4 py-2 hover:bg-yellow-400 hover:text-black border-2 border-black dark:border-white transition-all shadow-[4px_4px_0_0_#888] dark:shadow-[4px_4px_0_0_#fff] active:translate-y-1 active:shadow-none">
+                     <FaExternalLinkAlt />
+                     INSPECT ITEM
+                  </div>
+              </div>
           </div>
         </div>
       </div>
