@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { 
   FaLinkedin, FaGithub, FaFacebook, FaInstagram, 
-  FaGoogle, FaBriefcase, FaPaperPlane, FaHandshake 
+  FaGoogle, FaBriefcase, FaPaperPlane, FaHandshake, 
+  FaWhatsapp
 } from "react-icons/fa";
 
 import { Button } from '@/components/ui/button'
@@ -56,12 +57,13 @@ export function ContactAndSocialMedia() {
     { name: "Facebook", url: "https://www.facebook.com/Rico.Eriansyahh", icon: <FaFacebook />, color: "bg-blue-500 text-white" },
     { name: "Instagram", url: "https://www.instagram.com/pymrce", icon: <FaInstagram />, color: "bg-pink-600 text-white" },
     { name: "Email", url: "mailto:ricoeriansyahm@gmail.com", icon: <FaGoogle />, color: "bg-red-500 text-white" },
-    { name: "Fiverr", url: "https://www.fiverr.com/ricoeri", icon: <FaHandshake />, color: "bg-green-500 text-white" },
+    { name: "Whatsapp", url: "https://wa.me/6285158442031", icon: <FaWhatsapp />, color: "bg-green-500 text-white" },
+    { name: "Fiverr", url: "https://www.fiverr.com/ricoeri", icon: <FaHandshake />, color: "bg-lime-500 text-white" },
     { name: "FastWork", url: "https://fastwork.id/user/ricoeri", icon: <FaBriefcase />, color: "bg-sky-500 text-white" },
   ];
 
   return (
-    <div className="w-full mx-auto px-4 py-16">
+    <div className="w-full mx-auto py-16">
       
       <div className="text-center mb-12">
         <h1 className="inline-block text-4xl md:text-6xl font-black uppercase text-black dark:text-white bg-pink-400 border-4 border-black px-6 py-4 shadow-[8px_8px_0_0_#000] rotate-1 hover:rotate-0 transition-all">
@@ -148,7 +150,7 @@ export function ContactAndSocialMedia() {
                         />
                         <Button 
                             type="submit" 
-                            className="w-full h-14 bg-black text-white text-xl font-black uppercase tracking-widest border-2 border-black shadow-[6px_6px_0_0_#888] hover:bg-zinc-800 hover:shadow-[2px_2px_0_0_#888] hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-none cursor-pointer"
+                            className="w-full h-14 bg-black text-white text-xl font-black uppercase tracking-widest border-2 border-black shadow-[6px_6px_0_0_#888] hover:bg-zinc-800 hover:shadow-[2px_2px_0_0_#888] hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-md cursor-pointer"
                         >
                             <FaPaperPlane className="mr-3" /> Sendy Mess Mess
                         </Button>
@@ -169,7 +171,7 @@ export function ContactAndSocialMedia() {
                             key={index}
                             asChild
                             className={`
-                                h-16 w-full justify-start px-6 text-lg font-bold uppercase border-2 border-black dark:border-white rounded-none shadow-[4px_4px_0_0_#000] 
+                                h-16 w-full justify-start px-6 text-lg font-bold uppercase border-2 border-black dark:border-white rounded-md shadow-[4px_4px_0_0_#000] 
                                 ${social.color} hover:brightness-110 hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all
                             `}
                         >

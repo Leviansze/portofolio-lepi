@@ -38,7 +38,7 @@ export const ProjectLists = ({
         
             <div className="w-full lg:w-1/2 flex flex-col">
                 <article className="relative h-full flex flex-col border-4 border-black dark:border-white bg-white dark:bg-zinc-900 p-6 shadow-[8px_8px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff]">
-                    <div className="absolute -right-3 -top-3 rotate-3 border-2 border-black bg-green-400 px-3 py-1 font-bold text-black shadow-[2px_2px_0_0_#000]">
+                    <div className="absolute -right-3 -top-3 rotate-3 border-2 border-black bg-yellow-400 px-3 py-1 font-bold text-black shadow-[2px_2px_0_0_#000]">
                         PROJECT
                     </div>
 
@@ -62,7 +62,7 @@ export const ProjectLists = ({
                     <div className="flex flex-wrap gap-4 mt-auto">
                         <Button
                             asChild
-                            className="flex-1 rounded-none border-2 border-black bg-black px-6 py-6 text-lg font-bold text-white shadow-[4px_4px_0_0_#888] transition-all hover:-translate-y-1 hover:bg-zinc-800 hover:shadow-[6px_6px_0_0_#888] active:translate-x-0 active:translate-y-0 active:shadow-none dark:bg-white dark:text-black"
+                            className="flex-1 rounded-none border-2 border-black bg-black px-6 py-6 text-lg font-bold text-white shadow-[4px_4px_0_0_#888] transition-all hover:-translate-y-1 hover:bg-blue-800 hover:shadow-[6px_6px_0_0_#888] active:translate-x-0 active:translate-y-0 active:shadow-none dark:bg-white dark:text-black dark:hover:shadow-[6px_6px_0_0_#fff] dark:hover:bg-sky-300 rounded-md"
                         >
                             <a href={liveDemoLink} target="_blank" rel="noopener noreferrer">
                                 Live Demo
@@ -70,7 +70,7 @@ export const ProjectLists = ({
                         </Button>
                         <Button
                             asChild
-                            className="flex-1 rounded-none border-2 border-black bg-white px-6 py-6 text-lg font-bold text-black shadow-[4px_4px_0_0_#000] transition-all hover:-translate-y-1 hover:bg-yellow-300 hover:shadow-[6px_6px_0_0_#000] active:translate-x-0 active:translate-y-0 active:shadow-none dark:shadow-[4px_4px_0_0_#fff] dark:hover:shadow-[6px_6px_0_0_#fff]"
+                            className="flex-1 rounded-none border-2 border-black bg-white px-6 py-6 text-lg font-bold text-black shadow-[4px_4px_0_0_#000] transition-all hover:-translate-y-1 hover:bg-yellow-300 hover:shadow-[6px_6px_0_0_#000] active:translate-x-0 active:translate-y-0 active:shadow-none dark:shadow-[4px_4px_0_0_#fff] dark:hover:shadow-[6px_6px_0_0_#fff] rounded-md"
                         >
                             <a href={sourceCodeLink} target="_blank" rel="noopener noreferrer">
                                 Source Code

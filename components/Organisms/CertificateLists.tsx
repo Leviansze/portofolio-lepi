@@ -28,7 +28,7 @@ export const CertificateLists = ({ title, description, imageSrc, imageWidth, ima
                     className="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
             </div>
-            <div className="absolute top-4 left-4 bg-yellow-400 border-2 border-black px-2 py-1 text-xs font-bold shadow-[2px_2px_0_0_#000]">
+            <div className="absolute top-4 left-4 bg-green-400 border-2 border-black px-2 py-1 text-xs font-bold shadow-[2px_2px_0_0_#000]">
                 VERIFIED
             </div>
           </div>

@@ -261,10 +261,42 @@ export default function Home() {
         <ul className="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-0 border-2 border-black dark:border-white p-4 lg:p-6 shadow-[4px_4px_0_0] rounded-md bg-white dark:bg-zinc-900">
           
           <span className="flex flex-col md:flex-row gap-4 lg:space-x-8 text-center w-full lg:w-auto">
-            <li><a className={`bg-blue-500 dark:bg-blue-700 block border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] transition-all cursor-pointer rounded-md ${Tab === "Profile" ? "translate-x-[2px] translate-y-[2px] shadow-none ring-2 ring-black" : ""}`} onClick={setTab.bind(null, "Profile")}>Profile</a></li>
-            <li><a className={`bg-yellow-300 dark:bg-yellow-700 block border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] transition-all cursor-pointer rounded-md ${Tab === "Projects" ? "translate-x-[2px] translate-y-[2px] shadow-none ring-2 ring-black" : ""}`} onClick={setTab.bind(null, "Projects")}>Projects</a></li>
-            <li><a className={`bg-green-500 dark:bg-green-700 block border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] transition-all cursor-pointer rounded-md ${Tab === "Certificates" ? "translate-x-[2px] translate-y-[2px] shadow-none ring-2 ring-black" : ""}`} onClick={setTab.bind(null, "Certificates")}>Certificates</a></li>
-            <li><a className={`bg-pink-400 dark:bg-pink-700 block border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] transition-all cursor-pointer rounded-md ${Tab === "ContactAndSocialMedia" ? "translate-x-[2px] translate-y-[2px] shadow-none ring-2 ring-black" : ""}`} onClick={setTab.bind(null, "ContactAndSocialMedia")}>Contact</a></li>
+            {[
+              { id: "Profile", label: "Profile", color: "bg-blue-500 dark:bg-blue-700", icon: "★" },
+              { id: "Projects", label: "Projects", color: "bg-yellow-300 dark:bg-yellow-700", icon: "✦" },
+              { id: "Certificates", label: "Certificates", color: "bg-green-500 dark:bg-green-700", icon: "☀" },
+              { id: "ContactAndSocialMedia", label: "Contact", color: "bg-pink-400 dark:bg-pink-700", icon: "☎" },
+            ].map((item) => (
+              <li key={item.id} className="w-full md:w-auto">
+                <a 
+                  className={`
+                    ${item.color} 
+                    block border-2 border-black dark:border-white px-5 py-3 font-semibold text-black dark:text-white 
+                    shadow-[4px_4px_0_0] transition-all cursor-pointer rounded-md 
+                    flex items-center justify-center gap-2
+                    ${Tab === item.id 
+                      ? "translate-x-[2px] translate-y-[2px] shadow-none ring-2 ring-black dark:ring-white brightness-110" 
+                      : "hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0_0]"
+                    }
+                  `} 
+                  onClick={() => setTab(item.id)}
+                >
+                  {Tab === item.id && (
+                    <span className="text-xl animate-[spin_3s_linear_infinite] inline-block font-bold">
+                      {item.icon}
+                    </span>
+                  )}
+                  
+                  {item.label}
+                  
+                  {Tab === item.id && (
+                    <span className="text-xl animate-[spin_3s_linear_infinite_reverse] inline-block font-bold">
+                      {item.icon}
+                    </span>
+                  )}
+                </a>
+              </li>
+            ))}
           </span>
 
           <li className="w-full lg:w-auto text-center">
