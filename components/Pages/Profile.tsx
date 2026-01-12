@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { 
   FaGithub, FaLinkedin, FaServer, FaHdd, 
-  FaMicrochip, FaBolt, FaHistory, FaMoneyBillWave, FaGamepad 
+  FaMicrochip, FaBolt, FaHistory, FaMoneyBillWave, FaGamepad, 
+  FaInfinity
 } from "react-icons/fa";
 import { Button } from "../ui/button";
 
@@ -115,7 +116,9 @@ export function Profile() {
           <div className="bg-green-100 dark:bg-green-900 border-4 border-black dark:border-white p-4 shadow-[8px_8px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff] text-black dark:text-white">
              <div className="flex justify-between items-center mb-1">
                 <span className="font-black text-sm flex items-center gap-2"><FaMoneyBillWave /> LOOT TARGET</span>
-                <span className="font-bold text-xs">100M IDR</span>
+                <div className="flex">
+                  <FaInfinity /> <span className="font-bold text-xs"> IDR</span>
+                </div>
              </div>
              <div className="w-full bg-white dark:bg-zinc-800 border-2 border-black dark:border-white h-4 rounded-none relative">
                 <div className="bg-green-500 h-full w-[15%] absolute top-0 left-0 border-r-2 border-black dark:border-white animate-pulse"></div>
