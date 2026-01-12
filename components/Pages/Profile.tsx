@@ -44,7 +44,7 @@ export function Profile() {
             Rico <span className="text-transparent bg-clip-text bg-blue-600">Eriansyah</span>
           </h1>
           <p className="text-lg md:text-xl font-mono mt-2 font-bold text-gray-600 dark:text-gray-300">
-            Full-Stack Engineer & Educator
+            Educator, Full-Stack Engineer Enthusiast & DevOps Enthusiast
           </p>
 
           <article className="mt-8 relative bg-white dark:bg-zinc-800 border-2 border-black dark:border-white">
