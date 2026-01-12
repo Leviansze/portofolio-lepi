@@ -29,7 +29,7 @@ export function Profile() {
               className="w-64 md:w-[350px] lg:w-[380px] object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
             />
             <div className="mt-2 text-center font-mono font-bold text-sm bg-black text-white py-1">
-              IMG_2026_PROFILE.JPG
+              PROFILE_RICO_ERIANSYAH.PNG
             </div>
           </div>
           
