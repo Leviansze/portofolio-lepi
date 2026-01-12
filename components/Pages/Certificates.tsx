@@ -10,7 +10,7 @@ export function Certificates() {
         <div className="relative inline-block">
           <div className="absolute top-2 left-2 w-full h-full bg-black -z-10"></div>
           <h1 className="flex items-center gap-3 bg-green-400 text-3xl md:text-5xl font-black uppercase text-black border-4 border-black px-8 py-6 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
-            Certifications 🏅
+            My Certifications 🏅
           </h1>
         </div>
       </div>
