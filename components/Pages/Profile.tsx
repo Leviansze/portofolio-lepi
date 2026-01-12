@@ -21,19 +21,19 @@ export function Profile() {
 
   const changelog = [
     {
-      ver: "v2023.10 (Current)",
+      ver: "v2023.10 - Current",
       role: "Sensei / Code Guru",
       loc: "SMK Purnawarman",
       desc: "Installing Knowledge.exe to students. Debugging human errors. Compiling future devs.",
     },
     {
-      ver: "v2024.1 (Current)",
+      ver: "v2024.1 - Current",
       role: "Dungeon Master (Lab Tech)",
       loc: "SMK Purnawarman",
       desc: "Guarded the Silicon Sanctuary. Upgraded hardware stats. Prevented students from rm -rf /.",
     },
     {
-      ver: "v2024.10",
+      ver: "v2024.10 - v2025.3",
       role: "Pixel Pusher & Logic Bender",
       loc: "Wako GmbH/Remote",
       desc: "Crafted Meshify & AIDDDO. Converted caffeine into deployable code.",
@@ -194,7 +194,7 @@ export function Profile() {
              </h4>
              <div className="space-y-3">
                 {changelog.map((log, i) => (
-                   <div key={i} className="flex items-start gap-3 bg-white dark:bg-zinc-900 p-3 border-2 border-black dark:border-white shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] hover:translate-x-1 transition-transform">
+                   <div key={i} className="flex flex-col md:flex-row items-start gap-3 bg-white dark:bg-zinc-900 p-3 border-2 border-black dark:border-white shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] hover:translate-x-1 transition-transform">
                       <span className="shrink-0 bg-black dark:bg-white text-white dark:text-black text-xs font-bold px-2 py-1 mt-1">{log.ver}</span>
                       <div>
                          <h5 className="font-black text-sm uppercase text-black dark:text-white">{log.role} <span className="text-gray-500">@{log.loc}</span></h5>

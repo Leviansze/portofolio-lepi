@@ -46,7 +46,7 @@ export const Projects = [
     {
         id: 'project-five',
         title: 'SMK Purnawarman Student Cloud Infrastructure',
-        techStack: 'TrueNAS SCALE, FastPanel, Cloudflare Tunnel',
+        techStack: 'Linux, TrueNAS, FastPanel, Cloudflare Tunnel',
         description: "Built-y and set-upped a home-baked cloud thingy for code-learners. Uses make-believe machines to run FastPanel doohickeys, givin' kiddos auto-subdomain-makey and safe peep-in from afar with Cloudflare Zero Trust tunnels",
         liveDemoLink: '#',
         sourceCodeLink: '#',
