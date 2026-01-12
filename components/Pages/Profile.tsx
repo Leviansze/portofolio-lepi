@@ -61,7 +61,7 @@ export function Profile() {
 
             <div className="p-6">
               <p className="text-base md:text-lg text-black dark:text-white font-medium leading-relaxed">
-                <span className="font-bold bg-yellow-300 dark:text-black px-1">Teacher by day, DevOps by night.</span> I specialize in building robust applications using Laravel & React, backed by deep expertise in infrastructure (TrueNAS, Docker). Currently creating local AI solutions and managing homelabs.
+                <span className="font-bold bg-yellow-300 dark:text-black px-1">Teach by sun, Full-Stack & DevOps by moon!</span> Me good at buildy strong apps with Laravel & React thingies, plus, I know lots &apos;bout TrueNAS, Docker stuff. Now makin&apos; AI at home and playin&apos; with my lil&apos; computer lab!
               </p>
 
               <div className="mt-6">

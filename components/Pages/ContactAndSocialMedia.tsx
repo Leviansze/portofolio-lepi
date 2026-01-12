@@ -59,7 +59,7 @@ export function ContactAndSocialMedia() {
       
       <div className="text-center mb-12">
         <h1 className="inline-block text-4xl md:text-6xl font-black uppercase text-black dark:text-white bg-pink-400 border-4 border-black px-6 py-4 shadow-[8px_8px_0_0_#000] rotate-1 hover:rotate-0 transition-all">
-          Let&apos;s Connect 🤙
+          Le&apos;s go connecty-connect 🤙
         </h1>
       </div>
 
@@ -74,9 +74,9 @@ export function ContactAndSocialMedia() {
                 </div>
                 
                 <div className="mt-6 mb-8 text-center border-b-4 border-black dark:border-white pb-4">
-                    <h2 className="text-3xl font-black uppercase">Send a Message</h2>
+                    <h2 className="text-3xl font-black uppercase">Send Me Da Message, Plz</h2>
                     <p className="font-mono text-sm mt-2 font-bold text-gray-600 dark:text-gray-400">
-                        I usually reply within 24 hours
+                        Me usually answer quick-quick, like a day-ish, maybe!
                     </p>
                 </div>
 
@@ -88,11 +88,11 @@ export function ContactAndSocialMedia() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="text-lg font-bold uppercase bg-yellow-300 dark:bg-yellow-600 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000]">
-                                        Full Name
+                                        Yer Whole Name Thingy
                                     </FormLabel>
                                     <FormControl>
                                         <Input 
-                                            placeholder="Enter your name..." 
+                                            placeholder="Put name here-o..." 
                                             {...field} 
                                             className="h-12 border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-lg shadow-[4px_4px_0_0_#000] focus-visible:ring-0 focus-visible:bg-white focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all"
                                         />
@@ -107,7 +107,7 @@ export function ContactAndSocialMedia() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="text-lg font-bold uppercase bg-cyan-300 dark:bg-cyan-700 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000]">
-                                        Email Address
+                                        Yer Email Placey-Thing
                                     </FormLabel>
                                     <FormControl>
                                         <Input 
@@ -126,12 +126,12 @@ export function ContactAndSocialMedia() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="text-lg font-bold uppercase bg-green-300 dark:bg-green-700 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000]">
-                                        Your Message
+                                        Yer Messidge
                                     </FormLabel>
                                     <FormControl>
                                         <Textarea 
                                             rows={5} 
-                                            placeholder="Tell me about your project..." 
+                                            placeholder="Tell me 'bout projecty thingy..." 
                                             {...field} 
                                             className="border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-lg shadow-[4px_4px_0_0_#000] focus-visible:ring-0 focus-visible:bg-white focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all resize-none"
                                         />
@@ -144,7 +144,7 @@ export function ContactAndSocialMedia() {
                             type="submit" 
                             className="w-full h-14 bg-black text-white text-xl font-black uppercase tracking-widest border-2 border-black shadow-[6px_6px_0_0_#888] hover:bg-zinc-800 hover:shadow-[2px_2px_0_0_#888] hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-none cursor-pointer"
                         >
-                            <FaPaperPlane className="mr-3" /> Send Message
+                            <FaPaperPlane className="mr-3" /> Sendy Mess Mess
                         </Button>
                     </form>
                 </Form>
@@ -154,7 +154,7 @@ export function ContactAndSocialMedia() {
         <div className="w-full lg:w-1/2 flex flex-col gap-8">
             <div className="bg-purple-200 dark:bg-purple-900 border-4 border-black dark:border-white p-8 shadow-[12px_12px_0_0_#000] dark:shadow-[12px_12px_0_0_#fff] h-full flex flex-col justify-center">
                 <h2 className="text-3xl font-black text-black dark:text-black uppercase text-center mb-8 bg-white border-2 border-black p-2 shadow-[4px_4px_0_0_#000] transform -rotate-1">
-                    Find Me Online 🌐
+                    Me Findable on Webz 🌐
                 </h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -178,8 +178,8 @@ export function ContactAndSocialMedia() {
                 </div>
 
                 <div className="mt-8 bg-black p-4 text-white text-center font-mono text-sm border-2 border-white shadow-[4px_4px_0_0_rgba(0,0,0,0.2)]">
-                   <p className="font-bold">LOCATION: INDONESIA</p>
-                   <p className="text-zinc-400">STATUS: OPEN FOR WORK</p>
+                   <p className="font-bold">PLACE: INDONESIA-LAND!</p>
+                   <p className="text-zinc-400">STATUS: ME OPEN FOR JOB NOW!</p>
                 </div>
             </div>
         </div>
