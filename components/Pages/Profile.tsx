@@ -49,7 +49,7 @@ export function Profile() {
 
   const projects = [
     { 
-      title: "LOOT TARGET: GET_RICH_QUICK", 
+      title: "GET_RICH_QUICK", 
       desc: "Automated side-hustles. Monetizing free time like a pro gamer farming XP.", 
       hp: "LOADING...",
       color: "bg-green-200 dark:bg-green-900 dark:text-white"
