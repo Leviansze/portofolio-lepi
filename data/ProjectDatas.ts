@@ -81,7 +81,7 @@ export const Projects = [
         title: 'PT. Jinyu Kreasi Manufaktur Profile',
         techStack: 'Laravel, TANSTACK, Tailwind CSS',
         description: "Corporate digital presence and e-catalog for a manufacturing firm. SEO-optimized and fully responsive. Showcases heavy machinery products and company portfolios with a high-performance modern UI.",
-        liveDemoLink: 'ptjkm.com',
+        liveDemoLink: 'https://ptjkm.com',
         sourceCodeLink: 'https://wa.me/6285158442031/?text=Halo%20saya%20ingin%20menyewa%20jasa%20pembuatan%20website%20perusahaan%20seperti%20ini.',
         imageSrc: '/projects/project-eight.png',
         imageWidth: 1500,
