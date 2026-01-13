@@ -50,7 +50,7 @@ export const Projects = [
         description: "A lightweight social media platform focused on storytelling. Features a clean, distraction-free UI for sharing posts and media. Built for speed and simplicity, supporting essential interactions like likes and comments without the algorithmic bloat.",
         liveDemoLink: 'https://feedsapp.erilina.my.id',
         sourceCodeLink: 'https://github.com/ricoerian/social-media-frontend',
-        imageSrc: '/projects/project-five.png',
+        imageSrc: '/projects/project-fivee.png',
         imageWidth: 1500,
         imageHeight: 1500,
     },
