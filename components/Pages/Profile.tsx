@@ -122,7 +122,7 @@ export function Profile() {
           <div className="bg-green-100 dark:bg-green-900 border-4 border-black dark:border-white p-4 shadow-[8px_8px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff] text-black dark:text-white">
              <div className="flex justify-between items-center mb-1">
                 <span className="font-black text-sm flex items-center gap-2"><FaMoneyBillWave /> LOOT TARGET</span>
-                <div className="flex">
+                <div className="flex gap-2">
                   <FaInfinity /> <span className="font-bold text-xs"> IDR</span>
                 </div>
              </div>
