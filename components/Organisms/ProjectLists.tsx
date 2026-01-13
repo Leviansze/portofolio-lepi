@@ -37,7 +37,7 @@ export const ProjectLists = ({
                             <div className="h-4 w-4 rounded-full border-2 border-black bg-green-500 hover:bg-green-400"></div>
                         </div>
                         <div className="ml-4 flex-1 rounded-sm border-2 border-black dark:border-gray-500 bg-white dark:bg-black px-2 py-0.5 text-xs font-mono font-bold text-gray-500 dark:text-gray-300 truncate">
-                            localhost/projects/{title.toLowerCase().replace(/\s/g, '-')}
+                            localhost/projects/{title.toLowerCase().replace(/[^a-z0-9]/g, '-')}
                         </div>
                     </div>
 

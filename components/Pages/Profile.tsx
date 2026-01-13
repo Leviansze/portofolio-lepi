@@ -15,29 +15,29 @@ export function Profile() {
   ];
 
   const serverSpecs = [
-    { label: "Brain", value: "Dual Xeon E5 V4", icon: <FaMicrochip /> },
-    { label: "Storage", value: "30x Screaming HDDs", icon: <FaHdd /> },
-    { label: "Power", value: "Meter Spinnin' Like DJ", icon: <FaBolt /> },
+    { label: "Processor", value: "Dual AMD EPYC™ 9654", icon: <FaMicrochip /> },
+    { label: "Storage", value: "??? Enterprise NVMe", icon: <FaHdd /> },
+    { label: "Power", value: "Caffeine Power ☕", icon: <FaBolt /> },
   ];
 
   const changelog = [
     {
       ver: "v2023.10 - Current",
-      role: "Sensei / Code Guru",
+      role: "Teacher / Code Guru",
       loc: "SMK Purnawarman",
-      desc: "Installing Knowledge.exe to students. Debugging human errors. Compiling future devs.",
+      desc: "Deploying Knowledge.exe to students. Debugging syntax errors. Compiling the next generation of devs.",
     },
     {
       ver: "v2024.1 - Current",
-      role: "Dungeon Master (Lab Tech)",
+      role: "Lab (Tech) Master",
       loc: "SMK Purnawarman",
-      desc: "Guarded the Silicon Sanctuary. Upgraded hardware stats. Prevented students from rm -rf /.",
+      desc: "Managed the Silicon Sanctuary. Upgraded hardware stats. Prevented students from running rm -rf /.",
     },
     {
       ver: "v2024.10 - v2025.3",
       role: "Pixel Pusher & Logic Bender",
       loc: "Wako GmbH/Remote",
-      desc: "Crafted Meshify & AIDDDO. Converted caffeine into deployable code.",
+      desc: "Architected Meshify & AIDDDO. Converted caffeine into deployable production code.",
     },
     {
       ver: "v????.??",
@@ -49,20 +49,26 @@ export function Profile() {
 
   const projects = [
     { 
+      title: "LOOT TARGET: GET_RICH_QUICK", 
+      desc: "Automated side-hustles. Monetizing free time like a pro gamer farming XP.", 
+      hp: "LOADING...",
+      color: "bg-green-200 dark:bg-green-900 dark:text-white"
+    },
+    { 
       title: "PROJECT: DATA_HOARDER", 
-      desc: "Dell R730 Beast. 30 Drives. Sounds like jet engine. Stores the Matrix.", 
+      desc: "Dell R730 Beast. 30 Drives. Acoustics of a jet engine. Archiving the Matrix.", 
       hp: "99% UP",
       color: "bg-yellow-200 dark:bg-yellow-900 dark:text-white"
     },
     { 
       title: "GATEWAY_FOR_KIDS", 
-      desc: "Free hosting via Cloudflare Tunnels. Because localhos is lonely.", 
+      desc: "Free hosting via Cloudflare Tunnels. Because localhost is too lonely.", 
       hp: "85% UP",
       color: "bg-blue-200 dark:bg-blue-900 dark:text-white"
     },
     { 
       title: "MINDSET_PATCH_V1", 
-      desc: "Stoicism.exe running. Handling production crashes without tears.", 
+      desc: "Stoicism.exe running. Handling production crashes with zero panic.", 
       hp: "LOADING...",
       color: "bg-red-200 dark:bg-red-900 dark:text-white"
     }
@@ -91,7 +97,7 @@ export function Profile() {
                 className="w-full aspect-square object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300 border border-black dark:border-white"
               />
               <div className="mt-2 text-center font-black text-lg bg-yellow-400 text-black border-y-2 border-black dark:border-white py-1 uppercase tracking-tighter">
-                Lvl. ??? Technomancer
+                Lvl. 25 Technomancer
               </div>
             </div>
             <div className="absolute -top-6 -right-6 bg-red-500 text-white border-2 border-black dark:border-white px-3 py-2 text-sm font-bold shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] rotate-[10deg] animate-pulse">
@@ -164,13 +170,13 @@ export function Profile() {
               <p className="text-base md:text-lg text-black dark:text-white font-medium leading-relaxed">
                 <span className="font-bold bg-yellow-300 text-black px-1 mr-1"> $ whoami </span>
                 <br/>
-                Me Rico. Day time: Me teach small humans how to code. Night time: Me retreat to Man-Cave (HomeLab).
+                I am Rico. By day, I empower students to become software engineers. By night, I retreat to my Homelab to manage bare-metal infrastructure.
                 <br/><br/>
-                Me like expensive server parts. Me try to be Stoic, but broken production make me sad inside. Currently trying to run AI Brain locally because Cloud is expensive.
+                I have a passion for enterprise hardware and Stoic philosophy—though production outages still test my patience. Currently optimizing local AI models to bypass expensive cloud costs.
               </p>
 
               <div className="mt-6">
-                <h4 className="font-bold text-sm uppercase mb-3 underline decoration-wavy decoration-red-500 text-black dark:text-white">Weapon Inventory:</h4>
+                <h4 className="font-bold text-sm uppercase mb-3 underline decoration-wavy decoration-red-500 text-black dark:text-white">Tech Arsenal:</h4>
                 <div className="flex flex-wrap gap-2">
                   {techStack.map((tech, index) => (
                     <span 
@@ -200,8 +206,8 @@ export function Profile() {
                    <div key={i} className="flex flex-col md:flex-row items-start gap-3 bg-white dark:bg-zinc-900 p-3 border-2 border-black dark:border-white shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] hover:translate-x-1 transition-transform">
                       <span className="shrink-0 bg-black dark:bg-white text-white dark:text-black text-xs font-bold px-2 py-1 mt-1">{log.ver}</span>
                       <div>
-                         <h5 className="font-black text-sm uppercase text-black dark:text-white">{log.role} <span className="text-gray-500">@{log.loc}</span></h5>
-                         <p className="text-sm leading-tight text-gray-700 dark:text-gray-300">{log.desc}</p>
+                          <h5 className="font-black text-sm uppercase text-black dark:text-white">{log.role} <span className="text-gray-500">@{log.loc}</span></h5>
+                          <p className="text-sm leading-tight text-gray-700 dark:text-gray-300">{log.desc}</p>
                       </div>
                    </div>
                 ))}

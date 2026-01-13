@@ -22,10 +22,11 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '../ui/textarea';
 
 export function ContactAndSocialMedia() {
+  // Validasi diperbaiki agar lebih profesional namun tetap teknis
   const formSchema = z.object({
-    fullname: z.string().min(2, { message: 'Name too short. Are you a bot?' }),
-    email: z.string().email({ message: 'Invalid protocol format (Email).' }),
-    message: z.string().min(10, { message: 'Data packet too small (min 10 chars).' }),
+    fullname: z.string().min(2, { message: 'Identity string is too short.' }),
+    email: z.string().email({ message: 'Invalid address protocol (Email).' }),
+    message: z.string().min(10, { message: 'Payload is too small (min. 10 chars).' }),
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -36,7 +37,7 @@ export function ContactAndSocialMedia() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const recipient = "ricoeriansyahm@gmail.com";
     const subject = encodeURIComponent(`[INCOMING TRANSMISSION]: ${values.fullname}`);
-    const body = encodeURIComponent(`SENDER_NAME: ${values.fullname}\nSENDER_EMAIL: ${values.email}\n\nPAYLOAD:\n${values.message}`);
+    const body = encodeURIComponent(`SENDER_IDENTITY: ${values.fullname}\nRETURN_ADDRESS: ${values.email}\n\nDATA_PAYLOAD:\n${values.message}`);
     window.open(`mailto:${recipient}?subject=${subject}&body=${body}`, '_blank');
   }
 
@@ -57,13 +58,12 @@ export function ContactAndSocialMedia() {
       <div className="text-center mb-16 relative">
         <div className="absolute w-full h-1 bg-black dark:bg-white top-1/2 -z-10"></div>
         <h1 className="inline-flex items-center gap-3 text-3xl md:text-5xl font-black uppercase text-black bg-pink-400 border-4 border-black dark:border-white px-8 py-6 shadow-[8px_8px_0_0_#fff] dark:shadow-[8px_8px_0_0_#888] rotate-1 hover:rotate-0 transition-all hover:scale-105">
-          <FaWifi className="animate-ping text-2xl" /> ESTABLISH_UPLINK
+          <FaWifi className="animate-ping text-2xl" /> CONNECTIVITY_HUB
         </h1>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 px-4 max-w-7xl mx-auto">
         
-        {/* LEFT: FORM */}
         <div className="w-full lg:w-1/2">
             <div className="bg-white dark:bg-zinc-900 border-4 border-black dark:border-white shadow-[12px_12px_0_0_#000] dark:shadow-[12px_12px_0_0_#fff] p-8 relative">
                 <div className="absolute top-0 left-0 w-full h-10 bg-black dark:bg-white flex items-center justify-between px-4 border-b-4 border-black dark:border-white">
@@ -90,11 +90,11 @@ export function ContactAndSocialMedia() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="text-sm font-black uppercase bg-yellow-300 dark:bg-yellow-600 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]">
-                                        SENDER_ID (NAME)
+                                         SENDER_ID (NAME)
                                     </FormLabel>
                                     <FormControl>
                                         <Input 
-                                            placeholder="Enter your identifier..." 
+                                            placeholder="e.g. Rico Eriansyah" 
                                             {...field} 
                                             className="h-12 border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-black dark:text-white text-lg shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] focus-visible:ring-0 focus-visible:bg-white dark:focus-visible:bg-zinc-700 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all"
                                         />
@@ -109,11 +109,11 @@ export function ContactAndSocialMedia() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="text-sm font-black uppercase bg-cyan-300 dark:bg-cyan-700 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]">
-                                        RETURN_ADDRESS (EMAIL)
+                                         RETURN_ADDRESS (EMAIL)
                                     </FormLabel>
                                     <FormControl>
                                         <Input 
-                                            placeholder="protocol@example.com" 
+                                            placeholder="sender@network.com" 
                                             {...field} 
                                             className="h-12 border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-black dark:text-white text-lg shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] focus-visible:ring-0 focus-visible:bg-white dark:focus-visible:bg-zinc-700 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all"
                                         />
@@ -128,12 +128,12 @@ export function ContactAndSocialMedia() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="text-sm font-black uppercase bg-green-300 dark:bg-green-700 px-2 border-2 border-black dark:border-white text-black dark:text-white inline-block shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]">
-                                        DATA_PAYLOAD (MESSAGE)
+                                         DATA_PAYLOAD (MESSAGE)
                                     </FormLabel>
                                     <FormControl>
                                         <Textarea 
                                             rows={5} 
-                                            placeholder="Encrypting message..." 
+                                            placeholder="Initialize transmission content..." 
                                             {...field} 
                                             className="border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-black dark:text-white text-lg shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] focus-visible:ring-0 focus-visible:bg-white dark:focus-visible:bg-zinc-700 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all resize-none"
                                         />
@@ -153,7 +153,6 @@ export function ContactAndSocialMedia() {
             </div>
         </div>
 
-        {/* RIGHT: SOCIALS */}
         <div className="w-full lg:w-1/2 flex flex-col gap-8">
             <div className="bg-purple-200 dark:bg-purple-900 border-4 border-black dark:border-white p-8 shadow-[12px_12px_0_0_#000] dark:shadow-[12px_12px_0_0_#fff] h-full flex flex-col">
                 
