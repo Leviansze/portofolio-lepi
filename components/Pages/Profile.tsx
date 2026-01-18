@@ -97,7 +97,7 @@ export function Profile() {
                 className="w-full aspect-square object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300 border border-black dark:border-white"
               />
               <div className="mt-2 text-center font-black text-lg bg-yellow-400 text-black border-y-2 border-black dark:border-white py-1 uppercase tracking-tighter">
-                Lvl. 25 Technomancer
+                Lvl. ??? Technomancer
               </div>
             </div>
             <div className="absolute -top-6 -right-6 bg-red-500 text-white border-2 border-black dark:border-white px-3 py-2 text-sm font-bold shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] rotate-[10deg] animate-pulse">
@@ -107,7 +107,7 @@ export function Profile() {
 
           <div className="bg-white border-2 border-black p-4 shadow-[4px_4px_0_0_#000] dark:bg-zinc-800 dark:border-white dark:shadow-[4px_4px_0_0_#fff]">
             <h3 className="font-black text-sm uppercase mb-3 flex items-center gap-2 border-b-2 border-black dark:border-white pb-2 text-black dark:text-white">
-              <FaServer /> RIG_STATS.JSON
+              <FaServer /> SERVER_STATS.JSON
             </h3>
             <ul className="space-y-3">
               {serverSpecs.map((spec, i) => (
