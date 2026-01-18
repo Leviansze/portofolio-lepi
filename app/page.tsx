@@ -87,7 +87,7 @@ function MainContent() {
 
           <li className="w-full lg:w-auto text-center mt-4 lg:mt-0">
             <button
-              className="w-full lg:w-auto inline-flex items-center justify-center gap-2 border-2 border-black dark:border-white bg-red-600 px-6 py-3 font-black uppercase text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] hover:bg-red-700 hover:rotate-2 hover:scale-105 active:scale-95 transition-all cursor-pointer animate-pulse tracking-widest rounded-md"
+              className="w-full lg:w-auto inline-flex items-center justify-center gap-2 border-2 border-black dark:border-white bg-red-600 px-6 py-3 font-black uppercase text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] hover:bg-red-700 hover:rotate-2 hover:scale-105 active:scale-95 transition-all cursor-pointer tracking-widest rounded-md"
               onClick={() => setShowWarning(true)}
             >
               <FaSkull /> Don&apos;t Click Me
