@@ -6,11 +6,12 @@ import { Profile } from "@/components/Pages/Profile";
 import { Projects } from "@/components/Pages/Projects";
 import { Certificates } from "@/components/Pages/Certificates";
 import { ContactAndSocialMedia } from "@/components/Pages/ContactAndSocialMedia";
-import { FaSkull, FaExclamationTriangle } from "react-icons/fa";
+import { FaSkull } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { SecurityWarningModal } from "@/components/Chaos/SecurityWarningModal";
 
-const ChaosOverlay = dynamic(() => import("@/components/ChaosOverlay"), {
+const ChaosOverlay = dynamic(() => import("@/components/Chaos/ChaosOverlay"), {
   ssr: false,
 });
 
@@ -28,75 +29,74 @@ function MainContent() {
       </div>
 
       {chaosMode && (
-        <ChaosOverlay onClose={() => setChaosMode(false)} />
+        <ChaosOverlay onReboot={() => setChaosMode(false)} />
       )}
 
       {showWarning && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 animate-in fade-in duration-200">
-           <div className="bg-yellow-400 dark:bg-yellow-600 border-4 border-black dark:border-white p-8 max-w-lg w-full shadow-[10px_10px_0_0_#000]">
-            <div className="flex items-center gap-2 font-bold text-2xl mb-4 uppercase">
-               <FaExclamationTriangle /> Security Alert
-            </div>
-            <p className="font-bold mb-6 text-lg">
-              Execute dangerous script? This may cause visual distortions and audio playback.
-            </p>
-            <div className="flex flex-col gap-3">
-              <button
-                onClick={() => { setShowWarning(false); setChaosMode(true); }}
-                className="w-full bg-black text-red-500 font-bold py-3 uppercase hover:bg-red-600 hover:text-black transition-colors"
-              >
-                <FaSkull className="inline mr-2"/> I ACCEPT THE RISK
-              </button>
-              <button
-                onClick={() => setShowWarning(false)}
-                className="w-full bg-white text-black font-bold py-3 uppercase border-2 border-black hover:bg-gray-200"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <SecurityWarningModal 
+          onConfirm={() => {
+            setShowWarning(false);
+            setChaosMode(true);
+          }}
+          onCancel={() => setShowWarning(false)}
+        />
       )}
 
-      <nav className="relative z-10 px-4 py-6 md:px-8 mx-auto max-w-7xl">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-6 border-b-4 border-black dark:border-white pb-6 bg-white dark:bg-zinc-900">
+      <nav className="relative z-10 px-4 py-6 md:px-8 mx-auto">
+        <ul className="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-0 border-4 border-black dark:border-white p-4 lg:p-6 shadow-[6px_6px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff] bg-white dark:bg-zinc-900 transition-all">
           
-          <ul className="flex flex-wrap justify-center gap-3 w-full lg:w-auto">
+          <span className="flex flex-col md:flex-row gap-4 lg:space-x-4 text-center w-full lg:w-auto">
             {[
-              { id: "Profile", label: "Profile" },
-              { id: "Projects", label: "Projects" },
-              { id: "Certificates", label: "Certificates" },
-              { id: "ContactAndSocialMedia", label: "Contact" },
+              { id: "Profile", label: "Profile", color: "bg-blue-500 dark:bg-blue-800", icon: "★" },
+              { id: "Projects", label: "Projects", color: "bg-yellow-300 dark:bg-yellow-600", icon: "✦" },
+              { id: "Certificates", label: "Certificates", color: "bg-green-500 dark:bg-green-700", icon: "☀" },
+              { id: "ContactAndSocialMedia", label: "Contact", color: "bg-pink-400 dark:bg-pink-700", icon: "☎" },
             ].map((item) => (
-              <li key={item.id}>
+              <li key={item.id} className="w-full md:w-auto">
                 <Link
                   href={item.id === "Profile" ? "/" : `/?tab=${item.id}`}
                   scroll={false}
                   className={`
-                    block border-2 border-black dark:border-white px-4 py-2 font-bold uppercase
-                    transition-all
+                    ${item.color} 
+                    block border-2 border-black dark:border-white px-6 py-3 font-black text-black dark:text-white text-lg uppercase tracking-tight
+                    shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] transition-all cursor-pointer
+                    flex items-center justify-center rounded-md gap-2
                     ${currentTab === item.id 
-                      ? "bg-black text-white dark:bg-white dark:text-black translate-x-1 translate-y-1 shadow-none" 
-                      : "bg-white dark:bg-zinc-800 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000]"
+                      ? "translate-x-[2px] translate-y-[2px] shadow-none ring-2 ring-black dark:ring-white brightness-110" 
+                      : "hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000]"
                     }
                   `} 
                 >
+                  {currentTab === item.id && (
+                    <span className="text-xl animate-[spin_3s_linear_infinite] inline-block font-bold">
+                      {item.icon}
+                    </span>
+                  )}
+                  
                   {item.label}
+                  
+                  {currentTab === item.id && (
+                    <span className="text-xl animate-[spin_3s_linear_infinite_reverse] inline-block font-bold">
+                      {item.icon}
+                    </span>
+                  )}
                 </Link>
               </li>
             ))}
-          </ul>
+          </span>
 
-          <button
-            className="px-6 py-2 bg-red-600 text-white font-black uppercase border-2 border-black shadow-[4px_4px_0_0_#000] hover:bg-red-700 animate-pulse"
-            onClick={() => setShowWarning(true)}
-          >
-            <FaSkull className="inline mr-2" /> Don&apos;t Click
-          </button>
-        </div>
+          <li className="w-full lg:w-auto text-center mt-4 lg:mt-0">
+            <button
+              className="w-full lg:w-auto inline-flex items-center justify-center gap-2 border-2 border-black dark:border-white bg-red-600 px-6 py-3 font-black uppercase text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] hover:bg-red-700 hover:rotate-2 hover:scale-105 active:scale-95 transition-all cursor-pointer animate-pulse tracking-widest rounded-md"
+              onClick={() => setShowWarning(true)}
+            >
+              <FaSkull /> Don&apos;t Click Me
+            </button>
+          </li>
+        </ul>
       </nav>
 
-      <main className="px-4 py-8 md:px-8 max-w-7xl mx-auto min-h-[60vh]">
+      <main className="px-4 py-2 md:px-8 md:py-4">
         {currentTab === "Profile" && <Profile />}
         {currentTab === "Projects" && <Projects />}
         {currentTab === "Certificates" && <Certificates />}
@@ -108,11 +108,7 @@ function MainContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-zinc-950 font-mono">
-        LOADING SYSTEM...
-      </div>
-    }>
+    <Suspense fallback={<div className="min-h-screen bg-white dark:bg-zinc-950"></div>}>
       <MainContent />
     </Suspense>
   );
