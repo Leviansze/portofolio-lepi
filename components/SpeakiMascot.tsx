@@ -19,11 +19,14 @@ export default function SpeakiMascot() {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const mascotRef = useRef<HTMLDivElement>(null);
-  const dragOffset = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  
   const walkIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const actionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  const dragStartPos = useRef<{ x: number; y: number } | null>(null);
+  const dragOffset = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const isPointerDown = useRef(false);
+  const hasMoved = useRef(false);
 
   const normalImage = "/speaki.png";
   const talkImage = "/speaki-cry.png";
@@ -64,92 +67,122 @@ export default function SpeakiMascot() {
     });
   }, []);
 
-  const handleClick = useCallback((e: React.MouseEvent) => {
-    if (status === 'DRAGGING' || status === 'FALLING' || status === 'LANDING') return;
-    
-    e.stopPropagation();
-    
-    setStatus('INTERACTING');
-    
-    playRandomSound();
-    
-    if (actionTimeoutRef.current) clearTimeout(actionTimeoutRef.current);
-    actionTimeoutRef.current = setTimeout(() => {
-      setStatus('WALKING');
-      moveBottomOnly();
-    }, 2500); 
-  }, [status, playRandomSound, moveBottomOnly]);
-
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleStart = useCallback((clientX: number, clientY: number) => {
     if (status === 'FALLING' || status === 'LANDING') return;
 
     if (walkIntervalRef.current) clearInterval(walkIntervalRef.current);
     if (actionTimeoutRef.current) clearTimeout(actionTimeoutRef.current);
 
+    isPointerDown.current = true;
+    hasMoved.current = false;
+    dragStartPos.current = { x: clientX, y: clientY };
+
     if (mascotRef.current) {
       const rect = mascotRef.current.getBoundingClientRect();
       setPosition({ top: rect.top, left: rect.left });
-      
       dragOffset.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
+        x: clientX - rect.left,
+        y: clientY - rect.top
       };
     }
-
-    setStatus('DRAGGING');
   }, [status]);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (status !== 'DRAGGING') return;
+  const handleMove = useCallback((clientX: number, clientY: number) => {
+    if (!isPointerDown.current || !dragStartPos.current) return;
 
-    const newLeft = e.clientX - dragOffset.current.x;
-    const newTop = e.clientY - dragOffset.current.y;
+    const moveThreshold = 5;
+    const deltaX = Math.abs(clientX - dragStartPos.current.x);
+    const deltaY = Math.abs(clientY - dragStartPos.current.y);
 
-    setPosition({ top: newTop, left: newLeft });
-
-    if (position && newLeft < position.left) setIsFlipped(true);
-    else if (position && newLeft > position.left) setIsFlipped(false);
-  }, [status, position]);
-
-  const handleMouseUp = useCallback(() => {
-    if (status !== 'DRAGGING') return;
-
-    const floorY = getFloorLevel();
-    
-    if (position && position.top < floorY - 20) {
-      setStatus('FALLING');
-      
-      setPosition((prev) => prev ? { ...prev, top: floorY } : null);
-
-      actionTimeoutRef.current = setTimeout(() => {
-        setStatus('LANDING'); 
-        playRandomSound();    
-        
-        setTimeout(() => {
-          setStatus('WALKING');
-        }, 1500); 
-        
-      }, 500); 
-
-    } else {
-      setStatus('WALKING');
+    if (!hasMoved.current && (deltaX > moveThreshold || deltaY > moveThreshold)) {
+        hasMoved.current = true;
+        setStatus('DRAGGING');
     }
-  }, [status, position, getFloorLevel, playRandomSound]);
+
+    if (hasMoved.current) {
+        const newLeft = clientX - dragOffset.current.x;
+        const newTop = clientY - dragOffset.current.y;
+
+        setPosition({ top: newTop, left: newLeft });
+
+        if (position && newLeft < position.left) setIsFlipped(true);
+        else if (position && newLeft > position.left) setIsFlipped(false);
+    }
+  }, [position]);
+
+  const handleEnd = useCallback(() => {
+    if (!isPointerDown.current) return;
+    isPointerDown.current = false;
+
+    if (hasMoved.current) {
+        const floorY = getFloorLevel();
+        if (position && position.top < floorY - 20) {
+            setStatus('FALLING');
+            setPosition((prev) => prev ? { ...prev, top: floorY } : null);
+
+            actionTimeoutRef.current = setTimeout(() => {
+                setStatus('LANDING'); 
+                playRandomSound();    
+                
+                setTimeout(() => {
+                    setStatus('WALKING');
+                }, 1500); 
+                
+            }, 500); 
+        } else {
+            setStatus('WALKING');
+        }
+    } else {
+        setStatus('INTERACTING');
+        playRandomSound();
+        
+        if (actionTimeoutRef.current) clearTimeout(actionTimeoutRef.current);
+        actionTimeoutRef.current = setTimeout(() => {
+            setStatus('WALKING');
+            moveBottomOnly();
+        }, 2500); 
+    }
+  }, [position, getFloorLevel, playRandomSound, moveBottomOnly]);
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleStart(e.clientX, e.clientY);
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length > 0) {
+        handleStart(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
 
   useEffect(() => {
-    if (status === 'DRAGGING') {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-    } else {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    }
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+    const onWindowMouseMove = (e: MouseEvent) => handleMove(e.clientX, e.clientY);
+    const onWindowMouseUp = () => handleEnd();
+    
+    const onWindowTouchMove = (e: TouchEvent) => {
+        if (isPointerDown.current && hasMoved.current) {
+             e.preventDefault(); 
+        }
+        if (e.touches.length > 0) {
+            handleMove(e.touches[0].clientX, e.touches[0].clientY);
+        }
     };
-  }, [status, handleMouseMove, handleMouseUp]);
+    const onWindowTouchEnd = () => handleEnd();
+
+    if (isPointerDown.current) {
+      window.addEventListener('mousemove', onWindowMouseMove);
+      window.addEventListener('mouseup', onWindowMouseUp);
+      window.addEventListener('touchmove', onWindowTouchMove, { passive: false });
+      window.addEventListener('touchend', onWindowTouchEnd);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', onWindowMouseMove);
+      window.removeEventListener('mouseup', onWindowMouseUp);
+      window.removeEventListener('touchmove', onWindowTouchMove);
+      window.removeEventListener('touchend', onWindowTouchEnd);
+    };
+  }, [handleMove, handleEnd]);
 
   useEffect(() => {
     if (status === 'WALKING') {
@@ -163,7 +196,7 @@ export default function SpeakiMascot() {
   useEffect(() => {
     const timer = setTimeout(() => {
         moveBottomOnly();
-    }, 0);
+    }, 100);
     return () => clearTimeout(timer);
   }, [moveBottomOnly]);
 
@@ -201,8 +234,8 @@ export default function SpeakiMascot() {
   return (
     <div
       ref={mascotRef}
-      onMouseDown={handleMouseDown}
-      onClick={handleClick}
+      onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
       className={`fixed z-50 cursor-grab active:cursor-grabbing ${transitionClass}`}
       style={{
         top: `${position.top}px`,
@@ -210,6 +243,7 @@ export default function SpeakiMascot() {
         transformOrigin: "bottom center",
         transform: transformStyle,
         userSelect: "none",
+        WebkitUserSelect: "none",
         touchAction: "none",
         willChange: status === 'DRAGGING' ? 'top, left' : 'transform'
       }}
