@@ -3,55 +3,58 @@
 import Image from "next/image";
 import { useState, useEffect, useCallback, useRef } from "react";
 
+type MascotStatus = 'WALKING' | 'INTERACTING' | 'DRAGGING' | 'FALLING' | 'LANDING';
+
+const sounds = [
+    "/sounds/a.mp3",
+    "/sounds/aau.mp3",
+    "/sounds/deruzibazeyoonly.mp3",
+    "/sounds/speaki.mp3",
+    "/sounds/uaa.mp3",
+];
+
 export default function SpeakiMascot() {
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
+  const [status, setStatus] = useState<MascotStatus>('WALKING');
   const [isFlipped, setIsFlipped] = useState(false);
-  
-  const [isInteracting, setIsInteracting] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-  const [isFalling, setIsFalling] = useState(false);
-  const [isDropping, setIsDropping] = useState(false);
 
   const mascotRef = useRef<HTMLDivElement>(null);
-  const moveIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const dropTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const dragOffset = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  const walkIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const actionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const normalImage = "/speaki.png";
   const talkImage = "/speaki-cry.png";
   const dragImage = "/speaki-drag.png";
   const dropImage = "/speaki-drop.png";
 
-  const sounds = [
-    "/sounds/a.mp3",
-    "/sounds/aau.mp3",
-    "/sounds/deruzibazeyoonly.mp3",
-    "/sounds/speaki.mp3",
-    "/sounds/uaa.mp3",
-  ];
-
-
-  const playRandomSound = () => {
-    if (sounds.length === 0) return;
-    const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
-    const audio = new Audio(randomSound);
-    audio.volume = 0.6;
-    audio.play().catch(() => {});
-  };
-
-  const getFloorLevel = () => {
+  const getFloorLevel = useCallback(() => {
     if (typeof window === "undefined") return 0;
     return window.innerHeight - 130; 
-  };
+  }, []);
+
+  const playRandomSound = useCallback(() => {
+    if (sounds.length === 0) return;
+    const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+    
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+
+    audioRef.current = new Audio(randomSound);
+    audioRef.current.volume = 0.6;
+    audioRef.current.play().catch(() => {});
+  }, []);
 
   const moveBottomOnly = useCallback(() => {
+    const padding = 50;
     if (typeof window === "undefined") return;
     
-    const padding = 50;
     const maxWidth = window.innerWidth - padding;
-    const floorY = getFloorLevel();
-
+    const floorY = window.innerHeight - 130;
     const newLeft = Math.floor(Math.random() * (maxWidth - padding)) + padding / 2;
 
     setPosition((prev) => {
@@ -61,15 +64,31 @@ export default function SpeakiMascot() {
     });
   }, []);
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    if (isInteracting || isFalling || isDropping) return;
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    if (status === 'DRAGGING' || status === 'FALLING' || status === 'LANDING') return;
+    
+    e.stopPropagation();
+    
+    setStatus('INTERACTING');
+    
+    playRandomSound();
+    
+    if (actionTimeoutRef.current) clearTimeout(actionTimeoutRef.current);
+    actionTimeoutRef.current = setTimeout(() => {
+      setStatus('WALKING');
+      moveBottomOnly();
+    }, 2500); 
+  }, [status, playRandomSound, moveBottomOnly]);
 
-    if (moveIntervalRef.current) clearInterval(moveIntervalRef.current);
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    if (status === 'FALLING' || status === 'LANDING') return;
+
+    if (walkIntervalRef.current) clearInterval(walkIntervalRef.current);
+    if (actionTimeoutRef.current) clearTimeout(actionTimeoutRef.current);
 
     if (mascotRef.current) {
       const rect = mascotRef.current.getBoundingClientRect();
-      
       setPosition({ top: rect.top, left: rect.left });
       
       dragOffset.current = {
@@ -78,11 +97,11 @@ export default function SpeakiMascot() {
       };
     }
 
-    setIsDragging(true);
-  };
+    setStatus('DRAGGING');
+  }, [status]);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!isDragging) return;
+    if (status !== 'DRAGGING') return;
 
     const newLeft = e.clientX - dragOffset.current.x;
     const newTop = e.clientY - dragOffset.current.y;
@@ -91,58 +110,35 @@ export default function SpeakiMascot() {
 
     if (position && newLeft < position.left) setIsFlipped(true);
     else if (position && newLeft > position.left) setIsFlipped(false);
-
-  }, [isDragging, position]);
+  }, [status, position]);
 
   const handleMouseUp = useCallback(() => {
-    if (!isDragging) return;
+    if (status !== 'DRAGGING') return;
 
-    setIsDragging(false);
-    
     const floorY = getFloorLevel();
     
     if (position && position.top < floorY - 20) {
-      setIsFalling(true);
-      playRandomSound();
-
+      setStatus('FALLING');
+      
       setPosition((prev) => prev ? { ...prev, top: floorY } : null);
 
-      if (dropTimeoutRef.current) clearTimeout(dropTimeoutRef.current);
-      dropTimeoutRef.current = setTimeout(() => {
-        setIsFalling(false);
-        setIsDropping(true);
-
+      actionTimeoutRef.current = setTimeout(() => {
+        setStatus('LANDING'); 
+        playRandomSound();    
+        
         setTimeout(() => {
-          setIsDropping(false);
-          moveBottomOnly();
-          if (moveIntervalRef.current) clearInterval(moveIntervalRef.current);
-          moveIntervalRef.current = setInterval(moveBottomOnly, 4000);
-        }, 1000);
-      }, 600); 
+          setStatus('WALKING');
+        }, 1500); 
+        
+      }, 500); 
 
     } else {
-      setPosition((prev) => prev ? { ...prev, top: floorY } : null);
-      moveBottomOnly();
-      moveIntervalRef.current = setInterval(moveBottomOnly, 4000);
+      setStatus('WALKING');
     }
-
-  }, [isDragging, position, moveBottomOnly]);
-
-  const handleClick = () => {
-    if (isDragging || isFalling || isDropping) return;
-
-    if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
-    
-    setIsInteracting(true);
-    playRandomSound();
-
-    interactionTimeoutRef.current = setTimeout(() => {
-      setIsInteracting(false);
-    }, 500);
-  };
+  }, [status, position, getFloorLevel, playRandomSound]);
 
   useEffect(() => {
-    if (isDragging) {
+    if (status === 'DRAGGING') {
       window.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('mouseup', handleMouseUp);
     } else {
@@ -150,49 +146,56 @@ export default function SpeakiMascot() {
       window.removeEventListener('mouseup', handleMouseUp);
     }
     return () => {
-        window.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('mouseup', handleMouseUp);
-    }
-  }, [isDragging, handleMouseMove, handleMouseUp]);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [status, handleMouseMove, handleMouseUp]);
 
   useEffect(() => {
-    if (isInteracting || isDragging || isFalling || isDropping) return;
+    if (status === 'WALKING') {
+      walkIntervalRef.current = setInterval(moveBottomOnly, 4000);
+      return () => {
+        if (walkIntervalRef.current) clearInterval(walkIntervalRef.current);
+      };
+    }
+  }, [status, moveBottomOnly]);
 
-    const startTimer = setTimeout(() => {
-       moveBottomOnly();
-    }, 100);
-
-    moveIntervalRef.current = setInterval(moveBottomOnly, 4000);
-
-    return () => {
-      clearTimeout(startTimer);
-      if (moveIntervalRef.current) clearInterval(moveIntervalRef.current);
-      if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
-      if (dropTimeoutRef.current) clearTimeout(dropTimeoutRef.current);
-    };
-  }, [isInteracting, isDragging, isFalling, isDropping, moveBottomOnly]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        moveBottomOnly();
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [moveBottomOnly]);
 
   if (!position) return null;
 
   let currentImage = normalImage;
-  if (isDragging) currentImage = dragImage;
-  else if (isFalling) currentImage = dragImage;
-  else if (isDropping) currentImage = dropImage;
-  else if (isInteracting) currentImage = talkImage;
-
-  let transitionClass = "transition-all duration-[3000ms] ease-in-out";
-  
-  if (isDragging) {
-    transitionClass = "transition-none duration-0"; 
-  } else if (isFalling) {
-    transitionClass = "transition-all duration-500 ease-in"; 
-  } else if (isInteracting || isDropping) {
-    transitionClass = "transition-all duration-300 cubic-bezier(0.34, 1.56, 0.64, 1)";
-  }
-
+  let transitionClass = "";
   let transformStyle = isFlipped ? "scaleX(-1) scale(1.1)" : "scaleX(1) scale(1.1)";
-  if (isInteracting) {
-    transformStyle = isFlipped ? "scaleX(-1.2) scaleY(0.8)" : "scaleX(1.2) scaleY(0.8)";
+
+  switch (status) {
+    case 'WALKING':
+      currentImage = normalImage;
+      transitionClass = "transition-all duration-[3000ms] ease-in-out";
+      break;
+    case 'INTERACTING':
+      currentImage = talkImage;
+      transitionClass = "transition-transform duration-200 cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      transformStyle = isFlipped ? "scaleX(-1.2) scaleY(0.8)" : "scaleX(1.2) scaleY(0.8)";
+      break;
+    case 'DRAGGING':
+      currentImage = dragImage;
+      transitionClass = "transition-none";
+      break;
+    case 'FALLING':
+      currentImage = dragImage;
+      transitionClass = "transition-all duration-500 ease-in"; 
+      break;
+    case 'LANDING':
+      currentImage = dropImage;
+      transitionClass = "transition-transform duration-200";
+      transformStyle = isFlipped ? "scaleX(-1.3) scaleY(0.6)" : "scaleX(1.3) scaleY(0.6)";
+      break;
   }
 
   return (
@@ -207,7 +210,8 @@ export default function SpeakiMascot() {
         transformOrigin: "bottom center",
         transform: transformStyle,
         userSelect: "none",
-        touchAction: "none"
+        touchAction: "none",
+        willChange: status === 'DRAGGING' ? 'top, left' : 'transform'
       }}
     >
       <Image
@@ -216,9 +220,10 @@ export default function SpeakiMascot() {
         width={90}
         height={90}
         className={`pointer-events-none select-none ${
-            (!isInteracting && !isDragging && !isFalling && !isDropping) ? "animate-bounce-walk" : ""
+          status === 'WALKING' ? 'animate-bounce-walk' : ''
         }`}
         draggable={false}
+        priority
       />
     </div>
   );
