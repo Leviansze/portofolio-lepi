@@ -4,21 +4,20 @@ import Image from "next/image";
 import { useState, useEffect, useCallback, useRef } from "react";
 
 export default function SpeakiMascot() {
-  // --- State ---
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const [isFlipped, setIsFlipped] = useState(false);
   
-  // Status Interaksi
-  const [isInteracting, setIsInteracting] = useState(false); // Klik/Ngomong
-  const [isDragging, setIsDragging] = useState(false);       // Sedang dipegang mouse
-  const [isFalling, setIsFalling] = useState(false);         // Sedang meluncur ke bawah (jatuh)
-  const [isDropping, setIsDropping] = useState(false);       // Sudah mendarat (pose impact)
+  const [isInteracting, setIsInteracting] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isFalling, setIsFalling] = useState(false);
+  const [isDropping, setIsDropping] = useState(false);
 
-  // --- Refs ---
+  const mascotRef = useRef<HTMLDivElement>(null);
   const moveIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const dropTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const dragOffset = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+
   const normalImage = "/speaki.png";
   const talkImage = "/speaki-cry.png";
   const dragImage = "/speaki-drag.png";
@@ -30,26 +29,29 @@ export default function SpeakiMascot() {
     "/sounds/deruzibazeyoonly.mp3",
     "/sounds/speaki.mp3",
     "/sounds/uaa.mp3",
-    "/sounds/squash.mp3",
   ];
+
 
   const playRandomSound = () => {
     if (sounds.length === 0) return;
     const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
     const audio = new Audio(randomSound);
     audio.volume = 0.6;
-    audio.play().catch((e) => console.log("Audio play failed:", e));
+    audio.play().catch(() => {});
   };
 
   const getFloorLevel = () => {
     if (typeof window === "undefined") return 0;
-    return window.innerHeight - 130;
+    return window.innerHeight - 130; 
   };
 
   const moveBottomOnly = useCallback(() => {
+    if (typeof window === "undefined") return;
+    
     const padding = 50;
     const maxWidth = window.innerWidth - padding;
     const floorY = getFloorLevel();
+
     const newLeft = Math.floor(Math.random() * (maxWidth - padding)) + padding / 2;
 
     setPosition((prev) => {
@@ -62,22 +64,31 @@ export default function SpeakiMascot() {
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (isInteracting || isFalling || isDropping) return;
-    setIsDragging(true);
+
     if (moveIntervalRef.current) clearInterval(moveIntervalRef.current);
 
-    if (position) {
+    if (mascotRef.current) {
+      const rect = mascotRef.current.getBoundingClientRect();
+      
+      setPosition({ top: rect.top, left: rect.left });
+      
       dragOffset.current = {
-        x: e.clientX - position.left,
-        y: e.clientY - position.top
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
       };
     }
+
+    setIsDragging(true);
   };
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!isDragging) return;
+
     const newLeft = e.clientX - dragOffset.current.x;
     const newTop = e.clientY - dragOffset.current.y;
+
     setPosition({ top: newTop, left: newLeft });
+
     if (position && newLeft < position.left) setIsFlipped(true);
     else if (position && newLeft > position.left) setIsFlipped(false);
 
@@ -85,25 +96,32 @@ export default function SpeakiMascot() {
 
   const handleMouseUp = useCallback(() => {
     if (!isDragging) return;
+
     setIsDragging(false);
+    
     const floorY = getFloorLevel();
-    if (position && position.top < floorY) {
+    
+    if (position && position.top < floorY - 20) {
       setIsFalling(true);
       playRandomSound();
-      setPosition({ top: floorY, left: position.left });
+
+      setPosition((prev) => prev ? { ...prev, top: floorY } : null);
+
       if (dropTimeoutRef.current) clearTimeout(dropTimeoutRef.current);
       dropTimeoutRef.current = setTimeout(() => {
         setIsFalling(false);
         setIsDropping(true);
+
         setTimeout(() => {
           setIsDropping(false);
           moveBottomOnly();
           if (moveIntervalRef.current) clearInterval(moveIntervalRef.current);
           moveIntervalRef.current = setInterval(moveBottomOnly, 4000);
         }, 1000);
-      }, 500);
+      }, 600); 
 
     } else {
+      setPosition((prev) => prev ? { ...prev, top: floorY } : null);
       moveBottomOnly();
       moveIntervalRef.current = setInterval(moveBottomOnly, 4000);
     }
@@ -139,6 +157,7 @@ export default function SpeakiMascot() {
 
   useEffect(() => {
     if (isInteracting || isDragging || isFalling || isDropping) return;
+
     const startTimer = setTimeout(() => {
        moveBottomOnly();
     }, 100);
@@ -153,17 +172,18 @@ export default function SpeakiMascot() {
     };
   }, [isInteracting, isDragging, isFalling, isDropping, moveBottomOnly]);
 
-
   if (!position) return null;
+
   let currentImage = normalImage;
   if (isDragging) currentImage = dragImage;
   else if (isFalling) currentImage = dragImage;
   else if (isDropping) currentImage = dropImage;
   else if (isInteracting) currentImage = talkImage;
+
   let transitionClass = "transition-all duration-[3000ms] ease-in-out";
   
   if (isDragging) {
-    transitionClass = "transition-none duration-0";
+    transitionClass = "transition-none duration-0"; 
   } else if (isFalling) {
     transitionClass = "transition-all duration-500 ease-in"; 
   } else if (isInteracting || isDropping) {
@@ -177,6 +197,7 @@ export default function SpeakiMascot() {
 
   return (
     <div
+      ref={mascotRef}
       onMouseDown={handleMouseDown}
       onClick={handleClick}
       className={`fixed z-50 cursor-grab active:cursor-grabbing ${transitionClass}`}
