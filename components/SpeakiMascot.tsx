@@ -4,11 +4,18 @@ import Image from "next/image";
 import { useState, useEffect, useCallback, useRef } from "react";
 
 export default function SpeakiMascot() {
+  // --- State ---
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [isInteracting, setIsInteracting] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-  const [isDropping, setIsDropping] = useState(false);
+  
+  // Status Interaksi
+  const [isInteracting, setIsInteracting] = useState(false); // Klik/Ngomong
+  const [isDragging, setIsDragging] = useState(false);       // Sedang dipegang mouse
+  const [isFalling, setIsFalling] = useState(false);         // Sedang meluncur ke bawah (jatuh)
+  const [isDropping, setIsDropping] = useState(false);       // Sudah mendarat (pose impact)
+
+  // --- Refs ---
+  const moveIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const dropTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const dragOffset = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -20,16 +27,10 @@ export default function SpeakiMascot() {
   const sounds = [
     "/sounds/a.mp3",
     "/sounds/aau.mp3",
-    "/sounds/chuayo.mp3",
-    "/sounds/deruzibazeyo.mp3",
     "/sounds/deruzibazeyoonly.mp3",
-    "/sounds/fullbazeyo.mp3",
-    "/sounds/morijabadangizibazeyo.mp3",
-    "/sounds/murugorureziru.mp3",
     "/sounds/speaki.mp3",
     "/sounds/uaa.mp3",
     "/sounds/squash.mp3",
-    "/sounds/sunbakochi.mp3",
   ];
 
   const playRandomSound = () => {
@@ -40,33 +41,35 @@ export default function SpeakiMascot() {
     audio.play().catch((e) => console.log("Audio play failed:", e));
   };
 
-  const moveRandomly = useCallback(() => {
-    const padding = 100;
-    const maxWidth = window.innerWidth - padding;
-    const maxHeight = window.innerHeight - padding;
+  const getFloorLevel = () => {
+    if (typeof window === "undefined") return 0;
+    return window.innerHeight - 130;
+  };
 
+  const moveBottomOnly = useCallback(() => {
+    const padding = 50;
+    const maxWidth = window.innerWidth - padding;
+    const floorY = getFloorLevel();
     const newLeft = Math.floor(Math.random() * (maxWidth - padding)) + padding / 2;
-    const newTop = Math.floor(Math.random() * (maxHeight - padding)) + padding / 2;
 
     setPosition((prev) => {
-      if (prev && newLeft < prev.left) {
-        setIsFlipped(true);
-      } else {
-        setIsFlipped(false);
-      }
-      return { top: newTop, left: newLeft };
+      if (prev && newLeft < prev.left) setIsFlipped(true);
+      else setIsFlipped(false);
+      return { top: floorY, left: newLeft };
     });
   }, []);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if (isInteracting || isDropping) return;
+    if (isInteracting || isFalling || isDropping) return;
     setIsDragging(true);
+    if (moveIntervalRef.current) clearInterval(moveIntervalRef.current);
+
     if (position) {
-        dragOffset.current = {
-            x: e.clientX - position.left,
-            y: e.clientY - position.top
-        };
+      dragOffset.current = {
+        x: e.clientX - position.left,
+        y: e.clientY - position.top
+      };
     }
   };
 
@@ -77,26 +80,38 @@ export default function SpeakiMascot() {
     setPosition({ top: newTop, left: newLeft });
     if (position && newLeft < position.left) setIsFlipped(true);
     else if (position && newLeft > position.left) setIsFlipped(false);
+
   }, [isDragging, position]);
 
   const handleMouseUp = useCallback(() => {
     if (!isDragging) return;
-
     setIsDragging(false);
-    setIsDropping(true);
-    playRandomSound();
+    const floorY = getFloorLevel();
+    if (position && position.top < floorY) {
+      setIsFalling(true);
+      playRandomSound();
+      setPosition({ top: floorY, left: position.left });
+      if (dropTimeoutRef.current) clearTimeout(dropTimeoutRef.current);
+      dropTimeoutRef.current = setTimeout(() => {
+        setIsFalling(false);
+        setIsDropping(true);
+        setTimeout(() => {
+          setIsDropping(false);
+          moveBottomOnly();
+          if (moveIntervalRef.current) clearInterval(moveIntervalRef.current);
+          moveIntervalRef.current = setInterval(moveBottomOnly, 4000);
+        }, 1000);
+      }, 500);
 
-    if (dropTimeoutRef.current) clearTimeout(dropTimeoutRef.current);
-    dropTimeoutRef.current = setTimeout(() => {
-        setIsDropping(false);
-        moveRandomly();
-    }, 1000);
+    } else {
+      moveBottomOnly();
+      moveIntervalRef.current = setInterval(moveBottomOnly, 4000);
+    }
 
-  }, [isDragging, playRandomSound]);
-
+  }, [isDragging, position, moveBottomOnly]);
 
   const handleClick = () => {
-    if (isDragging || isDropping) return;
+    if (isDragging || isFalling || isDropping) return;
 
     if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
     
@@ -122,46 +137,43 @@ export default function SpeakiMascot() {
     }
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
-
   useEffect(() => {
-    if (isInteracting || isDragging || isDropping) return;
-    const startMoveTimer = setTimeout(() => {
-      moveRandomly();
+    if (isInteracting || isDragging || isFalling || isDropping) return;
+    const startTimer = setTimeout(() => {
+       moveBottomOnly();
     }, 100);
 
-    const interval = setInterval(moveRandomly, 3500);
+    moveIntervalRef.current = setInterval(moveBottomOnly, 4000);
 
     return () => {
-      clearTimeout(startMoveTimer);
-      clearInterval(interval);
+      clearTimeout(startTimer);
+      if (moveIntervalRef.current) clearInterval(moveIntervalRef.current);
       if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
       if (dropTimeoutRef.current) clearTimeout(dropTimeoutRef.current);
     };
-  }, [isInteracting, isDragging, isDropping, moveRandomly]);
+  }, [isInteracting, isDragging, isFalling, isDropping, moveBottomOnly]);
+
 
   if (!position) return null;
   let currentImage = normalImage;
   if (isDragging) currentImage = dragImage;
+  else if (isFalling) currentImage = dragImage;
   else if (isDropping) currentImage = dropImage;
   else if (isInteracting) currentImage = talkImage;
-
-
   let transitionClass = "transition-all duration-[3000ms] ease-in-out";
+  
   if (isDragging) {
     transitionClass = "transition-none duration-0";
+  } else if (isFalling) {
+    transitionClass = "transition-all duration-500 ease-in"; 
   } else if (isInteracting || isDropping) {
     transitionClass = "transition-all duration-300 cubic-bezier(0.34, 1.56, 0.64, 1)";
   }
 
-  const baseScale = 1.1;
-  let transformStyle = isFlipped ? `scaleX(-1) scale(${baseScale})` : `scaleX(1) scale(${baseScale})`;
-  
+  let transformStyle = isFlipped ? "scaleX(-1) scale(1.1)" : "scaleX(1) scale(1.1)";
   if (isInteracting) {
-    transformStyle = isFlipped 
-      ? `scaleX(-1.2) scaleY(0.8)`
-      : `scaleX(1.2) scaleY(0.8)`;
+    transformStyle = isFlipped ? "scaleX(-1.2) scaleY(0.8)" : "scaleX(1.2) scaleY(0.8)";
   }
-
 
   return (
     <div
@@ -171,10 +183,9 @@ export default function SpeakiMascot() {
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
-        transformOrigin: "bottom center", 
+        transformOrigin: "bottom center",
         transform: transformStyle,
         userSelect: "none",
-        WebkitUserSelect: "none",
         touchAction: "none"
       }}
     >
@@ -184,7 +195,7 @@ export default function SpeakiMascot() {
         width={90}
         height={90}
         className={`pointer-events-none select-none ${
-            (isInteracting || isDragging || isDropping) ? "" : "animate-bounce-walk"
+            (!isInteracting && !isDragging && !isFalling && !isDropping) ? "animate-bounce-walk" : ""
         }`}
         draggable={false}
       />
