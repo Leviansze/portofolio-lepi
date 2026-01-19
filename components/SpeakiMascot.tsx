@@ -378,7 +378,9 @@ export default function SpeakiMascot() {
 
   let currentImage = normalImage;
   let transitionClass = "";
-  let transformStyle = isFlipped ? "scaleX(-1) scale(1.1)" : "scaleX(1) scale(1.1)";
+  let pScaleX = 1.1;
+  let pScaleY = 1.1;
+  let pRotate = 0;
   let isBounceAnim = false;
 
   switch (status) {
@@ -390,7 +392,7 @@ export default function SpeakiMascot() {
     case 'INTERACTING':
       currentImage = talkImage;
       transitionClass = "transition-transform duration-200 cubic-bezier(0.25, 0.46, 0.45, 0.94)";
-      transformStyle = isFlipped ? "scaleX(-1.2) scaleY(0.8)" : "scaleX(1.2) scaleY(0.8)";
+      pScaleX = 1.2; pScaleY = 0.8;
       break;
     case 'DRAGGING':
       currentImage = dragImage;
@@ -403,17 +405,17 @@ export default function SpeakiMascot() {
     case 'LANDING':
       currentImage = dropImage;
       transitionClass = "transition-transform duration-200";
-      transformStyle = isFlipped ? "scaleX(-1.3) scaleY(0.6)" : "scaleX(1.3) scaleY(0.6)";
+      pScaleX = 1.3; pScaleY = 0.6;
       break;
     case 'SLEEPING':
       currentImage = sleepImage;
       transitionClass = "transition-all duration-500";
-      transformStyle = isFlipped ? "scaleX(-1) scale(1.05)" : "scaleX(1) scale(1.05)"; 
+      pScaleX = 1.05; pScaleY = 1.05;
       break;
      case 'BONKED':
       currentImage = bonkImage;
       transitionClass = "transition-transform duration-100";
-      transformStyle = isFlipped ? "scaleX(-0.8) scaleY(1.2)" : "scaleX(0.8) scaleY(1.2)";
+      pScaleX = 0.8; pScaleY = 1.2;
       break;
     case 'POINTING':
       currentImage = pointImage;
@@ -422,11 +424,21 @@ export default function SpeakiMascot() {
     case 'CLIMBING':
       currentImage = normalImage;
       transitionClass = "transition-all ease-linear";
-      const rotate = direction === 'RIGHT' ? -90 : 90;
-      transformStyle = `rotate(${rotate}deg) scale(1.1)`; 
+      pRotate = direction === 'RIGHT' ? -90 : 90;
       isBounceAnim = true;
       break;
   }
+
+  const flipScale = isFlipped ? -1 : 1;
+  let transformStyle = `scaleX(${flipScale * pScaleX}) scaleY(${pScaleY})`;
+  if (pRotate !== 0) {
+      transformStyle = `rotate(${pRotate}deg) scale(${pScaleX})`;
+  }
+
+  const invScaleX = 1 / pScaleX;
+  const invScaleY = 1 / pScaleY;
+  const bubbleFlipCorrection = isFlipped ? -1 : 1;
+  const bubbleTransformStyle = `rotate(${-pRotate}deg) scale(${invScaleX * bubbleFlipCorrection}, ${invScaleY})`;
 
   return (
     <div
@@ -445,18 +457,20 @@ export default function SpeakiMascot() {
         transitionDuration: (status === 'WALKING' || status === 'CLIMBING') && !isHolding ? `${walkDuration}ms` : undefined
       }}
     >
-      {speechText && (
-        <div className="absolute -top-20 left-1/2 -translate-x-1/2 bg-white text-black text-xs px-3 py-1.5 rounded-lg shadow-md whitespace-nowrap pointer-events-none animate-in fade-in slide-in-from-bottom-2 font-medium border border-gray-200">
-          {speechText}
-          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white transform rotate-45 border-r border-b border-gray-200"></div>
-        </div>
-      )}
+      <div style={{ transform: bubbleTransformStyle, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
+        {speechText && (
+            <div className="absolute -top-20 left-1/2 -translate-x-1/2 bg-white text-black text-xs px-3 py-1.5 rounded-lg shadow-md whitespace-nowrap animate-in fade-in slide-in-from-bottom-2 font-medium border border-gray-200">
+            {speechText}
+            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white transform rotate-45 border-r border-b border-gray-200"></div>
+            </div>
+        )}
 
-      {emoteIcon && (
-        <div className="absolute -top-10 right-0 text-3xl animate-bounce pointer-events-none filter drop-shadow-sm">
-          {emoteIcon}
-        </div>
-      )}
+        {emoteIcon && (
+            <div className="absolute -top-10 right-0 text-3xl animate-bounce filter drop-shadow-sm">
+            {emoteIcon}
+            </div>
+        )}
+      </div>
 
       <Image
         src={currentImage}
