@@ -65,11 +65,11 @@ export default function SpeakiMascot() {
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
-        transform: isFlipped ? "scaleX(-1)" : "scaleX(1)", // Efek membalik gambar
+        transform: isFlipped ? "scaleX(-1)" : "scaleX(1)",
       }}
     >
       <Image 
-        src="/speaki-walk.gif" 
+        src="/speaki.gif" 
         alt="Speaki Mascot" 
         width={80} 
         height={80} 
