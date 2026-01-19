@@ -85,12 +85,16 @@ export default function SpeakiMascot() {
     <div
       onClick={handleInteraction}
       className={`fixed z-50 cursor-pointer ${
-        isInteracting ? "" : "transition-all duration-[3000ms] ease-in-out"
+        isInteracting 
+          ? "transition-transform duration-200 ease-out" 
+          : "transition-all duration-[3000ms] ease-in-out"
       }`}
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
-        transform: `${isFlipped ? "scaleX(-1)" : "scaleX(1)"} scale(1.1)`,
+        transform: `${isFlipped ? "scaleX(-1)" : "scaleX(1)"} ${
+          isInteracting ? "scale(0.95) translateY(10px)" : "scale(1.1)"
+        }`,
       }}
     >
       <Image
