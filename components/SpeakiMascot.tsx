@@ -39,12 +39,14 @@ export default function SpeakiMascot() {
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const [status, setStatus] = useState<MascotStatus>('WALKING');
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isHolding, setIsHolding] = useState(false); 
 
   const [speechText, setSpeechText] = useState<string | null>(null);
   const [emoteIcon, setEmoteIcon] = useState<string | null>(null);
 
   const mascotRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const lastInteractionTime = useRef<number>(Date.now());
   
   const walkIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const actionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -72,9 +74,12 @@ export default function SpeakiMascot() {
     return window.innerHeight - 130; 
   }, []);
 
-  const playSound = useCallback((source: string[] | string) => {
+  const playSound = useCallback((source: string[] | string, force = false) => {
+    if (!force) {
+        if (Date.now() - lastInteractionTime.current < 2000) return;
+    }
+
     let soundToPlay: string;
-    
     if (Array.isArray(source)) {
         if (source.length === 0) return;
         soundToPlay = source[Math.floor(Math.random() * source.length)];
@@ -90,6 +95,8 @@ export default function SpeakiMascot() {
     audioRef.current = new Audio(soundToPlay);
     audioRef.current.volume = 0.6;
     audioRef.current.play().catch(() => {});
+    
+    lastInteractionTime.current = Date.now();
   }, []);
 
   const showSpeech = useCallback((text: string, duration = 2000) => {
@@ -121,15 +128,17 @@ export default function SpeakiMascot() {
     }
     
     if (Math.random() < 0.03 && !speechText) {
-       showSpeech(randomTalks[Math.floor(Math.random() * randomTalks.length)]);
-       playSound(idleSounds);
+       if (Date.now() - lastInteractionTime.current > 5000) {
+           showSpeech(randomTalks[Math.floor(Math.random() * randomTalks.length)]);
+           playSound(idleSounds, true);
+       }
     }
 
     let newLeft = Math.floor(Math.random() * (maxWidth - padding)) + padding / 2;
 
     if (newLeft < padding + 20 || newLeft > maxWidth - 20) {
        setStatus('BONKED');
-       playSound("/sounds/squash.mp3"); 
+       playSound("/sounds/squash.mp3", true); 
        showEmote("💫");
        showSpeech("Aduh! Tembok...", 1500);
 
@@ -154,21 +163,23 @@ export default function SpeakiMascot() {
     
     if (status === 'SLEEPING') {
         setStatus('WALKING');
-        playSound("/sounds/a.mp3"); 
+        playSound("/sounds/a.mp3", true); 
         showEmote("❗");
     }
 
     idleTimerRef.current = setTimeout(() => {
-        if (status === 'WALKING') {
+        if (status === 'WALKING' && !isHolding) {
             setStatus('SLEEPING');
             showEmote("💤");
         }
     }, 15000); 
-  }, [status, playSound, showEmote]);
+  }, [status, isHolding, playSound, showEmote]);
 
   const handleStart = useCallback((clientX: number, clientY: number) => {
     if (status === 'FALLING' || status === 'LANDING' || status === 'BONKED') return;
+    
     resetIdleTimer();
+    setIsHolding(true);
 
     if (walkIntervalRef.current) clearInterval(walkIntervalRef.current);
     if (actionTimeoutRef.current) clearTimeout(actionTimeoutRef.current);
@@ -199,7 +210,7 @@ export default function SpeakiMascot() {
 
     if (!isPointerDown.current || !dragStartPos.current) return;
 
-    const moveThreshold = 10;
+    const moveThreshold = 5;
     if (!hasMoved.current && (Math.abs(clientX - dragStartPos.current.x) > moveThreshold || Math.abs(clientY - dragStartPos.current.y) > moveThreshold)) {
         hasMoved.current = true;
         setStatus('DRAGGING');
@@ -209,6 +220,7 @@ export default function SpeakiMascot() {
         const newLeft = clientX - dragOffset.current.x;
         const newTop = clientY - dragOffset.current.y;
         setPosition({ top: newTop, left: newLeft });
+        
         if (position && newLeft < position.left) setIsFlipped(true);
         else if (position && newLeft > position.left) setIsFlipped(false);
     }
@@ -217,6 +229,8 @@ export default function SpeakiMascot() {
   const handleEnd = useCallback(() => {
     if (!isPointerDown.current) return;
     isPointerDown.current = false;
+    setIsHolding(false);
+
     if (dragAngryTimerRef.current) clearTimeout(dragAngryTimerRef.current);
     resetIdleTimer();
 
@@ -225,17 +239,20 @@ export default function SpeakiMascot() {
         if (position && position.top < floorY - 20) {
             setStatus('FALLING');
             setPosition((prev) => prev ? { ...prev, top: floorY } : null);
-            playSound("/sounds/uaa.mp3"); 
+            playSound("/sounds/uaa.mp3", true); 
             showSpeech("Aaaaaa!", 1000);
             
+            lastInteractionTime.current = Date.now() + 3000;
+
             actionTimeoutRef.current = setTimeout(() => {
                 setStatus('LANDING'); 
-                playSound("/sounds/squash.mp3"); 
+                playSound("/sounds/squash.mp3", true); 
                 showEmote("💫"); 
                 showSpeech("Aduh.", 1000);
                 
                 setTimeout(() => { 
                   setStatus('WALKING'); 
+                  lastInteractionTime.current = Date.now();
                 }, 2000); 
             }, 500); 
         } else {
@@ -243,7 +260,7 @@ export default function SpeakiMascot() {
         }
     } else {
         setStatus('INTERACTING');
-        playSound(clickSounds); 
+        playSound(clickSounds, true); 
         showEmote("❤️"); 
         
         if (actionTimeoutRef.current) clearTimeout(actionTimeoutRef.current);
@@ -257,13 +274,11 @@ export default function SpeakiMascot() {
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
         handleMove(e.clientX, e.clientY);
-        
         if (position && (status === 'INTERACTING' || status === 'SLEEPING' || status === 'POINTING')) {
              if (e.clientX < position.left) setIsFlipped(true);
              else setIsFlipped(false);
         }
     };
-
     const handleGlobalMouseUp = () => handleEnd();
     const handleGlobalTouchMove = (e: TouchEvent) => {
         if (isPointerDown.current && hasMoved.current) e.preventDefault();
@@ -288,11 +303,11 @@ export default function SpeakiMascot() {
   }, [handleMove, handleEnd, resetIdleTimer, position, status]);
 
   useEffect(() => {
-    if (status === 'WALKING') {
+    if (status === 'WALKING' && !isHolding) {
       walkIntervalRef.current = setInterval(moveBottomOnly, 4000);
       return () => { if (walkIntervalRef.current) clearInterval(walkIntervalRef.current); };
     }
-  }, [status, moveBottomOnly]);
+  }, [status, moveBottomOnly, isHolding]);
 
   useEffect(() => {
     const timer = setTimeout(() => { 
@@ -321,8 +336,8 @@ export default function SpeakiMascot() {
   switch (status) {
     case 'WALKING':
       currentImage = normalImage;
-      transitionClass = "transition-all duration-[3000ms] ease-in-out";
-      isBounceAnim = true;
+      transitionClass = isHolding ? "transition-none duration-0" : "transition-all duration-[3000ms] ease-in-out";
+      isBounceAnim = !isHolding;
       break;
     case 'INTERACTING':
       currentImage = talkImage;
