@@ -75,8 +75,10 @@ export default function SpeakiMascot() {
   }, []);
 
   const playSound = useCallback((source: string[] | string, force = false) => {
+    const timeSince = Date.now() - lastInteractionTime.current;
+    
     if (!force) {
-        if (Date.now() - lastInteractionTime.current < 2000) return;
+        if (timeSince < 2000 || timeSince < 0) return;
     }
 
     let soundToPlay: string;
@@ -128,7 +130,8 @@ export default function SpeakiMascot() {
     }
     
     if (Math.random() < 0.03 && !speechText) {
-       if (Date.now() - lastInteractionTime.current > 5000) {
+       const timeSince = Date.now() - lastInteractionTime.current;
+       if (timeSince > 5000 && timeSince > 0) {
            showSpeech(randomTalks[Math.floor(Math.random() * randomTalks.length)]);
            playSound(idleSounds, true);
        }
@@ -191,8 +194,18 @@ export default function SpeakiMascot() {
 
     if (mascotRef.current) {
       const rect = mascotRef.current.getBoundingClientRect();
-      setPosition({ top: rect.top, left: rect.left });
-      dragOffset.current = { x: clientX - rect.left, y: clientY - rect.top };
+      
+      const width = 90;
+      const height = 90;
+      const scale = 1.1;
+      const correctionX = (width * (scale - 1)) / 2; 
+      const correctionY = (height * (scale - 1));    
+      
+      const correctedLeft = rect.left + correctionX;
+      const correctedTop = rect.top + correctionY;
+
+      setPosition({ top: correctedTop, left: correctedLeft });
+      dragOffset.current = { x: clientX - correctedLeft, y: clientY - correctedTop };
     }
 
     dragAngryTimerRef.current = setTimeout(() => {
@@ -242,7 +255,7 @@ export default function SpeakiMascot() {
             playSound("/sounds/uaa.mp3", true); 
             showSpeech("Aaaaaa!", 1000);
             
-            lastInteractionTime.current = Date.now() + 3000;
+            lastInteractionTime.current = Date.now() + 4000;
 
             actionTimeoutRef.current = setTimeout(() => {
                 setStatus('LANDING'); 
@@ -252,7 +265,6 @@ export default function SpeakiMascot() {
                 
                 setTimeout(() => { 
                   setStatus('WALKING'); 
-                  lastInteractionTime.current = Date.now();
                 }, 2000); 
             }, 500); 
         } else {
