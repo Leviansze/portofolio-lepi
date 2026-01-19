@@ -63,9 +63,9 @@ export default function SpeakiMascot() {
   const talkImage = "/speaki-cry.png";
   const dragImage = "/speaki-drag.png";
   const dropImage = "/speaki-drop.png";
-  const sleepImage = "/speaki.png"; 
-  const bonkImage = "/speaki-cry.png";  
-  const pointImage = "/speaki.png"; 
+  const sleepImage = "/speaki-sleep.png"; 
+  const bonkImage = "/speaki-bonk.png";  
+  const pointImage = "/speaki-pointing.png"; 
 
   const getFloorLevel = useCallback(() => {
     if (typeof window === "undefined") return 0;
