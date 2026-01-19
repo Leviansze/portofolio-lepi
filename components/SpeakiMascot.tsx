@@ -46,6 +46,8 @@ export default function SpeakiMascot() {
 
   const mascotRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  const hasInteractedRef = useRef(false);
   const lastInteractionTime = useRef<number>(Date.now());
   
   const walkIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -75,11 +77,10 @@ export default function SpeakiMascot() {
   }, []);
 
   const playSound = useCallback((source: string[] | string, force = false) => {
+    if (!force && !hasInteractedRef.current) return;
+
     const timeSince = Date.now() - lastInteractionTime.current;
-    
-    if (!force) {
-        if (timeSince < 2000 || timeSince < 0) return;
-    }
+    if (!force && timeSince < 2000) return;
 
     let soundToPlay: string;
     if (Array.isArray(source)) {
@@ -96,7 +97,8 @@ export default function SpeakiMascot() {
     
     audioRef.current = new Audio(soundToPlay);
     audioRef.current.volume = 0.6;
-    audioRef.current.play().catch(() => {});
+    audioRef.current.play().catch(() => {
+    });
     
     lastInteractionTime.current = Date.now();
   }, []);
@@ -114,6 +116,8 @@ export default function SpeakiMascot() {
   }, []);
 
   const moveBottomOnly = useCallback(() => {
+    if (status !== 'WALKING') return;
+
     const padding = 60;
     if (typeof window === "undefined") return;
 
@@ -130,10 +134,12 @@ export default function SpeakiMascot() {
     }
     
     if (Math.random() < 0.03 && !speechText) {
-       const timeSince = Date.now() - lastInteractionTime.current;
-       if (timeSince > 5000 && timeSince > 0) {
-           showSpeech(randomTalks[Math.floor(Math.random() * randomTalks.length)]);
-           playSound(idleSounds, true);
+       if (hasInteractedRef.current) {
+         const timeSince = Date.now() - lastInteractionTime.current;
+         if (timeSince > 5000) {
+             showSpeech(randomTalks[Math.floor(Math.random() * randomTalks.length)]);
+             playSound(idleSounds, false);
+         }
        }
     }
 
@@ -141,7 +147,7 @@ export default function SpeakiMascot() {
 
     if (newLeft < padding + 20 || newLeft > maxWidth - 20) {
        setStatus('BONKED');
-       playSound("/sounds/squash.mp3", true); 
+       playSound("/sounds/uaa.mp3", true); 
        showEmote("💫");
        showSpeech("Aduh! Tembok...", 1500);
 
@@ -159,7 +165,7 @@ export default function SpeakiMascot() {
       else setIsFlipped(false);
       return { top: floorY, left: newLeft };
     });
-  }, [getFloorLevel, playSound, showSpeech, showEmote, speechText]);
+  }, [getFloorLevel, playSound, showSpeech, showEmote, speechText, status]);
 
   const resetIdleTimer = useCallback(() => {
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
@@ -179,6 +185,13 @@ export default function SpeakiMascot() {
   }, [status, isHolding, playSound, showEmote]);
 
   const handleStart = useCallback((clientX: number, clientY: number) => {
+    hasInteractedRef.current = true;
+
+    if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+    }
+
     if (status === 'FALLING' || status === 'LANDING' || status === 'BONKED') return;
     
     resetIdleTimer();
@@ -259,7 +272,7 @@ export default function SpeakiMascot() {
 
             actionTimeoutRef.current = setTimeout(() => {
                 setStatus('LANDING'); 
-                playSound("/sounds/squash.mp3", true); 
+                playSound("/sounds/uaa.mp3", true); 
                 showEmote("💫"); 
                 showSpeech("Aduh.", 1000);
                 
