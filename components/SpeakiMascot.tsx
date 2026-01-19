@@ -90,7 +90,7 @@ export default function SpeakiMascot() {
   const handleMove = useCallback((clientX: number, clientY: number) => {
     if (!isPointerDown.current || !dragStartPos.current) return;
 
-    const moveThreshold = 5;
+    const moveThreshold = 10;
     const deltaX = Math.abs(clientX - dragStartPos.current.x);
     const deltaY = Math.abs(clientY - dragStartPos.current.y);
 
@@ -119,10 +119,11 @@ export default function SpeakiMascot() {
         if (position && position.top < floorY - 20) {
             setStatus('FALLING');
             setPosition((prev) => prev ? { ...prev, top: floorY } : null);
+            
+            playRandomSound();
 
             actionTimeoutRef.current = setTimeout(() => {
                 setStatus('LANDING'); 
-                playRandomSound();    
                 
                 setTimeout(() => {
                     setStatus('WALKING');
