@@ -7,8 +7,9 @@ export default function SpeakiMascot() {
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isInteracting, setIsInteracting] = useState(false);
-  const moveIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  
   const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
   const normalImage = "/speaki.png";
   const talkImage = "/speaki-cry.png";
   const sounds = [
@@ -34,8 +35,6 @@ export default function SpeakiMascot() {
   };
 
   const moveRandomly = useCallback(() => {
-    if (isInteracting) return;
-
     const padding = 100;
     const maxWidth = window.innerWidth - padding;
     const maxHeight = window.innerHeight - padding;
@@ -51,30 +50,34 @@ export default function SpeakiMascot() {
       }
       return { top: newTop, left: newLeft };
     });
-  }, [isInteracting]);
+  }, []);
 
   const handleInteraction = () => {
     if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
+    
     setIsInteracting(true);
     playRandomSound();
+
     interactionTimeoutRef.current = setTimeout(() => {
       setIsInteracting(false);
     }, 2000);
   };
 
   useEffect(() => {
-    const initialMoveTimer = setTimeout(() => {
-      moveRandomly();
-    }, 100); 
+    if (isInteracting) return;
 
-    moveIntervalRef.current = setInterval(moveRandomly, 3500);
+    const startMoveTimer = setTimeout(() => {
+      moveRandomly();
+    }, 50);
+
+    const interval = setInterval(moveRandomly, 3500);
 
     return () => {
-      clearTimeout(initialMoveTimer);
-      if (moveIntervalRef.current) clearInterval(moveIntervalRef.current);
+      clearTimeout(startMoveTimer);
+      clearInterval(interval);
       if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
     };
-  }, [moveRandomly]);
+  }, [isInteracting, moveRandomly]);
 
   if (!position) return null;
 
@@ -82,7 +85,7 @@ export default function SpeakiMascot() {
     <div
       onClick={handleInteraction}
       className={`fixed z-50 cursor-pointer ${
-        isInteracting ? "" : "transition-all duration-[3000ms] ease-linear"
+        isInteracting ? "" : "transition-all duration-[3000ms] ease-in-out"
       }`}
       style={{
         top: `${position.top}px`,
