@@ -63,9 +63,9 @@ export default function SpeakiMascot() {
   const talkImage = "/speaki-cry.png";
   const dragImage = "/speaki-drag.png";
   const dropImage = "/speaki-drop.png";
-  const sleepImage = "/speaki-sleep.png"; 
-  const bonkImage = "/speaki-bonk.png";  
-  const pointImage = "/speaki-pointing.png"; 
+  const sleepImage = "/speaki.png"; 
+  const bonkImage = "/speaki-cry.png";  
+  const pointImage = "/speaki.png"; 
 
   const getFloorLevel = useCallback(() => {
     if (typeof window === "undefined") return 0;
@@ -234,7 +234,9 @@ export default function SpeakiMascot() {
                 showEmote("💫"); 
                 showSpeech("Aduh.", 1000);
                 
-                setTimeout(() => { setStatus('WALKING'); }, 1500); 
+                setTimeout(() => { 
+                  setStatus('WALKING'); 
+                }, 2000); 
             }, 500); 
         } else {
             setStatus('WALKING');
@@ -293,9 +295,21 @@ export default function SpeakiMascot() {
   }, [status, moveBottomOnly]);
 
   useEffect(() => {
-    const timer = setTimeout(() => { moveBottomOnly(); }, 100);
+    const timer = setTimeout(() => { 
+      const padding = 60;
+      if (typeof window !== "undefined") {
+        const maxWidth = window.innerWidth - padding;
+        const floorY = window.innerHeight - 130;
+        const newLeft = Math.floor(Math.random() * (maxWidth - padding)) + padding / 2;
+        setPosition((prev) => {
+            if (prev && newLeft < prev.left) setIsFlipped(true);
+            else setIsFlipped(false);
+            return { top: floorY, left: newLeft };
+        });
+      }
+    }, 100);
     return () => clearTimeout(timer);
-  }, [moveBottomOnly]);
+  }, []); 
 
   if (!position) return null;
 
