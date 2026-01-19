@@ -4,11 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css"
-import dynamic from "next/dynamic";
-
-const SpeakiMascot = dynamic(() => import("@/components/SpeakiMascot"), {
-  ssr: false,
-});
+import SpeakiMascot from "@/components/SpeakiMascot";
 
 const darkerGrotesque = Darker_Grotesque({
   variable: "--font-darker-grotesque",
