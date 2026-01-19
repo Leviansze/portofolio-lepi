@@ -9,8 +9,8 @@ export default function SpeakiMascot() {
   const [isInteracting, setIsInteracting] = useState(false);
   const moveIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const normalImage = "/speaki-normal.png";
-  const talkImage = "/speaki-talk.png";
+  const normalImage = "/speaki.png";
+  const talkImage = "/speaki-cry.png";
   const sounds = [
     "/sounds/a.mp3",
     "/sounds/aau.mp3",
