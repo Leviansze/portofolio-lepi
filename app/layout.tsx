@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css"
-import SpeakiMascot from "@/components/SpeakiMascot";
+import SpeakiMascot from "@/components/speaki-mascot";
 
 const darkerGrotesque = Darker_Grotesque({
   variable: "--font-darker-grotesque",
@@ -30,8 +30,8 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL 
-  ? `https://${process.env.NEXT_PUBLIC_BASE_URL}` 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+  ? `https://${process.env.NEXT_PUBLIC_BASE_URL}`
   : "http://localhost:3000";
 
 export const metadata: Metadata = {
@@ -125,7 +125,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
