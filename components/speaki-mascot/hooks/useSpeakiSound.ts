@@ -8,10 +8,7 @@ export function useSpeakiSound() {
     const lastInteractionTime = useRef<number>(Date.now());
 
     const playSound = useCallback((source: string[] | string, force = false) => {
-        // If not forced and user hasn't interacted yet (browser policy), skip
         if (!force && !hasInteractedRef.current) return;
-
-        // specific cooldown logic if not forced
         const timeSince = Date.now() - lastInteractionTime.current;
         if (!force && timeSince < 1500) return;
 
@@ -31,7 +28,6 @@ export function useSpeakiSound() {
         audioRef.current = new Audio(soundToPlay);
         audioRef.current.volume = 0.6;
         audioRef.current.play().catch(() => {
-            // Autoplay policy might block this if no interaction happened yet
         });
 
         if (force) {

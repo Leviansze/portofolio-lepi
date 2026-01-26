@@ -29,7 +29,6 @@ export function useSpeakiLogic() {
     const isPointerDown = useRef(false);
     const hasMoved = useRef(false);
 
-    // Helper to get floor level
     const getFloorLevel = useCallback(() => {
         if (typeof window === "undefined") return 0;
         return window.innerHeight - 130;
@@ -37,8 +36,6 @@ export function useSpeakiLogic() {
 
     const startLinearWalk = useCallback(() => {
         if (typeof window === "undefined") return;
-
-        // Safety check just in case
         if (isHolding) return;
 
         const padding = 60;
@@ -63,7 +60,6 @@ export function useSpeakiLogic() {
         if (movementTimerRef.current) clearTimeout(movementTimerRef.current);
 
         movementTimerRef.current = setTimeout(() => {
-            // If holding, do nothing (should be cleared, but double check)
             if (isPointerDown.current) return;
 
             const actionRoll = Math.random();
@@ -118,19 +114,12 @@ export function useSpeakiLogic() {
 
     }, [direction, getFloorLevel, playSound, showEmote, showSpeech, isHolding]);
 
-    // Chatter Effect
     useEffect(() => {
         const scheduleNextChatter = () => {
             const nextTime = Math.random() * (12000 - 6000) + 6000;
 
             chatterTimerRef.current = setTimeout(() => {
-                // Only chat if walking and not being held
                 if (status === 'WALKING' && !isPointerDown.current) {
-                    // We need to check if user interacted to play sound? 
-                    // Using playSound safety inside useSpeakiSound handles it partially,
-                    // but for random chatter, we might want reference to `hasInteractedRef` from the hook?
-                    // The hook handles it: if !hasInteractedRef.current, playSound returns unless forced.
-
                     const dice = Math.random();
 
                     if (dice < 0.4) {
@@ -249,7 +238,6 @@ export function useSpeakiLogic() {
         }
     }, [position, getFloorLevel, playSound, showSpeech, showEmote]);
 
-    // Global event listeners
     useEffect(() => {
         const handleGlobalMouseMove = (e: MouseEvent) => {
             handleMove(e.clientX, e.clientY);
@@ -278,12 +266,7 @@ export function useSpeakiLogic() {
         };
     }, [handleMove, handleEnd, position, status]);
 
-    // Movement loop
     useEffect(() => {
-        // Only start walking if status is WALKING and NOT holding
-        // AND check if we are already walking? 
-        // The original code: 
-        // if (status === 'WALKING' && !isHolding) { const timer = setTimeout(() => startLinearWalk(), 100); ... }
 
         if (status === 'WALKING' && !isHolding) {
             const timer = setTimeout(() => {
@@ -293,7 +276,6 @@ export function useSpeakiLogic() {
         }
     }, [status, isHolding, startLinearWalk]);
 
-    // Initial positioning
     useEffect(() => {
         const timer = setTimeout(() => {
             const padding = 60;
