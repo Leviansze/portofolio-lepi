@@ -131,4 +131,15 @@ export const Projects = [
         imageWidth: 1500,
         imageHeight: 1500,
     },
+    {
+        id: 'project-thirteen',
+        title: 'Gaia Game 3D Open World',
+        techStack: 'Astro, React, React Three Fiber, Zustand',
+        description: "An immersive 3D open-world exploration game built for the web. Powered by Astro for performance and React Three Fiber for rendering. Features complex 3D environments and efficient state management via Zustand, pushing the boundaries of browser-based gaming.",
+        liveDemoLink: 'https://gaia-two-zeta.vercel.app/',
+        sourceCodeLink: 'https://github.com/ricoerian/Gaia',
+        imageSrc: '/projects/project-thirteen.png',
+        imageWidth: 1500,
+        imageHeight: 1500,
+    },
 ];
