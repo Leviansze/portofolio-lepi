@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next'
  
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Rico Eriansyah Portfolio',
-    short_name: 'Rico Eriansyah',
-    description: 'Portfolio of Rico Eriansyah - Software Engineer Teacher',
+    name: 'Muhammad Desta Portfolio',
+    short_name: 'Muhammad Desta',
+    description: 'Portfolio of Muhammad Desta - Software Engineering Student',
     start_url: '/',
     display: 'standalone',
     background_color: '#fff',

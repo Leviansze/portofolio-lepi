@@ -4,9 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { 
-  FaLinkedin, FaGithub, FaFacebook, FaInstagram, 
-  FaGoogle, FaBriefcase, FaPaperPlane, FaHandshake, 
-  FaWhatsapp, FaWifi
+  FaDiscord, FaGithub, FaFacebook, FaInstagram, 
+  FaGoogle, FaBriefcase, FaTelegram, FaTiktok, 
+  FaWhatsapp, FaWifi, FaPaperPlane
 } from "react-icons/fa";
 
 import { Button } from '@/components/ui/button'
@@ -35,21 +35,21 @@ export function ContactAndSocialMedia() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const recipient = "ricoeriansyahm@gmail.com";
+    const recipient = "mdesta416@gmail.com";
     const subject = encodeURIComponent(`[INCOMING TRANSMISSION]: ${values.fullname}`);
     const body = encodeURIComponent(`SENDER_IDENTITY: ${values.fullname}\nRETURN_ADDRESS: ${values.email}\n\nDATA_PAYLOAD:\n${values.message}`);
     window.open(`mailto:${recipient}?subject=${subject}&body=${body}`, '_blank');
   }
 
   const socialLinks = [
-    { name: "LinkedIn", url: "https://www.linkedin.com/in/rico-eriansyah-6729a8204/", icon: <FaLinkedin />, color: "bg-blue-600 text-white" },
-    { name: "GitHub", url: "https://github.com/ricoerian", icon: <FaGithub />, color: "bg-zinc-900 text-white" },
-    { name: "Facebook", url: "https://www.facebook.com/Rico.Eriansyahh", icon: <FaFacebook />, color: "bg-blue-500 text-white" },
-    { name: "Instagram", url: "https://www.instagram.com/pymrce", icon: <FaInstagram />, color: "bg-pink-600 text-white" },
-    { name: "Email", url: "mailto:ricoeriansyahm@gmail.com", icon: <FaGoogle />, color: "bg-red-500 text-white" },
-    { name: "Whatsapp", url: "https://wa.me/6285158442031", icon: <FaWhatsapp />, color: "bg-green-500 text-white" },
-    { name: "Fiverr", url: "https://www.fiverr.com/ricoeri", icon: <FaHandshake />, color: "bg-lime-500 text-white" },
-    { name: "FastWork", url: "https://fastwork.id/user/ricoeri", icon: <FaBriefcase />, color: "bg-sky-500 text-white" },
+    { name: "TikTok", url: "https://www.tiktok.com/@Levianzy", icon: <FaTiktok />, color: "bg-black text-white" },
+    { name: "GitHub", url: "https://github.com/Leviansze", icon: <FaGithub />, color: "bg-zinc-900 text-white" },
+    { name: "Facebook", url: "https://www.facebook.com/leviannzy", icon: <FaFacebook />, color: "bg-blue-500 text-white" },
+    { name: "Instagram", url: "https://www.instagram.com/mhmmddsta.__", icon: <FaInstagram />, color: "bg-pink-600 text-white" },
+    { name: "Email", url: "mailto:mdesta416@gmail.com", icon: <FaGoogle />, color: "bg-red-500 text-white" },
+    { name: "Whatsapp", url: "https://wa.me/6285885195439", icon: <FaWhatsapp />, color: "bg-green-500 text-white" },
+    { name: "Telegram", url: "https://t.me/cLepiu", icon: <FaTelegram />, color: "bg-lime-500 text-white" },
+    { name: "Discord", url: "https://discord.com/users/1457924168652689695", icon: <FaDiscord />, color: "bg-sky-500 text-white" },
   ];
 
   return (
@@ -94,7 +94,7 @@ export function ContactAndSocialMedia() {
                                     </FormLabel>
                                     <FormControl>
                                         <Input 
-                                            placeholder="e.g. Rico Eriansyah" 
+                                            placeholder="e.g. Muhammad Desta" 
                                             {...field} 
                                             className="h-12 border-2 border-black dark:border-white rounded-none bg-zinc-50 dark:bg-zinc-800 text-black dark:text-white text-lg shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] focus-visible:ring-0 focus-visible:bg-white dark:focus-visible:bg-zinc-700 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all"
                                         />
