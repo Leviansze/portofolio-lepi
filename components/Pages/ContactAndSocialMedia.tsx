@@ -55,10 +55,10 @@ export function ContactAndSocialMedia() {
     return (
         <div className="relative w-full mx-auto py-16 font-mono overflow-hidden">
 
-            <div className="text-center mb-16 relative">
+            <div className="text-center mb-12 md:mb-16 relative">
                 <div className="absolute w-full h-1 bg-black dark:bg-white top-1/2 -z-10"></div>
-                <h1 className="inline-flex items-center gap-3 text-3xl md:text-5xl font-black uppercase text-black bg-pink-400 border-4 border-black dark:border-white px-8 py-6 shadow-[8px_8px_0_0_#fff] dark:shadow-[8px_8px_0_0_#888] rotate-1 hover:rotate-0 transition-all hover:scale-105">
-                    <FaWifi className="animate-ping text-2xl" /> CONNECTIVITY_HUB
+                <h1 className="inline-flex items-center gap-3 text-2xl sm:text-3xl md:text-5xl font-black uppercase text-black bg-pink-400 border-4 border-black dark:border-white px-4 py-4 sm:px-8 sm:py-6 shadow-[6px_6px_0_0_#fff] dark:shadow-[6px_6px_0_0_#888] rotate-1 hover:rotate-0 transition-all hover:scale-105">
+                    <FaWifi className="animate-ping text-xl sm:text-2xl" /> HUB
                 </h1>
             </div>
 
@@ -76,9 +76,9 @@ export function ContactAndSocialMedia() {
                         </div>
 
                         <div className="mt-8 mb-8 text-center border-b-4 border-dashed border-black dark:border-white pb-6">
-                            <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-black dark:text-white">Transmission Form</h2>
-                            <p className="font-mono text-sm mt-2 font-bold text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-zinc-800 p-2 border-2 border-black dark:border-white inline-block">
-                                STATUS: LISTENING ON PORT 443
+                            <h2 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-black dark:text-white">Transmission</h2>
+                            <p className="font-mono text-[10px] sm:text-sm mt-2 font-bold text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-zinc-800 p-2 border-2 border-black dark:border-white inline-block">
+                                STATUS: LISTENING...
                             </p>
                         </div>
 
@@ -156,8 +156,8 @@ export function ContactAndSocialMedia() {
                 <div className="w-full lg:w-1/2 flex flex-col gap-8">
                     <div className="bg-purple-200 dark:bg-purple-900 border-4 border-black dark:border-white p-8 shadow-[12px_12px_0_0_#000] dark:shadow-[12px_12px_0_0_#fff] h-full flex flex-col">
 
-                        <h2 className="text-2xl md:text-3xl font-black text-black uppercase text-center mb-8 bg-white border-4 border-black p-4 shadow-[6px_6px_0_0_#000] transform rotate-1">
-                            🌐 GLOBAL_NODES
+                        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-black uppercase text-center mb-8 bg-white border-4 border-black p-3 sm:p-4 shadow-[4px_4px_0_0_#000] transform rotate-1">
+                            🌐 NODES
                         </h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">

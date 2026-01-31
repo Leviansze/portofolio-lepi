@@ -69,23 +69,23 @@ export const ProjectLists = ({
                         <FaTerminal /> project_manifest.json
                     </div>
 
-                    <h2 className="mb-4 text-3xl font-black uppercase leading-none text-black dark:text-white md:text-5xl tracking-tighter">
+                    <h2 className="mb-4 text-2xl sm:text-3xl md:text-5xl font-black uppercase leading-none text-black dark:text-white tracking-tighter">
                         {title}
                     </h2>
 
-                    <div className="mb-6 flex-1 bg-zinc-100 dark:bg-zinc-800 border-2 border-black dark:border-white p-4 font-mono text-sm md:text-base text-zinc-800 dark:text-zinc-300 shadow-[4px_4px_0_0_#ccc] dark:shadow-none relative">
-                        <span className="absolute -top-3 left-4 bg-white dark:bg-black px-2 text-xs font-bold border border-black dark:border-white text-red-500">BRIEFING</span>
+                    <div className="mb-6 flex-1 bg-zinc-100 dark:bg-zinc-800 border-2 border-black dark:border-white p-3 sm:p-4 font-mono text-xs sm:text-sm md:text-base text-zinc-800 dark:text-zinc-300 shadow-[4px_4px_0_0_#ccc] dark:shadow-none relative">
+                        <span className="absolute -top-3 left-4 bg-white dark:bg-black px-2 text-[10px] sm:text-xs font-bold border border-black dark:border-white text-red-500">BRIEFING</span>
                         <p>{description}</p>
                     </div>
 
                     <div className="mb-8">
                         <div className="mb-3 flex items-center gap-2">
-                            <FaCode className="text-xl text-black dark:text-white" />
-                            <span className="text-sm font-black uppercase underline decoration-wavy decoration-yellow-400 text-black dark:text-white">Equipped Gear (Tech):</span>
+                            <FaCode className="text-lg sm:text-xl text-black dark:text-white" />
+                            <span className="text-[10px] sm:text-sm font-black uppercase underline decoration-wavy decoration-yellow-400 text-black dark:text-white">Equipped Gear (Tech):</span>
                         </div>
-                        <p className="font-bold text-black dark:text-white text-base md:text-lg leading-snug font-mono">
+                        <p className="font-bold text-black dark:text-white text-sm sm:text-base md:text-lg leading-snug font-mono flex flex-wrap gap-2">
                             {techStack.split(',').map((tech, i) => (
-                                <span key={i} className="inline-block mr-2 mb-2 bg-yellow-200 dark:bg-yellow-600 dark:text-white text-black border border-black dark:border-white px-2 py-1 text-xs shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]">
+                                <span key={i} className="inline-block bg-yellow-200 dark:bg-yellow-600 dark:text-white text-black border border-black dark:border-white px-2 py-1 text-[10px] sm:text-xs shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]">
                                     {tech.trim()}
                                 </span>
                             ))}
@@ -95,7 +95,7 @@ export const ProjectLists = ({
                     <div className="flex flex-col sm:flex-row gap-4 mt-auto">
                         <Button
                             asChild
-                            className="flex-1 rounded-md border-2 border-black dark:border-white bg-black dark:bg-zinc-100 px-6 py-6 text-lg font-bold text-white dark:text-black shadow-[4px_4px_0_0_#888] dark:shadow-[4px_4px_0_0_#fff] transition-all hover:-translate-y-1 hover:bg-zinc-800 dark:hover:bg-zinc-300 hover:shadow-[6px_6px_0_0_#888] dark:hover:shadow-[6px_6px_0_0_#fff]"
+                            className="flex-1 rounded-md border-2 border-black dark:border-white bg-black dark:bg-zinc-100 px-4 py-6 sm:px-6 text-base sm:text-lg font-bold text-white dark:text-black shadow-[4px_4px_0_0_#888] dark:shadow-[4px_4px_0_0_#fff] transition-all hover:translate-y-[-2px] hover:bg-zinc-800 dark:hover:bg-zinc-300 active:translate-y-0"
                         >
                             <a href={liveDemoLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
                                 <FaExternalLinkAlt /> VISIT WEB
@@ -103,7 +103,7 @@ export const ProjectLists = ({
                         </Button>
                         <Button
                             asChild
-                            className="flex-1 rounded-md border-2 border-black dark:border-white bg-white dark:bg-zinc-900 px-6 py-6 text-lg font-bold text-black dark:text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] transition-all hover:-translate-y-1 hover:bg-yellow-300 dark:hover:bg-yellow-600 hover:shadow-[6px_6px_0_0_#000] dark:hover:shadow-[6px_6px_0_0_#fff]"
+                            className="flex-1 rounded-md border-2 border-black dark:border-white bg-white dark:bg-zinc-900 px-4 py-6 sm:px-6 text-base sm:text-lg font-bold text-black dark:text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] transition-all hover:translate-y-[-2px] hover:bg-yellow-300 dark:hover:bg-yellow-600 active:translate-y-0"
                         >
                             <a href={sourceCodeLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
                                 <FaInstagram /> SOSMED

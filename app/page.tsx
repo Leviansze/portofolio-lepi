@@ -14,6 +14,8 @@ const ChaosOverlay = dynamic(() => import("@/components/Chaos/ChaosOverlay"), {
   ssr: false,
 });
 
+import { ModeToggle } from "@/components/ModeToggle";
+
 function MainContent() {
   const searchParams = useSearchParams();
   const currentTab = searchParams.get("tab") || "Profile";
@@ -47,9 +49,9 @@ function MainContent() {
 
       {/* NAVBAR */}
       <nav className="relative z-10 px-4 py-6 md:px-8 mx-auto">
-        <ul className="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-0 border-4 border-black dark:border-white p-4 lg:p-6 shadow-[6px_6px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff] bg-white dark:bg-zinc-900 transition-all">
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-6 border-4 border-black dark:border-white p-4 lg:p-6 shadow-[6px_6px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff] bg-white dark:bg-zinc-900 transition-all">
 
-          <span className="flex flex-col md:flex-row gap-4 lg:space-x-4 text-center w-full lg:w-auto">
+          <ul className="flex flex-col md:flex-row gap-4 lg:space-x-4 text-center w-full lg:w-auto">
             {[
               {
                 id: "Profile",
@@ -101,18 +103,20 @@ function MainContent() {
                 </Link>
               </li>
             ))}
-          </span>
+          </ul>
 
-          {/* CHAOS BUTTON */}
-          <li className="w-full lg:w-auto text-center mt-4 lg:mt-0">
+          <div className="flex items-center gap-4 w-full lg:w-auto justify-center">
+            <ModeToggle />
+
+            {/* CHAOS BUTTON */}
             <button
-              className="w-full lg:w-auto inline-flex items-center justify-center gap-2 border-2 border-black dark:border-white bg-red-600 px-6 py-3 font-black uppercase text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] hover:bg-red-700 hover:rotate-2 hover:scale-105 active:scale-95 transition-all cursor-pointer tracking-widest rounded-md"
+              className="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 border-2 border-black dark:border-white bg-red-600 px-6 py-3 font-black uppercase text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] hover:bg-red-700 hover:rotate-2 hover:scale-105 active:scale-95 transition-all cursor-pointer tracking-widest rounded-md"
               onClick={() => setShowWarning(true)}
             >
-              <FaSkull /> Don&apos;t Click Me
+              <FaSkull /> CHAOS
             </button>
-          </li>
-        </ul>
+          </div>
+        </div>
       </nav>
 
       {/* MAIN CONTENT */}

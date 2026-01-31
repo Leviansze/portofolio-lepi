@@ -101,7 +101,7 @@ export function Profile() {
                 Lvl. ??? Technomancer
               </div>
             </div>
-            <div className="absolute -top-6 -right-6 bg-red-500 text-white border-2 border-black dark:border-white px-3 py-2 text-sm font-bold shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] rotate-[10deg] animate-pulse">
+            <div className="absolute -top-4 -right-2 sm:-top-6 sm:-right-6 bg-red-500 text-white border-2 border-black dark:border-white px-2 py-1 sm:px-3 sm:py-2 text-[10px] sm:text-sm font-bold shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] rotate-[10deg] animate-pulse">
               DEPLOY READY
             </div>
           </div>
@@ -138,7 +138,7 @@ export function Profile() {
         <div className="flex flex-col w-full gap-6">
 
           <div className="border-b-4 border-black dark:border-white pb-6 border-dashed">
-            <h1 className="text-5xl md:text-7xl font-black uppercase text-black dark:text-white leading-[0.8] tracking-tighter">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black uppercase text-black dark:text-white leading-[0.8] tracking-tighter">
               MUHAMMAD <br />
               <span className="text-transparent bg-clip-text bg-blue-600">DESTA</span>
             </h1>
@@ -167,8 +167,8 @@ export function Profile() {
               </div>
             </div>
 
-            <div className="p-6">
-              <p className="text-base md:text-lg text-black dark:text-white font-medium leading-relaxed">
+            <div className="p-4 sm:p-6">
+              <p className="text-sm sm:text-base md:text-lg text-black dark:text-white font-medium leading-relaxed">
                 <span className="font-bold bg-yellow-300 text-black px-1 mr-1"> $ whoami </span>
                 <br />
                 I’m Desta. During the day, I help friends learn how to code so they can become software engineers. At night, I mess around with my homelab and manage my own servers.
