@@ -3,32 +3,32 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { ProjectProps } from "@/type/ProjectType";
-import { FaGithub, FaExternalLinkAlt, FaCode, FaTerminal } from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt, FaCode, FaTerminal, FaInstagram } from "react-icons/fa";
 
 interface ExtendedProjectProps extends ProjectProps {
     index?: number;
 }
 
-export const ProjectLists = ({ 
-  title, 
-  techStack, 
-  description, 
-  liveDemoLink, 
-  sourceCodeLink, 
-  imageSrc, 
-  imageWidth, 
-  imageHeight,
-  index = 0
+export const ProjectLists = ({
+    title,
+    techStack,
+    description,
+    liveDemoLink,
+    sourceCodeLink,
+    imageSrc,
+    imageWidth,
+    imageHeight,
+    index = 0
 }: ExtendedProjectProps) => {
     const isEven = index % 2 === 0;
 
     return (
         <div className={`group flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-stretch gap-8 lg:gap-12 w-full mx-auto`}>
-            
+
             {/* LEFT: TERMINAL WINDOW */}
             <div className="w-full lg:w-1/2 shrink-0 perspective-1000">
                 <div className="h-full border-4 border-black dark:border-white bg-zinc-800 shadow-[12px_12px_0_0_#000] dark:shadow-[12px_12px_0_0_#fff] flex flex-col transition-transform duration-300 hover:scale-[1.01]">
-                    
+
                     {/* Window Bar */}
                     <div className="flex items-center gap-2 border-b-4 border-black dark:border-white bg-zinc-200 dark:bg-zinc-800 p-3">
                         <div className="flex gap-2">
@@ -43,7 +43,7 @@ export const ProjectLists = ({
 
                     <div className="relative flex-1 overflow-hidden bg-zinc-900 group-hover:bg-zinc-800 transition-colors p-2">
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 pointer-events-none bg-[length:100%_2px,3px_100%] opacity-20"></div>
-                        
+
                         <div className="relative w-full h-full border-2 border-black dark:border-white overflow-hidden">
                             <Image
                                 src={imageSrc}
@@ -56,11 +56,11 @@ export const ProjectLists = ({
                     </div>
                 </div>
             </div>
-        
+
             {/* RIGHT: CONTENT */}
             <div className="w-full lg:w-1/2 flex flex-col">
                 <article className="relative h-full flex flex-col border-4 border-black dark:border-white bg-white dark:bg-zinc-900 p-6 lg:p-8 shadow-[8px_8px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff]">
-                    
+
                     <div className={`absolute -top-5 ${isEven ? '-right-4' : '-left-4'} rotate-2 border-2 border-black dark:border-white bg-blue-500 px-4 py-1 font-black text-white text-sm shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] uppercase`}>
                         Quest_ID_0{index + 1}
                     </div>
@@ -98,7 +98,7 @@ export const ProjectLists = ({
                             className="flex-1 rounded-md border-2 border-black dark:border-white bg-black dark:bg-zinc-100 px-6 py-6 text-lg font-bold text-white dark:text-black shadow-[4px_4px_0_0_#888] dark:shadow-[4px_4px_0_0_#fff] transition-all hover:-translate-y-1 hover:bg-zinc-800 dark:hover:bg-zinc-300 hover:shadow-[6px_6px_0_0_#888] dark:hover:shadow-[6px_6px_0_0_#fff]"
                         >
                             <a href={liveDemoLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                                <FaExternalLinkAlt /> WARP TO DEMO
+                                <FaExternalLinkAlt /> VISIT WEB
                             </a>
                         </Button>
                         <Button
@@ -106,7 +106,7 @@ export const ProjectLists = ({
                             className="flex-1 rounded-md border-2 border-black dark:border-white bg-white dark:bg-zinc-900 px-6 py-6 text-lg font-bold text-black dark:text-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] transition-all hover:-translate-y-1 hover:bg-yellow-300 dark:hover:bg-yellow-600 hover:shadow-[6px_6px_0_0_#000] dark:hover:shadow-[6px_6px_0_0_#fff]"
                         >
                             <a href={sourceCodeLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                                <FaGithub /> LOOT CODE
+                                <FaInstagram /> SOSMED
                             </a>
                         </Button>
                     </div>

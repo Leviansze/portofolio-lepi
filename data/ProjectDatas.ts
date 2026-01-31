@@ -1,12 +1,12 @@
 export const Projects = [
     {
         id: 'project-one',
-        title: 'PT. Asri Berkah Mirai Driver Tracker',
-        techStack: 'Ionic React, Laravel, MySQL, Axios',
-        description: "A comprehensive mobile solution for driver tracking, task management, and fleet maintenance. Built with a hybrid architecture: Ionic React handles the frontend interface while a robust Laravel API manages backend logic. Features real-time data synchronization via Axios.",
-        liveDemoLink: 'https://wa.me/6285158442031/?text=Halo%20saya%20ingin%20melihat%20Demo%20Aplikasi%20ini.',
-        sourceCodeLink: 'https://wa.me/6285158442031/?text=Halo%20saya%20ingin%20menyewa%20jasa%20pembuatan%20aplikasi%20seperti%20ini.',
-        imageSrc: '/projects/project-one.png',
+        title: 'MOVIE FILM',
+        techStack: 'React , Vite',
+        description: "This website is an entertainment platform that provides a wide range of movie information from various genres and eras. Visitors can explore movie details such as synopses, ratings, release years, as well as cast and crew information through a modern and user-friendly interface.",
+        liveDemoLink: 'https://lepiimovie.vercel.app/',
+        sourceCodeLink: 'https://instagram.com/mhmmddsta.__',
+        imageSrc: '/projects/levimovie.png',
         imageWidth: 1500,
         imageHeight: 1500,
     },
