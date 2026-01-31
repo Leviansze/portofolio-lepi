@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css"
-import SpeakiMascot from "@/components/speaki-mascot";
 import MusicPlayer from "@/components/MusicPlayer";
 
 const darkerGrotesque = Darker_Grotesque({
@@ -135,7 +134,6 @@ export default function RootLayout({
         >
           {children}
 
-          <SpeakiMascot />
           <MusicPlayer />
         </ThemeProvider>
         <Analytics />

@@ -10,4 +10,15 @@ export const Projects = [
         imageWidth: 1500,
         imageHeight: 1500,
     },
+    {
+        id: 'project-two',
+        title: 'DRACIN',
+        techStack: 'Next.js , Tailwind CSS, shadcn/ui, TanStack Query, Lucide React',
+        description: "This website is a dedicated platform for Chinese dramas, featuring a wide collection of C-Dramas from various genres such as romance, historical, wuxia, xianxia, and modern stories. Visitors can explore detailed information including synopses, episode lists, ratings, and cast details through a clean and user-friendly interface.",
+        liveDemoLink: 'https://dracin-web-phi.vercel.app/',
+        sourceCodeLink: 'https://instagram.com/mhmmddsta.__',
+        imageSrc: '/projects/levidracin.png',
+        imageWidth: 1500,
+        imageHeight: 1500,
+    },
 ];
