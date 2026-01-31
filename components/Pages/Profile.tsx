@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { 
-  FaGithub, FaLinkedin, FaServer, FaHdd, 
-  FaMicrochip, FaBolt, FaHistory, FaMoneyBillWave, FaGamepad, 
+import {
+  FaGithub, FaLinkedin, FaServer, FaHdd,
+  FaMicrochip, FaBolt, FaHistory, FaMoneyBillWave, FaGamepad,
   FaInfinity,
   FaTiktok
 } from "react-icons/fa";
@@ -11,7 +11,7 @@ import { Button } from "../ui/button";
 
 export function Profile() {
   const techStack = [
-    "Html", "Css", "Next.js", "Bootstrap", 
+    "Html", "Css", "Next.js", "Bootstrap",
     "Javascript", "NodeJS", "Laravel",
   ];
 
@@ -42,34 +42,34 @@ export function Profile() {
     },
     {
       ver: "v????.??",
-role: "Copy-Paste Engineer (But Knows Why)",
-loc: "Somewhere on the Internet",
-desc: "Copy, paste, understand, repeat. Sleep optional, system online mandatory.",
+      role: "Copy-Paste Engineer (But Knows Why)",
+      loc: "Somewhere on the Internet",
+      desc: "Copy, paste, understand, repeat. Sleep optional, system online mandatory.",
     }
   ];
 
   const projects = [
-    { 
-      title: "GET_RICH_QUICK", 
-      desc: "Trying every random idea, Passive income is still very passive.", 
+    {
+      title: "GET_RICH_QUICK",
+      desc: "Trying every random idea, Passive income is still very passive.",
       hp: "LOADING...",
       color: "bg-green-200 dark:bg-green-900 dark:text-white"
     },
-    { 
-      title: "PROJECT: DATA_HOARDER_DELUXE", 
-      desc: "Old server. Loud fans. Questionable drives, Hoarding data like it’s a personality trait.", 
+    {
+      title: "PROJECT: DATA_HOARDER_DELUXE",
+      desc: "Old server. Loud fans. Questionable drives, Hoarding data like it’s a personality trait.",
       hp: "99% UP",
       color: "bg-yellow-200 dark:bg-yellow-900 dark:text-white"
     },
-    { 
-      title: "GATEWAY_FOR_KIDS", 
-      desc: "Free hosting via Cloudflare Tunnels. Because localhost deserves friends too.", 
+    {
+      title: "GATEWAY_FOR_KIDS",
+      desc: "Free hosting via Cloudflare Tunnels. Because localhost deserves friends too.",
       hp: "85% UP",
       color: "bg-blue-200 dark:bg-blue-900 dark:text-white"
     },
-    { 
-      title: "MENTAL_STABILITY_PATCH", 
-      desc: "Stoicism.exe running. Panicking less, breaking things responsibly.", 
+    {
+      title: "MENTAL_STABILITY_PATCH",
+      desc: "Stoicism.exe running. Panicking less, breaking things responsibly.",
       hp: "LOADING...",
       color: "bg-red-200 dark:bg-red-900 dark:text-white"
     }
@@ -78,20 +78,20 @@ desc: "Copy, paste, understand, repeat. Sleep optional, system online mandatory.
   return (
     <div className="relative w-full mx-auto font-mono">
       <div className="absolute right-0 top-0 -z-10 opacity-20 dark:opacity-10 pointer-events-none">
-         <div className="w-64 h-64 bg-yellow-400 border-4 border-black rounded-full mix-blend-multiply filter blur-2xl animate-blob"></div>
-         <div className="w-64 h-64 bg-purple-400 border-4 border-black rounded-full mix-blend-multiply filter blur-2xl -ml-20 -mt-20 animate-blob animation-delay-2000"></div>
-         <div className="w-64 h-64 bg-pink-400 border-4 border-black rounded-full mix-blend-multiply filter blur-2xl -ml-10 mt-10 animate-blob animation-delay-4000"></div>
+        <div className="w-64 h-64 bg-yellow-400 border-4 border-black rounded-full mix-blend-multiply filter blur-2xl animate-blob"></div>
+        <div className="w-64 h-64 bg-purple-400 border-4 border-black rounded-full mix-blend-multiply filter blur-2xl -ml-20 -mt-20 animate-blob animation-delay-2000"></div>
+        <div className="w-64 h-64 bg-pink-400 border-4 border-black rounded-full mix-blend-multiply filter blur-2xl -ml-10 mt-10 animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="flex flex-col gap-8 border-4 border-black bg-white p-6 shadow-[6px_6px_0_0_#000] dark:border-white dark:bg-zinc-900 dark:shadow-[6px_6px_0_0_#fff] lg:flex-row lg:items-stretch lg:p-10">
-        
+
         <div className="flex flex-col gap-6 shrink-0 w-full lg:w-1/3">
-          
+
           <div className="relative group cursor-pointer">
             <div className="absolute inset-0 bg-black dark:bg-white translate-x-2 translate-y-2 border-2 border-black dark:border-white -z-10"></div>
             <div className="border-2 border-black dark:border-white bg-white p-2 dark:bg-zinc-800">
               <Image
-                src="/PhotoProfile.png" 
+                src="/PhotoProfile.png"
                 alt="Muhammad Desta"
                 width={400}
                 height={400}
@@ -113,66 +113,66 @@ desc: "Copy, paste, understand, repeat. Sleep optional, system online mandatory.
             <ul className="space-y-3">
               {serverSpecs.map((spec, i) => (
                 <li key={i} className="flex items-center justify-between text-xs md:text-sm font-bold">
-                   <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300">{spec.icon} {spec.label}</span>
-                   <span className="bg-black text-white px-2 py-0.5 dark:bg-white dark:text-black">{spec.value}</span>
+                  <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300">{spec.icon} {spec.label}</span>
+                  <span className="bg-black text-white px-2 py-0.5 dark:bg-white dark:text-black">{spec.value}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="bg-green-100 dark:bg-green-900 border-4 border-black dark:border-white p-4 shadow-[8px_8px_0_0_#000] dark:shadow-[8px_8px_0_0_#fff] text-black dark:text-white">
-             <div className="flex justify-between items-center mb-1">
-                <span className="font-black text-sm flex items-center gap-2"><FaMoneyBillWave /> LOOT TARGET</span>
-                <div className="flex gap-2">
-                  <FaInfinity /> <span className="font-bold text-xs"> IDR</span>
-                </div>
-             </div>
-             <div className="w-full bg-white dark:bg-zinc-800 border-2 border-black dark:border-white h-4 rounded-none relative">
-                <div className="bg-green-500 h-full w-[15%] absolute top-0 left-0 border-r-2 border-black dark:border-white animate-pulse"></div>
-                <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-black dark:text-white">GRINDING...</div>
-             </div>
-             <p className="text-[10px] mt-1 font-bold text-center italic">&quot;Build first, panic later.&quot;</p>
+            <div className="flex justify-between items-center mb-1">
+              <span className="font-black text-sm flex items-center gap-2"><FaMoneyBillWave /> LOOT TARGET</span>
+              <div className="flex gap-2">
+                <FaInfinity /> <span className="font-bold text-xs"> IDR</span>
+              </div>
+            </div>
+            <div className="w-full bg-white dark:bg-zinc-800 border-2 border-black dark:border-white h-4 rounded-none relative">
+              <div className="bg-green-500 h-full w-[15%] absolute top-0 left-0 border-r-2 border-black dark:border-white animate-pulse"></div>
+              <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-black dark:text-white">GRINDING...</div>
+            </div>
+            <p className="text-[10px] mt-1 font-bold text-center italic">&quot;Build first, panic later.&quot;</p>
           </div>
         </div>
 
         <div className="flex flex-col w-full gap-6">
-          
+
           <div className="border-b-4 border-black dark:border-white pb-6 border-dashed">
             <h1 className="text-5xl md:text-7xl font-black uppercase text-black dark:text-white leading-[0.8] tracking-tighter">
-              MUHAMMAD <br/>
+              MUHAMMAD <br />
               <span className="text-transparent bg-clip-text bg-blue-600">DESTA</span>
             </h1>
             <div className="flex flex-wrap gap-3 mt-4">
-               <span className="bg-green-400 text-black border-2 border-black dark:border-white px-3 py-1 font-bold text-sm shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] transform -rotate-2">
-                 STUDENT 🧑‍🎓
-               </span>
-               <span className="bg-blue-400 text-black border-2 border-black dark:border-white px-3 py-1 font-bold text-sm shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] transform rotate-1">
-                 NEWBIE 💻
-               </span>
-               <span className="bg-red-400 text-black border-2 border-black dark:border-white px-3 py-1 font-bold text-sm shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] transform -rotate-1">
-                 WEB DEVELOPER ⚙️
-               </span>
+              <span className="bg-green-400 text-black border-2 border-black dark:border-white px-3 py-1 font-bold text-sm shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] transform -rotate-2">
+                STUDENT 🧑‍🎓
+              </span>
+              <span className="bg-blue-400 text-black border-2 border-black dark:border-white px-3 py-1 font-bold text-sm shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] transform rotate-1">
+                NEWBIE 💻
+              </span>
+              <span className="bg-red-400 text-black border-2 border-black dark:border-white px-3 py-1 font-bold text-sm shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] transform -rotate-1">
+                WEB DEVELOPER ⚙️
+              </span>
             </div>
           </div>
 
           <article className="mt-8 relative bg-white dark:bg-zinc-800 border-2 border-black dark:border-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff]">
             <div className="bg-blue-600 dark:bg-blue-900 p-2 border-b-2 border-black dark:border-white flex items-center justify-between">
-               <span className="text-white font-mono text-sm font-bold flex items-center gap-2">
-                 <FaServer /> root@desta-server:~
-               </span>
-               <div className="flex gap-2">
-                 <div className="w-3 h-3 bg-red-500 border border-black dark:border-white"></div>
-                 <div className="w-3 h-3 bg-yellow-400 border border-black dark:border-white"></div>
-                 <div className="w-3 h-3 bg-green-500 border border-black dark:border-white"></div>
-               </div>
+              <span className="text-white font-mono text-sm font-bold flex items-center gap-2">
+                <FaServer /> root@desta-server:~
+              </span>
+              <div className="flex gap-2">
+                <div className="w-3 h-3 bg-red-500 border border-black dark:border-white"></div>
+                <div className="w-3 h-3 bg-yellow-400 border border-black dark:border-white"></div>
+                <div className="w-3 h-3 bg-green-500 border border-black dark:border-white"></div>
+              </div>
             </div>
 
             <div className="p-6">
               <p className="text-base md:text-lg text-black dark:text-white font-medium leading-relaxed">
                 <span className="font-bold bg-yellow-300 text-black px-1 mr-1"> $ whoami </span>
-                <br/>
+                <br />
                 I’m Desta. During the day, I help friends learn how to code so they can become software engineers. At night, I mess around with my homelab and manage my own servers.
-                <br/><br/>
+                <br /><br />
                 I’m into enterprise hardware and Stoic philosophy—though system outages still get on my nerves 😅. Lately, I’ve been messing around with running AI models locally to avoid expensive cloud costs.
               </p>
 
@@ -180,13 +180,13 @@ desc: "Copy, paste, understand, repeat. Sleep optional, system online mandatory.
                 <h4 className="font-bold text-sm uppercase mb-3 underline decoration-wavy decoration-red-500 text-black dark:text-white">Tech Arsenal:</h4>
                 <div className="flex flex-wrap gap-2">
                   {techStack.map((tech, index) => (
-                    <span 
-                      key={index} 
+                    <span
+                      key={index}
                       className={`
                         px-3 py-1 text-sm font-bold border-2 border-black dark:border-white shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]
-                        ${index % 2 === 0 
-                            ? 'bg-red-200 text-black dark:bg-red-900 dark:text-white hover:bg-red-300 dark:hover:bg-red-800' 
-                            : 'bg-blue-200 text-black dark:bg-blue-900 dark:text-white hover:bg-blue-300 dark:hover:bg-blue-800'}
+                        ${index % 2 === 0
+                          ? 'bg-red-200 text-black dark:bg-red-900 dark:text-white hover:bg-red-300 dark:hover:bg-red-800'
+                          : 'bg-blue-200 text-black dark:bg-blue-900 dark:text-white hover:bg-blue-300 dark:hover:bg-blue-800'}
                         hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] dark:hover:shadow-[4px_4px_0_0_#fff] transition-all cursor-default
                       `}
                     >
@@ -199,64 +199,64 @@ desc: "Copy, paste, understand, repeat. Sleep optional, system online mandatory.
           </article>
 
           <div>
-             <h4 className="font-black text-xl uppercase mb-4 flex items-center gap-2 text-black dark:text-white">
-                <FaHistory /> PATCH NOTES (HISTORY)
-             </h4>
-             <div className="space-y-3">
-                {changelog.map((log, i) => (
-                   <div key={i} className="flex flex-col md:flex-row items-start gap-3 bg-white dark:bg-zinc-900 p-3 border-2 border-black dark:border-white shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] hover:translate-x-1 transition-transform">
-                      <span className="shrink-0 bg-black dark:bg-white text-white dark:text-black text-xs font-bold px-2 py-1 mt-1">{log.ver}</span>
-                      <div>
-                          <h5 className="font-black text-sm uppercase text-black dark:text-white">{log.role} <span className="text-gray-500">@{log.loc}</span></h5>
-                          <p className="text-sm leading-tight text-gray-700 dark:text-gray-300">{log.desc}</p>
-                      </div>
-                   </div>
-                ))}
-             </div>
+            <h4 className="font-black text-xl uppercase mb-4 flex items-center gap-2 text-black dark:text-white">
+              <FaHistory /> PATCH NOTES (HISTORY)
+            </h4>
+            <div className="space-y-3">
+              {changelog.map((log, i) => (
+                <div key={i} className="flex flex-col md:flex-row items-start gap-3 bg-white dark:bg-zinc-900 p-3 border-2 border-black dark:border-white shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] hover:translate-x-1 transition-transform">
+                  <span className="shrink-0 bg-black dark:bg-white text-white dark:text-black text-xs font-bold px-2 py-1 mt-1">{log.ver}</span>
+                  <div>
+                    <h5 className="font-black text-sm uppercase text-black dark:text-white">{log.role} <span className="text-gray-500">@{log.loc}</span></h5>
+                    <p className="text-sm leading-tight text-gray-700 dark:text-gray-300">{log.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div>
-             <h4 className="font-black text-xl uppercase mb-4 flex items-center gap-2 text-black dark:text-white">
-                <FaGamepad /> CURRENT SIDE QUESTS
-             </h4>
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {projects.map((quest, idx) => (
-                   <div key={idx} className={`${quest.color} border-2 border-black dark:border-white p-4 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000] dark:hover:shadow-[6px_6px_0_0_#fff] transition-all`}>
-                      <div className="flex justify-between items-start mb-2">
-                        <span className="text-xs font-black border border-black dark:border-white bg-white dark:bg-zinc-800 dark:text-white px-1">ACTIVE</span>
-                        <span className="text-xs font-bold opacity-80">{quest.hp}</span>
-                      </div>
-                      <h5 className="font-black text-lg leading-tight mb-1">{quest.title}</h5>
-                      <p className="text-sm font-medium leading-tight opacity-80 mb-3">{quest.desc}</p>
-                      <div className="w-full bg-white dark:bg-zinc-800 border border-black dark:border-white h-2 rounded-full overflow-hidden">
-                          <div className="bg-black dark:bg-white h-full animate-pulse" style={{ width: "85%" }}></div>
-                      </div>
-                   </div>
-                ))}
-             </div>
+            <h4 className="font-black text-xl uppercase mb-4 flex items-center gap-2 text-black dark:text-white">
+              <FaGamepad /> CURRENT SIDE QUESTS
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {projects.map((quest, idx) => (
+                <div key={idx} className={`${quest.color} border-2 border-black dark:border-white p-4 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000] dark:hover:shadow-[6px_6px_0_0_#fff] transition-all`}>
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="text-xs font-black border border-black dark:border-white bg-white dark:bg-zinc-800 dark:text-white px-1">ACTIVE</span>
+                    <span className="text-xs font-bold opacity-80">{quest.hp}</span>
+                  </div>
+                  <h5 className="font-black text-lg leading-tight mb-1">{quest.title}</h5>
+                  <p className="text-sm font-medium leading-tight opacity-80 mb-3">{quest.desc}</p>
+                  <div className="w-full bg-white dark:bg-zinc-800 border border-black dark:border-white h-2 rounded-full overflow-hidden">
+                    <div className="bg-black dark:bg-white h-full animate-pulse" style={{ width: "85%" }}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div>
-             <h4 className="font-black text-xl uppercase mb-4 underline decoration-wavy decoration-blue-500 text-black dark:text-white">
-                SKILL MATRIX
-             </h4>
-             <div className="flex flex-wrap gap-2">
-                {techStack.map((tech, index) => (
-                <span 
-                    key={index} 
-                    className="px-3 py-1 font-bold border-2 border-black dark:border-white bg-white dark:bg-zinc-900 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-help"
+            <h4 className="font-black text-xl uppercase mb-4 underline decoration-wavy decoration-blue-500 text-black dark:text-white">
+              SKILL MATRIX
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {techStack.map((tech, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 font-bold border-2 border-black dark:border-white bg-white dark:bg-zinc-900 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-help"
                 >
-                    [{tech}]
+                  [{tech}]
                 </span>
-                ))}
+              ))}
             </div>
           </div>
 
           <div className="flex gap-4 mt-4 pt-4 border-t-2 border-black dark:border-white">
             <Button className="flex-1 bg-black text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-black dark:hover:bg-zinc-300 border-2 border-black dark:border-white shadow-[4px_4px_0_0_#888] dark:shadow-[4px_4px_0_0_#fff] h-12 text-lg font-bold rounded-md" asChild>
-                <a href="https://github.com/LevAntiDev" target="_blank">
-                  <FaGithub className="mr-2" /> GITHUB
-                </a>
+              <a href="https://github.com/Leviansze" target="_blank">
+                <FaGithub className="mr-2" /> GITHUB
+              </a>
             </Button>
             <Button className="flex-1 bg-blue-600 text-white hover:bg-blue-700 border-2 border-black dark:border-white shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff] h-12 text-lg font-bold rounded-md" asChild>
               <a href="https://www.tiktok.com/@levianzy/" target="_blank">

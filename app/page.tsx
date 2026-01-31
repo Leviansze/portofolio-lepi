@@ -4,6 +4,7 @@ import { useState, Suspense } from "react";
 import dynamic from "next/dynamic";
 import { Profile } from "@/components/Pages/Profile";
 import { ContactAndSocialMedia } from "@/components/Pages/ContactAndSocialMedia";
+import { Projects } from "@/components/Pages/Projects";
 import { FaSkull } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -21,7 +22,7 @@ function MainContent() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-950 text-black dark:text-white font-mono transition-colors duration-300">
-      
+
       {/* Background pattern */}
       <div
         className="fixed inset-0 z-0 opacity-5 pointer-events-none"
@@ -57,6 +58,12 @@ function MainContent() {
                 icon: "★",
               },
               {
+                id: "Projects",
+                label: "Projects",
+                color: "bg-yellow-400 dark:bg-yellow-600",
+                icon: "🚀",
+              },
+              {
                 id: "ContactAndSocialMedia",
                 label: "Contact",
                 color: "bg-pink-400 dark:bg-pink-700",
@@ -72,10 +79,9 @@ function MainContent() {
                     block border-2 border-black dark:border-white px-6 py-3 font-black text-black dark:text-white text-lg uppercase tracking-tight
                     shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff]
                     transition-all cursor-pointer flex items-center justify-center rounded-md gap-2
-                    ${
-                      currentTab === item.id
-                        ? "translate-x-[2px] translate-y-[2px] shadow-none ring-2 ring-black dark:ring-white brightness-110"
-                        : "hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000]"
+                    ${currentTab === item.id
+                      ? "translate-x-[2px] translate-y-[2px] shadow-none ring-2 ring-black dark:ring-white brightness-110"
+                      : "hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000]"
                     }
                   `}
                 >
@@ -112,6 +118,7 @@ function MainContent() {
       {/* MAIN CONTENT */}
       <main className="px-4 py-2 md:px-8 md:py-4">
         {currentTab === "Profile" && <Profile />}
+        {currentTab === "Projects" && <Projects />}
         {currentTab === "ContactAndSocialMedia" && <ContactAndSocialMedia />}
       </main>
     </div>
